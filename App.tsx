@@ -6,6 +6,8 @@ import AppLoading from 'expo-app-loading';
 import { Jost_400Regular, Jost_600SemiBold, useFonts } from '@expo-google-fonts/jost'
 import CadastroFoto from './src/components/CadastroFoto';
 
+import NumberSetter from './src/components/NumberSetter';
+
 export default function App() {
 
   const [fontsLoaded] = useFonts({
@@ -17,8 +19,8 @@ export default function App() {
     return <AppLoading />
   }
   return (
-    <Header 
-      color = {'#000000'}
+    <NumberSetter
+      title={'Hamburguinhos'}
     />
   );
 }
