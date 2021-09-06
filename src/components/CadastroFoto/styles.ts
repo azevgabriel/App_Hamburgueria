@@ -10,9 +10,7 @@ export const styles = StyleSheet.create({
   },
   user: {
     fontSize: 180,
-    borderRadius: 180,
-    color: colors.shapeGray,
-    marginTop: -350
+    color: colors.shapeGray
   },
   plus: {
     width: 40,

@@ -5,5 +5,6 @@ export default{
     softOrange: '#f3c19d',
     darkOrange: '#e8833a',
     black: '#000000',
-    green: '#32cd32'
+    green: '#32cd32',
+    darkGray: '#4B5C6B'
 }

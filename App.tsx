@@ -7,6 +7,7 @@ import { Jost_400Regular, Jost_600SemiBold, useFonts } from '@expo-google-fonts/
 import CadastroFoto from './src/components/CadastroFoto';
 
 import NumberSetter from './src/components/NumberSetter';
+import Cadastro from './src/screens/Cadastro';
 
 export default function App() {
 
