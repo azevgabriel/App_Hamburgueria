@@ -3,36 +3,40 @@ import React from 'react';
 import {
   View,
   Text,
-  Image
+  Image,
+  TouchableOpacity,
+  TouchableOpacityProps
 } from 'react-native';
+import { CupomProps } from '../../global/props';
 
 
 import { styles } from './styles';
 
-export function Cupom(){
+
+export function Cupom({id, usosPermitidos, usosRestantes, UrlImageCupom, title, validade, ...rest}:CupomProps){
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} {...rest}>
         <View style={styles.hamburguinhos}>
             <Text style={styles.HamIconText}>
-                🍔 3
+                🍔 {usosPermitidos}
             </Text>
             <Text style={styles.HamIconText}>
-                x3
+                x{usosRestantes}
             </Text>
         </View>
         <View style={styles.ImageView}>
-            <Image style={styles.image} source={{uri: 'https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg'}}/>
+            <Image style={styles.image} source={{uri: UrlImageCupom}}/>
         </View>
         <View style={styles.titleText}>
             <Text style={styles.title}>
-                15% OFF
+                {title}
             </Text>
         </View>
         <View style={styles.bodyText}>
             <Text style={styles.day}>
-                até dia 21/06
+                até dia {validade}
             </Text>
         </View>
-    </View>
+    </TouchableOpacity>
   );
 }

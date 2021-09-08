@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.shapeGray,
     borderColor: colors.borderGray,
     padding: 5,
+    margin: 5
   },
   image:{
     width: '98%', 
