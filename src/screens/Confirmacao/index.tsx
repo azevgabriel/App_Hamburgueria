@@ -6,8 +6,7 @@ import { View,
 
 import { styles } from './styles';
 import colors from '../../styles/colors';
-
-import iconImg from '../../../assets/icon.png';
+import iconImg from '../../assets/logo.png';
 import Button from '../../components/Button';
 
 export default function Confirmacao(){
