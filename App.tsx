@@ -21,9 +21,9 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    return <AppLoading />
+    return <CupomDescription id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''} />
   }
   return (
-    <Confirmacao />
+    <CupomDescription id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''} />
   );
 }
