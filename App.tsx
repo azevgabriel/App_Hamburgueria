@@ -12,6 +12,7 @@ import Cadastro from './src/screens/Cadastro';
 
 import Confirmacao from './src/screens/Confirmacao';
 import SeuPerfil from './src/screens/SeuPerfil';
+import QrCode from './src/screens/QrCode';
 
 export default function App() {
 
@@ -21,9 +22,9 @@ export default function App() {
   })
 
   if (!fontsLoaded) {
-    return <CupomDescription id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''} />
+    return <QrCode id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''}/>
   }
   return (
-    <CupomDescription id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''} />
+    <QrCode id={''} usosPermitidos={0} usosRestantes={0} UrlImageCupom={''} title={''} validade={''} />
   );
 }
