@@ -1,23 +1,23 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../styles/colors';
-import fonts from '../../styles/fonts';
+import { StyleSheet } from "react-native";
+import fonts from "../../styles/fonts";
+import colors from "../../styles/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 15
   },
-  text: {
+  title: {
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
     marginTop: 40,
-    marginBottom: 50
+    marginBottom: 40
   },
   viewInput: {
-    marginBottom: 60,
+    marginBottom: 50
   },
-  titleInput: {
+  textInput: {
     color: colors.darkGray,
     fontFamily: fonts.Jost_600SemiBold,
     marginTop: 10
@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderColor: colors.borderGray,
+    marginBottom: 25,
     borderRadius: 4
   }
 })

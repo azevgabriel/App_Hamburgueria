@@ -11,6 +11,7 @@ import NumberSetter from './src/co\mponents/NumberSetter';
 import Cadastro from './src/screens/Cadastro';
 
 import Confirmacao from './src/screens/Confirmacao';
+import SeuPerfil from './src/screens/SeuPerfil';
 
 export default function App() {
 

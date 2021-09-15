@@ -1,66 +1,57 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { styles } from '../Cadastro/styles';
 import CadastroFoto from '../../components/CadastroFoto';
 import Button from '../../components/Button';
 import colors from '../../styles/colors';
+import { styles } from '../SeuPerfil/styles';
 
-export default function Cadastro(){
-  return(
+export default function SeuPerfil(){
+  return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
     <View style={styles.container}>
 
-      <Text style={styles.text}>
-      Faça seu cadastro!
+      <Text style={styles.title}>
+        Seu perfil
       </Text>
 
       <CadastroFoto />
 
       <View style={styles.viewInput}>
 
-        <Text style={styles.titleInput}>
+        <Text style={styles.textInput}>
           Nome:
         </Text>
         <TextInput 
-        placeholder= "Nome"
+        style={styles.input}
+        placeholder="Nome"
         placeholderTextColor={colors.borderGray}
-        style={styles.input}
         />
 
-        <Text style={styles.titleInput}>
-          CPF:
-        </Text>
-        <TextInput 
-        placeholder= "XXX.XXX.XXX-XX"
-        placeholderTextColor={colors.borderGray} 
-        style={styles.input}
-        />
-
-        <Text style={styles.titleInput}>
+        <Text style={styles.textInput}>
           Celular:
         </Text>
         <TextInput 
-        placeholder= "(XX) X.XXXX-XXXX"
-        placeholderTextColor={colors.borderGray} 
         style={styles.input}
+        placeholder="(XX) X.XXXX-XXXX"
+        placeholderTextColor={colors.borderGray}
         />
 
-        <Text style={styles.titleInput}>
+        <Text style={styles.textInput}>
           Senha:
         </Text>
         <TextInput 
-        placeholder= "********"
-        placeholderTextColor={colors.borderGray} 
         style={styles.input}
+        placeholder="********"
+        placeholderTextColor={colors.borderGray}
         />
 
       </View>
 
-      <Button
+      <Button 
+      title="Atualizar dados."
       color={colors.darkGray}
-      title="Confirmar dados."
       />
 
     </View>
