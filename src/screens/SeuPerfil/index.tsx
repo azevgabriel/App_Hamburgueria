@@ -13,7 +13,7 @@ export default function SeuPerfil(){
     <View style={styles.container}>
 
       <Text style={styles.title}>
-        Seu perfil
+        Seu Perfil
       </Text>
 
       <CadastroFoto />
@@ -26,7 +26,7 @@ export default function SeuPerfil(){
         <TextInput 
         style={styles.input}
         placeholder="Nome"
-        placeholderTextColor={colors.borderGray}
+        placeholderTextColor={colors.shapeGray}
         />
 
         <Text style={styles.textInput}>
@@ -35,7 +35,7 @@ export default function SeuPerfil(){
         <TextInput 
         style={styles.input}
         placeholder="(XX) X.XXXX-XXXX"
-        placeholderTextColor={colors.borderGray}
+        placeholderTextColor={colors.shapeGray}
         />
 
         <Text style={styles.textInput}>
@@ -44,15 +44,15 @@ export default function SeuPerfil(){
         <TextInput 
         style={styles.input}
         placeholder="********"
-        placeholderTextColor={colors.borderGray}
+        placeholderTextColor={colors.shapeGray}
+        />
+
+        <Button 
+          title="Atualizar dados."
+          color={colors.darkGray}
         />
 
       </View>
-
-      <Button 
-      title="Atualizar dados."
-      color={colors.darkGray}
-      />
 
     </View>
 

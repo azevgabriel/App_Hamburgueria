@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   },
   viewInput: {
     marginBottom: 60,
+    backgroundColor: colors.white
   },
   titleInput: {
     color: colors.darkGray,
@@ -24,9 +25,9 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderWidth: 1,
+    borderWidth: 3,
     padding: 10,
-    borderColor: colors.borderGray,
+    borderColor: colors.shapeGray,
     borderRadius: 4
   }
 })

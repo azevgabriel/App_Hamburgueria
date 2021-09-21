@@ -15,7 +15,8 @@ export const styles = StyleSheet.create({
     marginBottom: 40
   },
   viewInput: {
-    marginBottom: 50
+    marginBottom: 80,
+    backgroundColor: colors.white
   },
   textInput: {
     color: colors.darkGray,
@@ -24,9 +25,9 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderWidth: 1,
+    borderWidth: 3,
     padding: 10,
-    borderColor: colors.borderGray,
+    borderColor: colors.shapeGray,
     marginBottom: 25,
     borderRadius: 4
   }

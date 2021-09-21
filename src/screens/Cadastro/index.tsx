@@ -25,7 +25,7 @@ export default function Cadastro(){
         </Text>
         <TextInput 
         placeholder= "Nome"
-        placeholderTextColor={colors.borderGray}
+        placeholderTextColor={colors.shapeGray}
         style={styles.input}
         />
 
@@ -34,7 +34,7 @@ export default function Cadastro(){
         </Text>
         <TextInput 
         placeholder= "XXX.XXX.XXX-XX"
-        placeholderTextColor={colors.borderGray} 
+        placeholderTextColor={colors.shapeGray} 
         style={styles.input}
         />
 
@@ -43,7 +43,7 @@ export default function Cadastro(){
         </Text>
         <TextInput 
         placeholder= "(XX) X.XXXX-XXXX"
-        placeholderTextColor={colors.borderGray} 
+        placeholderTextColor={colors.shapeGray} 
         style={styles.input}
         />
 
@@ -52,7 +52,7 @@ export default function Cadastro(){
         </Text>
         <TextInput 
         placeholder= "********"
-        placeholderTextColor={colors.borderGray} 
+        placeholderTextColor={colors.shapeGray} 
         style={styles.input}
         />
 
