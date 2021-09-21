@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
     height: 180,
-    width: '46%',
+    width: ((Dimensions.get('window').width)/2) - 15,
     borderWidth: 2,
     borderStyle: 'dashed',
     borderRadius: 1,
