@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     View,
@@ -7,39 +7,60 @@ import {
     TouchableOpacity,
     TouchableOpacityProps
 } from 'react-native';
-import { CupomProps } from '../../global/props';
+import { CupomProps, UserCupomProps } from '../../global/props';
 
 
 import { styles } from './styles';
 
+interface Cupom_UserCupomProps extends TouchableOpacityProps{
+    user_cupom:UserCupomProps;
+    cupom: CupomProps;
+}
 
-export function Cupom({
-    usos_permitidos,
-    url_image_cupom,
-    title,
-    data_validade,
-    ...rest}: CupomProps) {
+export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
+
+    var title_lenght_small = true
+    if(cupom.title){
+        if(cupom.title.length >= 18){
+            title_lenght_small = false;
+        }
+    }
     return (
         <TouchableOpacity style={styles.container} {...rest}>
             <View style={styles.hamburguinhos}>
                 <Text style={styles.HamIconText}>
-                    🍔 {usos_permitidos}
+                    🍔 {cupom.usos_permitidos}
                 </Text>
                 <Text style={styles.HamIconText}>
-                    x3
+                    x{user_cupom.usos_restantes}
                 </Text>
             </View>
             <View style={styles.ImageView}>
-                <Image style={styles.image} source={{ uri: url_image_cupom }} />
+                <Image style={styles.image} source={{ uri: cupom.url_image_cupom }} />
             </View>
             <View style={styles.titleText}>
-                <Text style={styles.title}>
-                    {title}
-                </Text>
+                {
+                    title_lenght_small
+                    ?
+                    <Text style={styles.title}>
+                    {cupom.title}
+                    </Text>
+                    :
+                    <Text style={styles.title_small}>
+                    {cupom.title}
+                    </Text>
+                }
+                
             </View>
             <View style={styles.bodyText}>
                 <Text style={styles.day}>
-                    até dia {data_validade}
+                    {
+                        (cupom.data_validade?.toUpperCase() != 'NULL' && cupom.data_validade != '' && cupom.data_validade != null)
+                        ?
+                        'até dia '+cupom.data_validade
+                        :
+                        'Tempo Ilimitado'
+                    }
                 </Text>
             </View>
         </TouchableOpacity>

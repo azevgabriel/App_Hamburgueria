@@ -30,6 +30,12 @@ textHeaderName:{
   fontWeight: 'bold',
   fontFamily: fonts.Jost_600SemiBold,
 },
+textHeaderName_small:{
+  color: 'black',
+  fontSize:20,
+  fontWeight: 'bold',
+  fontFamily: fonts.Jost_600SemiBold,
+},
 textSub:{
   fontSize:20,
   color: 'black',

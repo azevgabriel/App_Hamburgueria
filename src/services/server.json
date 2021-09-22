@@ -2,108 +2,108 @@
   "user": [
     {
       "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
-      "tipo_user": "0",
+      "tipo_user": 0,
       "name": "Gabriel Azevedo",
       "cpf": "085.747.566-96",
       "telefone": "(35)999999999",
       "senha": "698dc19d489c4e4db73e28a713eab07b",
       "url_image_user": "https://avatars.githubusercontent.com/u/73303855?v=4",
-      "nivel": "1",
-      "hamburguinhos_coletados": "5"
+      "nivel": 1,
+      "hamburguinhos_coletados": 5
     },
     {
       "id_user": "bae5ef60-1af7-11ec-9621-0242ac130002",
-      "tipo_user": "1",
+      "tipo_user": 1,
       "name": "Pablo Santos",
       "cpf": "777.757.566-96",
       "telefone": "(35)88888888",
       "senha": "698dc19d489c4e4db73e28a713eab07b",
       "url_image_user": "https://avatars.githubusercontent.com/u/56566628?v=4",
-      "nivel": "0",
-      "hamburguinhos_coletados": "0"
+      "nivel": 0,
+      "hamburguinhos_coletados": 0
     },
     {
       "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
-      "tipo_user": "0",
-      "name": "Maria Santos",
+      "tipo_user": 0,
+      "name": "Maximo Characteres a",
       "cpf": "555.757.566-55",
       "telefone": "(35)777777777",
       "senha": "698dc19d489c4e4db73e28a713eab07b",
       "url_image_user": "https://github.com/thevinex.png",
-      "nivel": "5",
-      "hamburguinhos_coletados": "6"
+      "nivel": 5,
+      "hamburguinhos_coletados": 6
     }
   ],
   "cupom": [
     {
       "id_cupom": "c170df02-1af7-11ec-9621-0242ac130002",
-      "usos_permitidos": "1",
+      "usos_permitidos": 1,
       "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 1",
-      "data_validade": "Null",
+      "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
-      "cupom_fidelidade": "1",
-      "nivel_relacionado": "1"
+      "cupom_fidelidade": 1,
+      "nivel_relacionado": 1
     },
     {
       "id_cupom": "193ddac8-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "1",
+      "usos_permitidos": 1,
       "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 2",
-      "data_validade": "Null",
+      "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 2, agora voce tem 30% off na proxima compra",
-      "cupom_fidelidade": "1",
-      "nivel_relacionado": "2"
+      "cupom_fidelidade": 1,
+      "nivel_relacionado": 2
     },
     {
       "id_cupom": "2e4c6a6a-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "1",
+      "usos_permitidos": 1,
       "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 3",
-      "data_validade": "Null",
+      "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 3, agora voce tem 30% off na proxima compra",
-      "cupom_fidelidade": "1",
-      "nivel_relacionado": "3"
+      "cupom_fidelidade": 1,
+      "nivel_relacionado": 3
     },
     {
       "id_cupom": "417f825c-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "1",
+      "usos_permitidos": 1,
       "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 4",
-      "data_validade": "Null",
+      "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 4, agora voce uma coca cola gratis",
-      "cupom_fidelidade": "1",
-      "nivel_relacionado": "4"
+      "cupom_fidelidade": 1,
+      "nivel_relacionado": 4
     },
     {
       "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "99999999",
+      "usos_permitidos": 100000,
       "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 5",
-      "data_validade": "Null",
+      "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 5, agora voce Tem 5% gratis em qualquer compra",
-      "cupom_fidelidade": "1",
-      "nivel_relacionado": "5"
+      "cupom_fidelidade": 1,
+      "nivel_relacionado": 5
     },
     {
       "id_cupom": "7e9a3b32-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "3",
+      "usos_permitidos": 3,
       "url_image_cupom": "https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg",
       "title": "15% Off",
       "data_validade": "25/12/2021",
       "descricao": "Ganhe 5% Off na sua proxima compra",
-      "cupom_fidelidade": "0",
-      "nivel_relacionado": "Null"
+      "cupom_fidelidade": 0,
+      "nivel_relacionado": null
     },
     {
       "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": "2",
+      "usos_permitidos": 2,
       "url_image_cupom": "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
-      "title": "Ganhe um Lanche",
+      "title": "Na compra de hamburguer teste maximo de charactere",
       "data_validade": "25/12/2021",
-      "descricao": "Na compra de um hamburguer com bacon o proximo lanche sai de graça",
-      "cupom_fidelidade": "0",
-      "nivel_relacionado": "Null"
+      "descricao": "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
+      "cupom_fidelidade": 0,
+      "nivel_relacionado": null
     }
   ],
   "user_cupom": [
@@ -111,31 +111,31 @@
       "id_user_cupom": "00c53fee-1af9-11ec-9621-0242ac130002",
       "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
       "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": "1"
+      "usos_restantes": 1
     },
     {
       "id_user_cupom": "2578b992-1af9-11ec-9621-0242ac130002",
       "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
       "id_cupom": "c170df02-1af7-11ec-9621-0242ac130002",
-      "usos_restantes": "1"
+      "usos_restantes": 1
     },
     {
       "id_user_cupom": "c82b2ec2-1af9-11ec-9621-0242ac130002",
       "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
       "id_cupom": "7e9a3b32-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": "1"
+      "usos_restantes": 1
     },
     {
       "id_user_cupom": "f21d11d2-1af9-11ec-9621-0242ac130002",
       "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
       "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": "1"
+      "usos_restantes": 1
     },
     {
       "id_user_cupom": "f21d11d2-1af9-11ec-9621-0242ac130002",
       "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
       "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": "9999998"
+      "usos_restantes": 99999
     }
   ]
 }

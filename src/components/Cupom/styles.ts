@@ -36,15 +36,22 @@ export const styles = StyleSheet.create({
   titleText:{
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   bodyText:{
     flex: 1,
     alignItems: 'flex-end',
+    marginBottom: -20
   },
   title:{
     marginVertical:5,
     fontFamily:fonts.Jost_600SemiBold,
     fontSize: 16
+  },
+  title_small:{
+    marginVertical:5,
+    fontFamily:fonts.Jost_600SemiBold,
+    fontSize: 10
   },
   day:{
     fontFamily:fonts.Jost_400Regular,
