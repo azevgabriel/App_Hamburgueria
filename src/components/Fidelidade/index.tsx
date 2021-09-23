@@ -20,8 +20,8 @@ export function Fidelidade({nivel, hamburguinhos, texto}: Props) {
 
           </View>
           <View style={styles.text}>
-              <Text style={[styles.textoCard, {marginBottom: 10}]}>🍔: {hamburguinhos}</Text>
-              <Text style={styles.textoCard}>{texto}</Text>
+              <Text style={[styles.textoCardGray, {marginBottom: 10}]}>🍔: {hamburguinhos}</Text>
+              <Text style={styles.textoCardGray}>{texto}</Text>
           </View>
          </View>
        </View>

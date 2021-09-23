@@ -23,7 +23,7 @@ export default function WelcomeAgain(){
           novamente! 🥰
         </Text>
       </View>
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer} >
         <Text style={styles.inputText}>
           Digite seu CPF abaixo:
         </Text>

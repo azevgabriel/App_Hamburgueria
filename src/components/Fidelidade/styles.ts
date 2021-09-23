@@ -30,19 +30,21 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
 
     backgroundColor: colors.shapeGray,
+    color: colors.white,
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: colors.borderGray
   },
   mainOrange: {
-    flex: 6,
+    flex: 8,
 
     display: 'flex',
     alignItems: 'stretch',
     flexDirection: 'row',
 
     backgroundColor: colors.softOrange,
+    color: colors.black,
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderWidth: 2,
@@ -52,10 +54,16 @@ export const styles = StyleSheet.create({
     flex: 4
   },
   text: {
-    flex: 6
+    flex: 6,
   },
-  textoCard: {
+  textoCardGray: {
     fontFamily: fonts.Jost_400Regular,
-    fontSize: 15
+    fontSize: 15,
+    color: colors.borderGray
+  },
+  textoCardOrange: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 15,
+    color: colors.black
   }
 })
