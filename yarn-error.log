@@ -1,24 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\ViníciusRozendoFerra\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js upgrade
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-paper.
 
 PATH: 
-  C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\MinGW\bin;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\ViníciusRozendoFerra\AppData\Local\Microsoft\WindowsApps;C:\Users\ViníciusRozendoFerra\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ViníciusRozendoFerra\AppData\Roaming\npm;C:\Users\ViníciusRozendoFerra\AppData\Local\GitHubDesktop\bin;C:\MinGW\bin;
+  C:\Program Files\Java\zulu11.48.21-ca-jdk11.0.11-win_x64\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Calibre2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;D:\Program Files\Git\cmd;C:\MinGW\bin;C:\Program Files\nodejs\;C:\Program Files\php\;;D:\Program Files\Microchip\xc8\v2.32\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\leand\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\leand\AppData\Local\Programs\Python\Python39\;D:\Ruby27-x64\bin;C:\Users\leand\AppData\Local\Microsoft\WindowsApps;D:\Users\leand\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\leand\AppData\Local\Yarn\bin;C:\Users\leand\AppData\Local\GitHubDesktop\bin;C:\MinGW\bin;D:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.1.2\bin;;D:\Program Files\kotlinc\bin;C:\Users\leand\AppData\Roaming\npm;C:\Program Files\php\;
 
 Yarn version: 
-  1.22.11
+  1.22.5
 
 Node version: 
-  14.17.0
+  14.17.1
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: self signed certificate in certificate chain
-      at TLSSocket.onConnectSecure (_tls_wrap.js:1507:34)
-      at TLSSocket.emit (events.js:376:20)
-      at TLSSocket._finishInit (_tls_wrap.js:932:8)
-      at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:706:12)
+  Error: https://registry.yarnpkg.com/react-native-paper.: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66097:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140749:22)
+      at Request.emit (events.js:375:28)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141721:10)
+      at Request.emit (events.js:375:28)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141643:12)
+      at Object.onceWrapper (events.js:481:28)
+      at IncomingMessage.emit (events.js:387:35)
+      at endReadableNT (internal/streams/readable.js:1317:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
 
 npm manifest: 
   {
@@ -34,6 +40,7 @@ npm manifest:
       "@expo-google-fonts/jost": "^0.2.0",
       "@expo/vector-icons": "^12.0.0",
       "@react-navigation/native": "^6.0.2",
+      "axios": "^0.21.4",
       "expo": "~42.0.1",
       "expo-app-loading": "^1.1.2",
       "expo-font": "~9.2.1",
@@ -1963,6 +1970,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
   
+  axios@^0.21.4:
+    version "0.21.4"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+    integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+    dependencies:
+      follow-redirects "^1.14.0"
+  
   babel-plugin-dynamic-import-node@^2.3.3:
     version "2.3.3"
     resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
@@ -3166,6 +3180,11 @@ Lockfile:
     dependencies:
       locate-path "^6.0.0"
       path-exists "^4.0.0"
+  
+  follow-redirects@^1.14.0:
+    version "1.14.4"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
+    integrity sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==
   
   fontfaceobserver@^2.1.0:
     version "2.1.0"

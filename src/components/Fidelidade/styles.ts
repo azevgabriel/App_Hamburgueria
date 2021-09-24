@@ -5,12 +5,13 @@ import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '140%',
     justifyContent: 'center',
     display: 'flex',
     alignItems: 'stretch',
     flexDirection: 'row',
-    marginBottom: 10
+    marginBottom: 10,
+    marginRight: 40
   },
   aside: {
     flex: 2,
@@ -51,7 +52,11 @@ export const styles = StyleSheet.create({
     borderColor: colors.darkOrange
   },
   image: {
-    flex: 4
+    flex: 2,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10
   },
   text: {
     flex: 6,
@@ -59,7 +64,7 @@ export const styles = StyleSheet.create({
   textoCardGray: {
     fontFamily: fonts.Jost_400Regular,
     fontSize: 15,
-    color: colors.borderGray
+    color: colors.borderGray,
   },
   textoCardOrange: {
     fontFamily: fonts.Jost_400Regular,
