@@ -36,9 +36,9 @@ export default function FidelidadeTela({
         </View>
       </View>
       <View style={styles.cupom}>
-        <Fidelidade />
-        <Fidelidade />
-        <Fidelidade />
+        <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
+        <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
+        <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
       </View>
     </View>
   );

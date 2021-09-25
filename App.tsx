@@ -19,6 +19,7 @@ import SeuPerfil from "./src/screens/SeuPerfil";
 import QrCode from "./src/screens/QrCode";
 import { ViewCupons } from "./src/screens/ViewCupons";
 import FidelidadeTela from "./src/screens/FidelidadeTela";
+import VisualizarFidelidade from "./src/screens/VisualizarFidelidade";
 import api from "./src/services/api";
 import { UserProps } from "./src/global/props";
 
@@ -39,11 +40,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <FidelidadeTela />;
+    return <VisualizarFidelidade id_cupom={""} />;
   }
   if (!user) {
     //colocar mensagem de erro
-    return <FidelidadeTela />;
+    return <VisualizarFidelidade id_cupom={""} />;
   }
-  return <FidelidadeTela />;
+  return <VisualizarFidelidade id_cupom={""} />;
 }

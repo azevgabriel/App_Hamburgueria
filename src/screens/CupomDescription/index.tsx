@@ -12,7 +12,7 @@ import colors from '../../styles/colors';
 const largura = Dimensions.get('window').width;
 const altura = Dimensions.get('window').height;
 
-export default function CupomDescription({ usosPermitidos, usosRestantes, ...rest}:CupomProps){
+export default function CupomDescription({ usos_permitidos, ...rest}:CupomProps){
     return(
         <View style={styles.container}>
             <View style={styles.back}>
@@ -20,7 +20,7 @@ export default function CupomDescription({ usosPermitidos, usosRestantes, ...res
             </View>
             <View style={styles.textViewP}>
                 <View style={styles.hamburguinhos}>
-                    <Text style={styles.HamIconText}>🍔 {usosPermitidos}</Text>
+                    <Text style={styles.HamIconText}>🍔 {usos_permitidos}</Text>
                  </View>
                 <Text style={styles.textDescHam}>15% OFF! 😜</Text>
             </View>
