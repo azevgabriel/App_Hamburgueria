@@ -11,6 +11,8 @@ import api from "./src/services/api";
 import { UserProps } from "./src/global/props";
 import { LevelRegistration } from "./src/screens/LevelRegistration";
 
+import NovoCumpom from './src/screens/NovoCupom';
+
 export default function App() {
   const id_user = "55bbcf7c-1af9-11ec-9621-0242ac130002"; //id de exemplo
   const [user, setUser] = useState<UserProps>();
@@ -28,11 +30,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <LevelRegistration />;
+    return <NovoCumpom />;
   }
   if (!user) {
     //colocar mensagem de erro
-    return <LevelRegistration />;
+    return <NovoCumpom />;
   }
-  return <LevelRegistration />;
+  return <NovoCumpom />;
 }
