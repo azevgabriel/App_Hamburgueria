@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
     container: {
@@ -19,21 +20,22 @@ export const styles = StyleSheet.create({
       marginTop: 25,
       color: colors.red,
       fontSize: 25,
-      fontWeight: 'bold'
+      fontFamily: fonts.Jost_600SemiBold
     },
     againText: {
       color: colors.green,
       fontSize: 25,
-      fontWeight: 'bold'
+      fontFamily: fonts.Jost_600SemiBold
     },
     inputContainer: {
-      flex: 2,
+      flex: 3,
       marginHorizontal: '5%'
     },
     inputText:{
       color: colors.black,
       fontSize: 16,
-      marginBottom: 5
+      marginBottom: 5,
+      fontFamily: fonts.Jost_400Regular
     },
     input: {
       height: 40,
@@ -44,13 +46,13 @@ export const styles = StyleSheet.create({
       marginBottom: 10
     },
     buttonContainer: {
-      flex: 1,
+      flex: 1.3,
       marginHorizontal: '5%',
       alignItems: 'flex-end'
     },
     ofertaText:{
       color: colors.darkGray,
       fontSize: 16,
-      fontWeight: 'bold',
+      fontFamily: fonts.Jost_600SemiBold
     }
 })

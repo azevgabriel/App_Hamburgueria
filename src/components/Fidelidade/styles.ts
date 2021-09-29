@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'stretch',
     flexDirection: 'row',
-    marginBottom: 10
+    marginBottom: 10,
+    marginRight: 40
   },
   aside: {
     flex: 2,
@@ -30,32 +31,44 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
 
     backgroundColor: colors.shapeGray,
+    color: colors.white,
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: colors.borderGray
   },
   mainOrange: {
-    flex: 6,
+    flex: 8,
 
     display: 'flex',
     alignItems: 'stretch',
     flexDirection: 'row',
 
     backgroundColor: colors.softOrange,
+    color: colors.black,
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: colors.darkOrange
   },
   image: {
-    flex: 4
+    flex: 2,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10
   },
   text: {
-    flex: 6
+    flex: 6,
   },
-  textoCard: {
+  textoCardGray: {
     fontFamily: fonts.Jost_400Regular,
-    fontSize: 15
+    fontSize: 15,
+    color: colors.borderGray,
+  },
+  textoCardOrange: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 15,
+    color: colors.black
   }
 })

@@ -5,7 +5,6 @@ import colors from '../../styles/colors';
 export const styles = StyleSheet.create({
     container:{
         width: '100%',
-        flex: 1,
         flexDirection: 'column',
         paddingTop: Platform.OS === 'android' ? 15 : 0,
         alignItems: 'center',

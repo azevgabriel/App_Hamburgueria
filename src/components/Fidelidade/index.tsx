@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
 import {styles} from './styles';
 
@@ -17,11 +17,11 @@ export function Fidelidade({nivel, hamburguinhos, texto}: Props) {
          </View>
          <View style={styles.mainGray}>
           <View style={styles.image}>
-
+          <Image source={require('../../assets/adaptive-icon2.png')} style={{width: 30, height: 30}} resizeMode="contain"/>
           </View>
           <View style={styles.text}>
-              <Text style={[styles.textoCard, {marginBottom: 10}]}>🍔: {hamburguinhos}</Text>
-              <Text style={styles.textoCard}>{texto}</Text>
+              <Text style={[styles.textoCardGray, {marginBottom: 10}]}>🍔: {hamburguinhos}</Text>
+              <Text style={styles.textoCardGray}>Use seu primeiro cupom e ganhe um prêmio</Text>
           </View>
          </View>
        </View>

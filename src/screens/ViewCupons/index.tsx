@@ -19,6 +19,7 @@ import {
 import { styles } from './styles';
 import Header from '../../components/Header';
 import { Cupom } from '../../components/Cupom';
+import BotaoTab  from '../../components/BotãoTab';
 import { Load } from '../../components/Load';
 import { CupomProps, UserCupomProps, UserProps } from '../../global/props';
 import api from '../../services/api';
@@ -106,6 +107,18 @@ export function ViewCupons({ user }:Props) {
                 :
                 <Load/>
             }
+            
+            <View style={styles.tab}>
+                <BotaoTab 
+                    title={"🏆 Fidelidade"}
+                    style={styles.spaceTab}
+                />
+                <View style={styles.divisor} />
+                <BotaoTab 
+                    title={"😎 Perfil"}
+                    style={styles.spaceTab}
+                />
+            </View>
 
         </View>
     );

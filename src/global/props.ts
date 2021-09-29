@@ -5,6 +5,7 @@ import {
 export interface CupomProps extends TouchableOpacityProps {
     id_cupom: string;
     usos_permitidos?: number;
+    usos_restantes?: number;
     url_image_cupom?: string;
     title?: string;
     data_validade?: string;

@@ -5,7 +5,11 @@ import colors from "../../styles/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 15
+    flexDirection: 'column'
+  },
+  box: {
+    margin: 15,
+    flex:9
   },
   title: {
     fontSize: 25,
@@ -30,5 +34,24 @@ export const styles = StyleSheet.create({
     borderColor: colors.shapeGray,
     marginBottom: 25,
     borderRadius: 4
+  },
+  tab: {
+    flex: 1.15,
+    flexDirection: 'row',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    borderTopColor: 'rgba(0,0,0,0.2)',
+    borderTopWidth: 2
+  },
+  spaceTab: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  divisor: {
+    width: 2,
+    height: '60%',
+    backgroundColor: colors.shapeGray
   }
 })

@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 
 export default function WelcomeAgain(){
   return(
+
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image 
@@ -23,7 +24,7 @@ export default function WelcomeAgain(){
           novamente! 🥰
         </Text>
       </View>
-      <View style={styles.inputContainer}>
+      <View style={styles.inputContainer} >
         <Text style={styles.inputText}>
           Digite seu CPF abaixo:
         </Text>
@@ -48,5 +49,6 @@ export default function WelcomeAgain(){
         />
       </View>
     </View> 
+    
   );
 }
