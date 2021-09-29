@@ -9,9 +9,9 @@ import {
 
 import api from "./src/services/api";
 import { UserProps } from "./src/global/props";
-import { LevelRegistration } from "./src/screens/LevelRegistration";
 
 import NovoCumpom from './src/screens/NovoCupom';
+import {ViewCupons} from './src/screens/ViewCupons';
 
 export default function App() {
   const id_user = "55bbcf7c-1af9-11ec-9621-0242ac130002"; //id de exemplo
@@ -36,5 +36,5 @@ export default function App() {
     //colocar mensagem de erro
     return <NovoCumpom />;
   }
-  return <NovoCumpom />;
+  return <ViewCupons user={user}/>;
 }

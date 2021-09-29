@@ -21,7 +21,7 @@ export function Fidelidade({nivel, hamburguinhos, texto}: Props) {
           </View>
           <View style={styles.text}>
               <Text style={[styles.textoCardGray, {marginBottom: 10}]}>🍔: {hamburguinhos}</Text>
-              <Text style={[styles.textoCardGray, {color: 'black'}]}>Use seu primeiro cupom e ganhe um prêmio</Text>
+              <Text style={styles.textoCardGray}>Use seu primeiro cupom e ganhe um prêmio</Text>
           </View>
          </View>
        </View>

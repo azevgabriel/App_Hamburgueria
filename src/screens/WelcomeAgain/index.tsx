@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 
 export default function WelcomeAgain(){
   return(
+
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image 
@@ -48,5 +49,6 @@ export default function WelcomeAgain(){
         />
       </View>
     </View> 
+    
   );
 }

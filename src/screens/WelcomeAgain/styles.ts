@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
       fontFamily: fonts.Jost_600SemiBold
     },
     inputContainer: {
-      flex: 2,
+      flex: 3,
       marginHorizontal: '5%'
     },
     inputText:{
@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
       marginBottom: 10
     },
     buttonContainer: {
-      flex: 1,
+      flex: 1.3,
       marginHorizontal: '5%',
       alignItems: 'flex-end'
     },

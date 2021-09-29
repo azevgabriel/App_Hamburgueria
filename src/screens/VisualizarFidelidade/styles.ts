@@ -1,49 +1,50 @@
-import React from "react";
-import { StyleSheet, Dimensions } from "react-native";
-import fonts from "../../styles/fonts";
-import colors from "../../styles/colors";
+import { Dimensions, StyleSheet } from 'react-native';
 
-const largura = Dimensions.get("window").width;
-const altura = Dimensions.get("window").height;
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff",
-    flex: 1,
-    alignItems: "center",
-    padding: 50,
-  },
-  textViewP:{
-    left:largura/5.5,
-    flex:0.5,
-    fontFamily: fonts.Jost_600SemiBold,
-    color: 'black',
-    marginTop:altura/200,
-    top: altura/20
-},
-textP:{
-    fontFamily: fonts.Jost_400Regular,
-    fontSize:30,
-    color: 'black',
-    fontWeight: 'bold',
-},
-botao: {
-    fontFamily: fonts.Jost_600SemiBold,
-    justifyContent: "center",
-    textAlign: "center",
-    width: largura / 1.5,
-    borderRadius: 10,
-    flex: 0.15,
-    color:'white'
-  },
-  cupom: {
-    flex: 6,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    marginLeft: 30,
-    marginBottom: altura/5.5,
-  },
-
-});
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      width: '100%'
+    },
+    box: {
+      flex: 9,
+      marginHorizontal: '5%',
+    },
+    textoContainer: {
+      flex: 0.18,
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+      marginBottom: 10
+    },
+    texto: {
+      color: colors.black,
+      fontFamily: fonts.Jost_600SemiBold,
+      fontSize: 30
+    },
+    cupomContainer: {
+      flex: 1,
+      marginBottom: 20
+    },
+    tab: {
+      flex: 1.1,
+      flexDirection: 'row',
+  
+      justifyContent: 'center',
+      alignItems: 'center',
+  
+      borderTopColor: 'rgba(0,0,0,0.2)',
+      borderTopWidth: 2
+    },
+    spaceTab: {
+      flex: 1,
+      alignItems: 'center'
+    },
+    divisor: {
+      width: 2,
+      height: '60%',
+      backgroundColor: colors.shapeGray
+    }
+})
