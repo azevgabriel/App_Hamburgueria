@@ -1,3 +1,12 @@
+/**
+ * 
+ * Alert
+ * 
+ * Verificar o tipo de usuario e fazer as alterações necessarias na pagina
+ * 
+ * Exemplo : tipo_user: 0 || 1
+ */
+
 import React, { useEffect, useState } from 'react';
 
 import {

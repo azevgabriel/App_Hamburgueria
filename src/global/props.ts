@@ -31,3 +31,8 @@ export interface UserCupomProps {
     id_cupom: string;
     usos_restantes?:number;
 }
+export interface NivelProps {
+    id_nivel: string;
+    nivel?:number;
+    hamburguinhos_necessarios?:number;
+}

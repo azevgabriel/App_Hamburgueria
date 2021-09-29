@@ -43,7 +43,8 @@
       "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
       "cupom_fidelidade": 1,
-      "nivel_relacionado": 1
+      "nivel_relacionado": 1,
+      "hamburguinhos_fornecidos": 0
     },
     {
       "id_cupom": "193ddac8-1af8-11ec-9621-0242ac130002",
@@ -63,7 +64,8 @@
       "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 3, agora voce tem 30% off na proxima compra",
       "cupom_fidelidade": 1,
-      "nivel_relacionado": 3
+      "nivel_relacionado": 3,
+      "hamburguinhos_fornecidos": 0
     },
     {
       "id_cupom": "417f825c-1af8-11ec-9621-0242ac130002",
@@ -73,7 +75,8 @@
       "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 4, agora voce uma coca cola gratis",
       "cupom_fidelidade": 1,
-      "nivel_relacionado": 4
+      "nivel_relacionado": 4,
+      "hamburguinhos_fornecidos": 0
     },
     {
       "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
@@ -83,7 +86,8 @@
       "data_validade": null,
       "descricao": "Voce Atingiu o Nivel 5, agora voce Tem 5% gratis em qualquer compra",
       "cupom_fidelidade": 1,
-      "nivel_relacionado": 5
+      "nivel_relacionado": 5,
+      "hamburguinhos_fornecidos": 0
     },
     {
       "id_cupom": "7e9a3b32-1af8-11ec-9621-0242ac130002",
@@ -93,7 +97,8 @@
       "data_validade": "25/12/2021",
       "descricao": "Ganhe 5% Off na sua proxima compra",
       "cupom_fidelidade": 0,
-      "nivel_relacionado": null
+      "nivel_relacionado": null,
+      "hamburguinhos_fornecidos": 3
     },
     {
       "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
@@ -103,7 +108,8 @@
       "data_validade": "25/12/2021",
       "descricao": "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
       "cupom_fidelidade": 0,
-      "nivel_relacionado": null
+      "nivel_relacionado": null,
+      "hamburguinhos_fornecidos": 4
     }
   ],
   "user_cupom": [
@@ -136,6 +142,33 @@
       "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
       "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
       "usos_restantes": 99999
+    }
+  ],
+  "nivel": [
+    {
+      "id_nivel": "f965ea36-214d-11ec-9621-0242ac130002",
+      "nivel": 1,
+      "hamburguinhos_necessarios:": 15
+    },
+    {
+      "id_nivel": "280a3b30-214e-11ec-9621-0242ac130002",
+      "nivel": 2,
+      "hamburguinhos_necessarios:": 40
+    },
+    {
+      "id_nivel": "2d181f34-214e-11ec-9621-0242ac130002",
+      "nivel": 3,
+      "hamburguinhos_necessarios:": 70
+    },
+    {
+      "id_nivel": "320c6ab8-214e-11ec-9621-0242ac130002",
+      "nivel": 4,
+      "hamburguinhos_necessarios:": 155
+    },
+    {
+      "id_nivel": "f969ea36-214d-11ec-9621-0242a5130002",
+      "nivel": 5,
+      "hamburguinhos_necessarios:": 200
     }
   ]
 }

@@ -29,7 +29,7 @@ export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
         <TouchableOpacity style={styles.container} {...rest}>
             <View style={styles.hamburguinhos}>
                 <Text style={styles.HamIconText}>
-                    🍔 {cupom.usos_permitidos}
+                    🍔 {cupom.hamburguinhos_fornecidos }
                 </Text>
                 <Text style={styles.HamIconText}>
                     x{user_cupom.usos_restantes}
