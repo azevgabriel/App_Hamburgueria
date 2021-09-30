@@ -10,13 +10,12 @@ export const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff",
     flex: 1,
-    alignItems: "center",
-    padding: 50,
+    alignItems: "center"
   },
   back: {
     width: largura,
-    bottom: altura / 50,
-    left: largura * 0.05,
+    paddingHorizontal: '5%',
+    marginTop: 10
   },
   botao: {
     fontFamily: fonts.Jost_600SemiBold,
@@ -52,15 +51,15 @@ export const styles = StyleSheet.create({
   cupom: {
     borderTopColor: 'gray',
     borderTopWidth: 2,
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    marginLeft: 30,
-    marginBottom: 120
+    paddingTop: 15,
+    width: largura,
+    paddingHorizontal: '5%',
+    marginBottom: 10,
+    paddingBottom: 20
   },
   viewHeader: {
     marginBottom: 40,
+    width: largura,
+    alignItems: 'center'
   }
 });

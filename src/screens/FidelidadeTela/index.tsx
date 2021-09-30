@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Image, Text, Dimensions, ProgressBarAndroid } from "react-native";
+import { View, Image, Text, Dimensions, ProgressBarAndroid, ScrollView } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import img from "../../../assets/image-solid.png";
 import { styles } from "./styles";
@@ -35,11 +35,13 @@ export default function FidelidadeTela({
           <Text style={{ textAlign: "justify" }}>                                 🍔                              </Text>
         </View>
       </View>
-      <View style={styles.cupom}>
+      <ScrollView contentContainerStyle={styles.cupom}>
         <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
         <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
         <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
-      </View>
+        <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
+        <Fidelidade nivel={0} hamburguinhos={0} texto={""} />
+      </ScrollView>
     </View>
   );
 }

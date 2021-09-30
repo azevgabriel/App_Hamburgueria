@@ -38,9 +38,11 @@ export function ViewCupons({ user }:Props) {
     var [cupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
 
     const [loadData, setLoadData] = useState(false);
+    const [tipoUser, setTipoUser] = useState(1);
 
     useEffect(() => {
         fetchUserCupons() // busca os cupons de maneira assincrona
+        fetchUser() // descobre que tipo o usuário é (adm ou comum)
     },[])
 
     async function fetchUserCupons() {
@@ -63,6 +65,12 @@ export function ViewCupons({ user }:Props) {
         setLoadData(true);
     }
 
+    async function fetchUser() {
+        if(user.tipo_user == 0) {
+            setTipoUser(0);
+        }
+    }
+
 
     function handleCupomSelect(item: CupomProps){
         // Recebendo os dados do cupom, encaminhar para outra tela
@@ -71,7 +79,7 @@ export function ViewCupons({ user }:Props) {
         <View style={styles.container}>
             <View style={styles.rowheader}>
                 <View style={styles.viewheader}>
-                    <Header id_user={user.id_user} name={user.name}/>
+                    <Header id_user={user.id_user} name={user.name} tipo_user={user.tipo_user}/>
                 </View>
                 <View style={styles.viewimage}>
                     {
@@ -114,10 +122,25 @@ export function ViewCupons({ user }:Props) {
                     style={styles.spaceTab}
                 />
                 <View style={styles.divisor} />
-                <BotaoTab 
+                {
+                    tipoUser
+                    
+                    ?
+                    
+                    <BotaoTab 
                     title={"😎 Perfil"}
                     style={styles.spaceTab}
-                />
+                    />
+
+                    :
+
+                    <BotaoTab 
+                    title={"➕ Adicionar"}
+                    style={styles.spaceTab}
+                    />
+
+                }
+                
             </View>
 
         </View>
