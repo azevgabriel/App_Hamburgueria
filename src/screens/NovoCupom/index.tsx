@@ -11,7 +11,7 @@ import NumberSetter from '../../components/NumberSetter'
 
 import Button from '../../components/Button';
 
-export default function NovoCumpom(){
+export default function NovoCupom(){
     return (
         <View style={styles.container}>
             <View style={styles.back}>

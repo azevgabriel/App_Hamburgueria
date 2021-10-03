@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     View,
     Text,
@@ -11,7 +11,18 @@ import Hamburger from '../../assets/hamburger.png';
 
 import Button from '../../components/Button';
 
-export default function Welcome(){
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Cadastro'>;
+
+export default function Welcome({navigation}: Props){
+
+    const handleCadastro = useCallback(() => {
+        navigation.navigate('Cadastro');
+    },[])
+
+
     return(
         <View style={styles.container}>
             <Text style={styles.welcomeText}>
@@ -33,6 +44,7 @@ export default function Welcome(){
             <Button
                 title="Cadastrar"
                 color="#293845"
+                onPress={handleCadastro}
             />
             <Text style={[styles.label,{marginTop: "8%"}]}>
                 Já tenho cadastro.

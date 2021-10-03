@@ -10,6 +10,8 @@ import {
 import api from "./src/services/api";
 import { UserProps } from "./src/global/props";
 
+import Routes from './src/routes';
+
 import NovoCumpom from './src/screens/NovoCupom';
 import {ViewCupons} from './src/screens/ViewCupons';
 
@@ -30,11 +32,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <NovoCumpom />;
+    return <Routes />;
   }
   if (!user) {
     //colocar mensagem de erro
-    return <NovoCumpom />;
+    return <Routes />;
   }
-  return <ViewCupons user={user}/>;
+  return <Routes />;
 }
