@@ -14,12 +14,16 @@ import Button from '../../components/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Cadastro'>;
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function Welcome({navigation}: Props){
 
     const handleCadastro = useCallback(() => {
         navigation.navigate('Cadastro');
+    },[])
+
+    const handleLogin = useCallback(() => {
+        navigation.navigate('WelcomeAgain');
     },[])
 
 
@@ -52,6 +56,7 @@ export default function Welcome({navigation}: Props){
             <Button
                 title="Entrar"
                 color="#293845"
+                onPress={handleLogin}
             />
         </View>
     )

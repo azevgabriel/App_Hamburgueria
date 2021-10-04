@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, 
         Text, 
         Image 
@@ -8,8 +8,17 @@ import { styles } from './styles';
 import colors from '../../styles/colors';
 import iconImg from '../../assets/logo.png';
 import Button from '../../components/Button';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-export default function Confirmacao(){
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function Confirmacao({navigation}: Props){
+
+    const handleViewCupons = useCallback(() => {
+        navigation.navigate('ViewCupons');
+    },[])
+
     return(
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -32,6 +41,7 @@ export default function Confirmacao(){
                 <Button 
                     title="Bora!"
                     color={colors.blue} 
+                    onPress={handleViewCupons}
                 />
             </View>
             

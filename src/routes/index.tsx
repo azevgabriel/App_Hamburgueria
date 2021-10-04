@@ -17,6 +17,7 @@ declare global{
             QrCode: string;
             SeuPerfil: string;
             VisualizarFidelidade: string;
+            ViewCupons: string;
             WelcomeAgain: string;
         }
     }

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from '../Cadastro/styles';
 import CadastroFoto from '../../components/CadastroFoto';
 import Button from '../../components/Button';
 import colors from '../../styles/colors';
 
-export default function Cadastro(){
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function Cadastro({navigation}: Props){
+
+  const handleConfirmacao = useCallback(() => {
+    navigation.navigate('Confirmacao');
+},[])
+
   return(
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -59,8 +69,9 @@ export default function Cadastro(){
       </View>
 
       <Button
-      color={colors.darkGray}
-      title="Confirmar dados."
+        color={colors.darkGray}
+        title="Confirmar dados."
+        onPress={handleConfirmacao}
       />
 
     </View>

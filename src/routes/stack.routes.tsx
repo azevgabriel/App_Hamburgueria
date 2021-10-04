@@ -12,6 +12,7 @@ import PassouNivel from '../screens/PassouNivel';
 import QrCode from "../screens/QrCode";
 import SeuPerfil from "../screens/SeuPerfil";
 import VisualizarFidelidade from '../screens/VisualizarFidelidade';
+import { ViewCupons } from '../screens/ViewCupons';
 import WelcomeAgain from "../screens/WelcomeAgain";
 
 const Stack = createNativeStackNavigator();
@@ -78,6 +79,11 @@ const AppRoutes: React.FC = () =>(
         <Stack.Screen
             name="WelcomeAgain"
             component={WelcomeAgain}
+        />
+
+        <Stack.Screen
+            name="ViewCupons"
+            component={ViewCupons}
         />
 
 

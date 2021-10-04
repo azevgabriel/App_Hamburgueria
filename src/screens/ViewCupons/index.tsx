@@ -25,14 +25,20 @@ import { CupomProps, UserCupomProps, UserProps } from '../../global/props';
 import api from '../../services/api';
 import userImg from '../../assets/hamburger.png';
 
-interface Props {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
+
+type userProps = {
     user:UserProps
 }
 interface Cupom_UserCupomProps{
     user_cupom:UserCupomProps;
     cupom: CupomProps;
 }
-export function ViewCupons({ user }:Props) {
+
+type Props = NativeStackScreenProps<RootStackParamList> & userProps;
+
+export function ViewCupons({ user, navigation }:Props) {
     var user_cupons:UserCupomProps[] = [];
     var [cupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
@@ -79,13 +85,13 @@ export function ViewCupons({ user }:Props) {
         <View style={styles.container}>
             <View style={styles.rowheader}>
                 <View style={styles.viewheader}>
-                    <Header id_user={user.id_user} name={user.name} tipo_user={user.tipo_user}/>
+                    <Header id_user={user?.id_user} name={user?.name} tipo_user={user?.tipo_user}/>
                 </View>
                 <View style={styles.viewimage}>
                     {
                         user.url_image_user
                         ?
-                        <Image style={styles.image} source={{ uri: user.url_image_user }} />
+                        <Image style={styles.image} source={{ uri: user?.url_image_user }} />
                         :
                         <Image style={styles.image} source={require('../../assets/logo.png')} />
                     }
