@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 
 import { styles } from './styles';
@@ -8,6 +8,13 @@ import icon from '../../assets/logo.png';
 import Button from '../../components/Button';
 
 export default function WelcomeAgain(){
+  const [cpf, setCPF] = useState("");
+  const [senha, setSenha] = useState("");
+
+  async function handleSubmit() {
+    
+  }
+  
   return(
 
     <View style={styles.container}>
@@ -31,12 +38,15 @@ export default function WelcomeAgain(){
         <TextInput
           style={styles.input}
           keyboardType="numeric"
+          onChangeText={(value) => setCPF(value)}
+          
         />
         <Text style={styles.inputText}>
           Digite sua senha abaixo:
         </Text>
         <TextInput
           style={styles.input}
+          onChangeText={(value) => setSenha(value)}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -46,6 +56,7 @@ export default function WelcomeAgain(){
         <Button 
           color={colors.darkGray}
           title="Bora!"
+          onPress={handleSubmit}
         />
       </View>
     </View> 
