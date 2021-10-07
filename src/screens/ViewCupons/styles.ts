@@ -30,14 +30,15 @@ export const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   tab: {
-    flex: 0.6,
+    
     flexDirection: 'row',
 
     justifyContent: 'center',
     alignItems: 'center',
 
     borderTopColor: 'rgba(0,0,0,0.2)',
-    borderTopWidth: 2
+    borderTopWidth: 2,
+    height: 100
   },
   spaceTab: {
     flex: 1,

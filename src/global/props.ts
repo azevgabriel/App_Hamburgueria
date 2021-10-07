@@ -3,37 +3,39 @@ import {
 } from 'react-native';
 
 export interface CupomProps extends TouchableOpacityProps {
-    id_cupom: string;
-    usos_permitidos?: number;
-    usos_restantes?: number;
-    url_image_cupom?: string;
+    id: number;
+    permitted_uses?: number;
+    usos_restantes?: number; //Não tem esse no BD
+    image?: string;
     title?: string;
-    data_validade?: string;
-    descricao?:string;
-    cupom_fidelidade?:number;
-    nivel_relacionado?:number;
-    hamburguinhos_fornecidos?:number;
+    expiration_date?: string;
+    description?:string;
+    fidelity?: boolean;
+    level_id?:number;
+    burgers_added?:number;
 }
 
 export interface UserProps {
-    id_user: string;
-    tipo_user?: number;
+    id: number;
+    type?: number;
     name?: string;
     cpf?: string;
-    telefone?: string;
-    senha?: string;
-    url_image_user?: string;
-    nivel?: number;
-    hamburguinhos_coletados?:number;
+    phone?: string;
+    password?: string;
+    image?: string;
+    level?: number;
+    burgers?:number;
 }
+
 export interface UserCupomProps {
-    id_user_cupom: string;
-    id_user: string;
-    id_cupom: string;
-    usos_restantes?:number;
+    id: number;
+    user_id: number;
+    coupon_id: number;
+    remaining_uses?:number;
 }
+
 export interface NivelProps {
-    id_nivel: string;
-    nivel?:number;
-    hamburguinhos_necessarios?:number;
+    id: number;
+    level?:number;
+    burgers_needed?:number;
 }

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { UserProps } from '../../global/props';
 import {styles} from './styles';
 
-export default function Header( {name, tipo_user} : UserProps) {
+export default function Header( {name, type} : UserProps) {
   var name_lenght_small = true
   if(name){
       if(name.length >= 14){
@@ -18,7 +18,7 @@ export default function Header( {name, tipo_user} : UserProps) {
   },[])
 
   async function fetchUser() {
-    if(tipo_user == 0) {
+    if(type == 0) {
         setTipoUser(0);
     }
 }
