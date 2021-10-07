@@ -12,8 +12,7 @@ import React, { useEffect, useState } from 'react';
 import {
     View,
     FlatList,
-    Image,
-    Text
+    Image
 } from 'react-native';
 
 import { styles } from './styles';
@@ -47,6 +46,7 @@ export function ViewCupons({ user }:Props) {
 
     async function fetchUserCupons() {
         const { data } = await api.get('user_cupom?user_id='+user.id);
+        console.log(user.id);
         user_cupons = data;
         fetchCupons();
     }
@@ -61,6 +61,7 @@ export function ViewCupons({ user }:Props) {
                 user_cupom : user_cupons[index],
                 cupom: cupons[index]
             }
+            console.log(id_cupom)
         }
         setLoadData(true);
     }
@@ -91,6 +92,8 @@ export function ViewCupons({ user }:Props) {
                     }
                 </View>
             </View>
+
+            <View style={styles.cuponsContainer}>
             {
                 loadData
 
@@ -115,6 +118,7 @@ export function ViewCupons({ user }:Props) {
                 :
                 <Load/>
             }
+            </View>
             
             <View style={styles.tab}>
                 <BotaoTab 
