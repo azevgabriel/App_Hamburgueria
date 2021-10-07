@@ -69,7 +69,7 @@
       "burgers_added": 0
     },
     {
-      "id_cupom": 1745878671616,
+      "id": 1745878671616,
       "permitted_uses": 1,
       "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 4",
@@ -80,7 +80,7 @@
       "burgers_added": 0
     },
     {
-      "id_cupom": 1783475384751454567,
+      "id": 1783475384751454567,
       "permitted_uses": 100000,
       "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 5",
@@ -91,7 +91,7 @@
       "burgers_added": 0
     },
     {
-      "id_cupom": 9871891786628718962,
+      "id": 9871891786628718962,
       "permitted_uses": 3,
       "image": "https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg",
       "title": "15% Off",
@@ -102,7 +102,7 @@
       "burgers_added": 3
     },
     {
-      "id_cupom": 46187827871827871,
+      "id": 46187827871827871,
       "permitted_uses": 2,
       "image": "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
       "title": "Na compra de hamburguer teste maximo de charactere",
