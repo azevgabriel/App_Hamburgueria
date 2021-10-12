@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView
 } from "react-native";
 import CadastroFoto from "../../components/CadastroFoto";
 import BotaoTab from "../../components/BotãoTab";
@@ -39,6 +40,7 @@ export default function SeuPerfil() {
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.box}>
           <Text style={styles.title}>Seu Perfil</Text>
@@ -84,6 +86,7 @@ export default function SeuPerfil() {
           <BotaoTab title={"😎 Perfil"} style={styles.spaceTab} />
         </View>
       </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }

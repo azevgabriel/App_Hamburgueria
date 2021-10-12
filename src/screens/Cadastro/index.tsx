@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../Cadastro/styles";
@@ -47,6 +48,7 @@ export default function Cadastro() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <Text style={styles.text}>Faça seu cadastro!</Text>
 
@@ -92,6 +94,7 @@ export default function Cadastro() {
           onPress={handleSubmit}
         />
       </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }

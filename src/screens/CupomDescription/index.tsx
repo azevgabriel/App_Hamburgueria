@@ -1,3 +1,7 @@
+/**
+ * 
+ * Pegar o tipo de user para modificar o texto do botao
+ */
 import React from 'react';
 import {View, Image, Text, Dimensions} from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -12,7 +16,10 @@ import colors from '../../styles/colors';
 const largura = Dimensions.get('window').width;
 const altura = Dimensions.get('window').height;
 
-export default function CupomDescription({ usos_permitidos, ...rest}:CupomProps){
+interface Props{
+    cupom:CupomProps
+}
+export default function CupomDescription({ cupom, ...rest}:Props){
     return(
         <View style={styles.container}>
             <View style={styles.back}>
@@ -20,7 +27,7 @@ export default function CupomDescription({ usos_permitidos, ...rest}:CupomProps)
             </View>
             <View style={styles.textViewP}>
                 <View style={styles.hamburguinhos}>
-                    <Text style={styles.HamIconText}>🍔 {usos_permitidos}</Text>
+                    <Text style={styles.HamIconText}>🍔 {cupom.permitted_uses}</Text>
                  </View>
                 <Text style={styles.textDescHam}>15% OFF! 😜</Text>
             </View>

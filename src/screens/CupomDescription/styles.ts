@@ -11,12 +11,15 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fbe292',
         flex: 1,
         alignItems: 'center',
-        padding: 50,
+        justifyContent: 'space-between',
+        paddingBottom: 10
     },
     back:{
         width:largura,
         bottom:altura/50,
         left:largura*0.05,
+        marginTop: 10,
+        marginBottom: 10
     },
     cupomPicture:{
         alignItems: 'center',
@@ -26,6 +29,7 @@ export const styles = StyleSheet.create({
         borderStyle:'dashed',
         borderRadius:1,
         width:largura/1.5,
+        marginTop: 5,
     },
     imagem:{
         width:largura/1.5,
@@ -58,7 +62,7 @@ export const styles = StyleSheet.create({
     },
     textViewS:{
         fontFamily: fonts.Jost_600SemiBold,
-        marginTop:30,
+        marginTop:10,
         flex:1,
         textAlign: 'center',
         flexDirection:'column',
@@ -74,6 +78,7 @@ export const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         textAlign:'center',
+        marginBottom: 25
     },
     hamburguinhos:{
         flexDirection: 'row',

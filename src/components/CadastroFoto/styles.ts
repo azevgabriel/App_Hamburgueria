@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   user: {
-    fontSize: 180,
+    fontSize: 150,
     color: colors.shapeGray
   },
   plus: {
