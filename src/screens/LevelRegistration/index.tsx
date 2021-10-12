@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, TextInput, Text, ToastAndroid } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -6,14 +6,23 @@ import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
 
 import Button from "../../components/Button";
+import { CupomProps } from "../../global/props";
 
-export const LevelRegistration = () => {
+interface Props {
+  cupom: CupomProps
+}
+export const LevelRegistration = ({ cupom }: Props) => {
+  useEffect(() => {
+    // fazer o fech de hamburguinhos_fornecidos da tabela level
+    // setNumberOfBurgers(valor buscado)
+  }, [])
+
   const [numberOfBurgers, setNumberOfBurgers] = useState<number>(0);
   const [description, setDescription] = useState("");
 
   async function handleSubmit() {
     if (!description) {
-      return ToastAndroid.show('Digite a descrição do prêmio, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite a descrição do prêmio, por favor.', ToastAndroid.SHORT);
     }
   }
 
@@ -33,6 +42,7 @@ export const LevelRegistration = () => {
         <TouchableOpacity>
           <AntDesign name="caretleft" size={25} color="black" />
         </TouchableOpacity>
+        {/* Fazer o fech de nivel */}
         <Text style={styles.title}>Nível 1</Text>
       </View>
       <View style={styles.column}>
@@ -44,6 +54,7 @@ export const LevelRegistration = () => {
           textBreakStrategy="highQuality"
           placeholder="Insira a descrição do Prêmio"
           maxLength={100}
+          value={cupom.description}
         />
       </View>
       <View

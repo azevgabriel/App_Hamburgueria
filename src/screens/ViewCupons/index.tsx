@@ -77,7 +77,6 @@ export function ViewCupons({ user }:Props) {
         setLoadData(true);
     }
 
-
     function handleCupomSelect(item: CupomProps){
         // Recebendo os dados do cupom, encaminhar para outra tela do user padrao
         // Tela 7 passando como parametro o cupom e o tipo de usuario

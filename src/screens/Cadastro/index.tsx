@@ -47,6 +47,7 @@ export default function Cadastro() {
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
     }
+    // Ir para Confirmação
   }
 
   return (

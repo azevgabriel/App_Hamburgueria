@@ -12,22 +12,18 @@ interface Props {
   user: UserProps;
 }
 
-export default function WelcomeAgain({ user }: Props) {
+export default function WelcomeAgain() {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   let cpfField = null;
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  async function fetchUser() {
-    const { data } = await api.get("user_id=" + user.id);
-    user = data;
+  async function fetchUser(cpf:string, password:string) {
+    console.log(password)
+    // Procurar o user com um post passando o cpf e senha
   }
 
   async function handleSubmit() {
-    //
+    fetchUser(cpf, password);
   }
 
   return (
@@ -39,7 +35,6 @@ export default function WelcomeAgain({ user }: Props) {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputText}>Digite seu CPF abaixo:</Text>
-        <View style={styles.input}>
           <TextInputMask
             placeholder="CPF"
             type={"cpf"}
@@ -52,7 +47,6 @@ export default function WelcomeAgain({ user }: Props) {
             ref={(ref) => (cpfField = ref)}
             style={styles.input}
           />
-        </View>
         <Text style={styles.inputText}>Digite sua senha abaixo:</Text>
         <TextInput
           placeholder="*********"

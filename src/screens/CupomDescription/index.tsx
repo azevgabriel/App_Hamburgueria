@@ -8,7 +8,7 @@ import { Feather } from '@expo/vector-icons';
 import img from '../../../assets/image-solid.png';
 import {styles} from './styles';
 import Button from '../../components/Button';
-import { CupomProps } from '../../global/props';
+import { CupomProps, UserProps } from '../../global/props';
 import Voltar from '../../components/Voltar';
 import { Cupom } from '../../components/Cupom';
 import colors from '../../styles/colors';
@@ -18,8 +18,17 @@ const altura = Dimensions.get('window').height;
 
 interface Props{
     cupom:CupomProps
+    user:UserProps
 }
-export default function CupomDescription({ cupom, ...rest}:Props){
+export default function CupomDescription({ cupom, user, ...rest}:Props){
+
+    function handleAdminClick(){
+        //Ir para tela 8 (QrCode)
+    }
+
+    function handleUserClick(){
+        //Ir para tela 14 (NovoCupom)
+    }
     return(
         <View style={styles.container}>
             <View style={styles.back}>
@@ -39,7 +48,13 @@ export default function CupomDescription({ cupom, ...rest}:Props){
                 <Text style={styles.textS}>Procedimento: Gere o QR Code, apresente na hora de pedir o lanche ou envie por Whatsapp.</Text>
             </View>
             <View style={styles.botao}>
-                <Button color='colors.darkGray' title={'Gerar QRCode'}/>
+                {
+                    user.type == 1
+                    ?
+                    <Button color='colors.darkGray' title={'Gerar QRCode'} onPress={() => handleUserClick()}/>
+                    :
+                    <Button color='colors.darkGray' title={'Editar'} onPress={() => handleAdminClick()}/>
+                }
             </View>
         </View>
     )

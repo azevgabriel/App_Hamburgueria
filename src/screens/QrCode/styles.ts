@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fbe292',
         flex: 1,
         alignItems: 'center',
-        padding: 50,
+        padding: 5,
+        paddingTop: 10
     },
     back:{
         width:largura,
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         flexDirection: 'row',
         justifyContent:'center',
-        fontSize:20,
+        fontSize:16,
         fontFamily: fonts.Jost_600SemiBold,
         color: colors.darkGray,
     },

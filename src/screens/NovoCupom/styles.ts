@@ -10,15 +10,14 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingTop: Platform.OS === 'android' ? 15 : 0,
         flexDirection: 'column',
-        alignItems: 'center',
         width: '100%',
     },
-    back:{
-        width:largura,
-        bottom:altura/50,
-        left:largura*0.05,
+    back: {
+        width: largura,
+        bottom: altura / 50,
+        left: largura * 0.05,
     },
-    components:{
+    components: {
         flex: 1,
         width: '90%',
         height: '100%',
@@ -27,6 +26,10 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-around',
     },
+    userContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     titleInput: {
         color: colors.darkGray,
         fontFamily: fonts.Jost_600SemiBold,
@@ -34,10 +37,29 @@ export const styles = StyleSheet.create({
         fontSize: 16,
     },
     input: {
-        height: 60,
+        height: 40,
         borderWidth: 3,
         padding: 10,
         borderColor: colors.shapeGray,
         borderRadius: 4
-      }
+    },
+    plus: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderColor: 'blue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        marginTop: -45,
+        marginLeft: 130,
+        shadowColor: colors.black,
+        shadowOpacity: 1,
+        shadowRadius: 6,
+        elevation: 7
+    },
+    iconPlus: {
+        fontSize: 30,
+        color: colors.green
+    }
 })

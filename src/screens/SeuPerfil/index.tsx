@@ -30,81 +30,76 @@ export default function SeuPerfil() {
     };
 
     if (!name) {
-      return ToastAndroid.show('Digite seu nome, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite seu nome, por favor.', ToastAndroid.SHORT);
     }
     if (!phone) {
-      return ToastAndroid.show('Digite o número do seu celular, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
     }
     if (!password) {
-      return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
     }
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.box}>
-          <Text style={styles.title}>Seu Perfil</Text>
+        <View style={styles.container}>
+          <View style={styles.box}>
+            <Text style={styles.title}>Seu Perfil</Text>
 
-          <CadastroFoto />
+            <CadastroFoto />
 
-          <View style={styles.viewInput}>
-            <Text style={styles.textInput}>Nome:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Nome"
-              placeholderTextColor={colors.shapeGray}
-              onChangeText={(value) => setName(value)}
-            />
+            <View style={styles.viewInput}>
+              <Text style={styles.textInput}>Nome:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Nome"
+                placeholderTextColor={colors.shapeGray}
+                onChangeText={(value) => setName(value)}
+              />
 
-            <Text style={styles.textInput}>Celular:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="(XX) X.XXXX-XXXX"
-              placeholderTextColor={colors.shapeGray}
-              onChangeText={(value) => setPhone(value)}
-            /><View>
-            <TextInputMask
-              placeholder="Telefone"
-              type={"cel-phone"}
-              options={{
-                maskType: "BRL",
-                withDDD: true,
-                dddMask: "(55) ",
-              }}
-              value={phone}
-              onChangeText={(value) => {
-                setPhone(value);
-              }}
-              keyboardType="phone-pad"
-              returnKeyType="done"
-              ref={(ref) => (telefoneField = ref)}
-              style={styles.input}
-            />
+              <Text style={styles.textInput}>Celular:</Text>
+              <View>
+                <TextInputMask
+                  placeholder="Telefone"
+                  type={"cel-phone"}
+                  options={{
+                    maskType: "BRL",
+                    withDDD: true,
+                    dddMask: "(55) ",
+                  }}
+                  value={phone}
+                  onChangeText={(value) => {
+                    setPhone(value);
+                  }}
+                  keyboardType="phone-pad"
+                  returnKeyType="done"
+                  ref={(ref) => (telefoneField = ref)}
+                  style={styles.input}
+                />
+              </View>
+
+              <Text style={styles.textInput}>Senha:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="********"
+                placeholderTextColor={colors.shapeGray}
+                onChangeText={(value) => setPassword(value)}
+              />
+
+              <Button
+                title="Atualizar dados."
+                color={colors.darkGray}
+                onPress={handleSubmit}
+              />
+            </View>
           </View>
 
-            <Text style={styles.textInput}>Senha:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="********"
-              placeholderTextColor={colors.shapeGray}
-              onChangeText={(value) => setPassword(value)}
-            />
-
-            <Button
-              title="Atualizar dados."
-              color={colors.darkGray}
-              onPress={handleSubmit}
-            />
+          <View style={styles.tab}>
+            <BotaoTab title={"🏆 Fidelidade"} style={styles.spaceTab} />
+            <View style={styles.divisor} />
+            <BotaoTab title={"😎 Perfil"} style={styles.spaceTab} />
           </View>
         </View>
-
-        <View style={styles.tab}>
-          <BotaoTab title={"🏆 Fidelidade"} style={styles.spaceTab} />
-          <View style={styles.divisor} />
-          <BotaoTab title={"😎 Perfil"} style={styles.spaceTab} />
-        </View>
-      </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

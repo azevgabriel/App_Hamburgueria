@@ -17,9 +17,15 @@ import Cadastro from "./src/screens/Cadastro";
 import Confirmacao from "./src/screens/Confirmacao";
 import SeuPerfil from "./src/screens/SeuPerfil";
 import CupomDescription from "./src/screens/CupomDescription";
+import Welcome from "./src/screens/Welcome";
+import WelcomeAgain from "./src/screens/WelcomeAgain";
+import QrCode from "./src/screens/QrCode";
+import FidelidadeTela from "./src/screens/FidelidadeTela";
+import { LevelRegistration } from "./src/screens/LevelRegistration";
 
 export default function App() {
   const id_user = 12345678910; //id de exemplo
+  const id_cupom = 9871891786628718962 //id de exemplo
   const [user, setUser] = useState<UserProps>();
   const [cupom, setCupom] = useState<CupomProps>();
 
@@ -30,13 +36,15 @@ export default function App() {
   }
   
   async function fetchCupom() {
-    const response = await api.get("cupom?id=4894854684846");
+    const response = await api.get("cupom?id=" + id_cupom);
     setCupom(response.data[0]);
   }
+
   useEffect(() => {
     fetchUser(); // busca o user de maneira assincrona
     fetchCupom();
   }, []);
+
   const [fontsLoaded] = useFonts({
     Jost_400Regular,
     Jost_600SemiBold,
@@ -53,5 +61,6 @@ export default function App() {
     //colocar mensagem de erro
     return <Load />;
   }
-  return <CupomDescription cupom={cupom}/>;
+
+  return <LevelRegistration cupom={cupom}/>;
 }

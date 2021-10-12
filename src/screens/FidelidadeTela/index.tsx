@@ -13,11 +13,8 @@ import colors from "../../styles/colors";
 const largura = Dimensions.get("window").width;
 const altura = Dimensions.get("window").height;
 
-export default function FidelidadeTela({
-  usos_permitidos,
-  usos_restantes,
-  ...rest
-}: CupomProps) {
+
+export default function FidelidadeTela() {
   const [progresso, setProgresso] = React.useState(0.0);
   return (
     <View style={styles.container}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ToastAndroid } from "react-native";
+import { View, Text, TextInput, ToastAndroid, TouchableWithoutFeedback, Keyboard, ScrollView, Image, TouchableOpacity } from "react-native";
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
@@ -12,8 +12,13 @@ import colors from "../../styles/colors";
 import NumberSetter from "../../components/NumberSetter";
 
 import Button from "../../components/Button";
+import { CupomProps } from "../../global/props";
+import { AntDesign } from "@expo/vector-icons";
 
-export default function NovoCupom() {
+interface Props {
+  cupom?: CupomProps
+}
+export default function NovoCupom({ cupom }: Props) {
   const [titulo, setTitulo] = useState("");
   const [description, setDescription] = useState("");
   const [datamax, setDataMax] = useState("");
@@ -26,55 +31,80 @@ export default function NovoCupom() {
     };
 
     if (!titulo) {
-      return ToastAndroid.show('Digite o título do cupom, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite o título do cupom, por favor.', ToastAndroid.SHORT);
     }
     if (!description) {
-      return ToastAndroid.show('Digite a descrição, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite a descrição, por favor.', ToastAndroid.SHORT);
     }
     if (!datamax) {
-      return ToastAndroid.show('Digite a data corretamente por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite a data corretamente por favor.', ToastAndroid.SHORT);
     }
   }
   return (
-    <View style={styles.container}>
-      <View style={styles.back}>
-        <Voltar color="black" />
-      </View>
-      <View style={styles.components}>
-        <CadastroFoto />
 
-        <Text style={styles.titleInput}>Título:</Text>
-        <TextInput
-          placeholder="Título"
-          placeholderTextColor={colors.borderGray}
-          style={styles.input}
-          onChangeText={(value) => setTitulo(value)}
-          maxLength={50}
-        />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ScrollView style={styles.container}>
+        <View style={styles.back}>
+          <Voltar color="black" />
+        </View>
+        <View style={styles.components}>
+          {
+            cupom
+              ?
+              <View style={styles.userContainer}>
+                <Image source={{ uri: cupom.image }} style={{ width: 140, height: 140, }} />
+                <TouchableOpacity
+                  style={styles.plus}
+                  activeOpacity={0.8}
+                >
+                  <Text>
+                    <AntDesign name="plus" style={styles.iconPlus} />
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
-        <Text style={styles.titleInput}>Descrição:</Text>
-        <TextInput
-          placeholder="Utilize até..."
-          placeholderTextColor={colors.borderGray}
-          style={styles.input}
-          onChangeText={(value) => setDescription(value)}
-          maxLength={100}
-        />
+              :
+              <CadastroFoto />
+          }
 
-        <NumberSetter title="Hamburguinhos🍔" />
+          <Text style={styles.titleInput}>Título:</Text>
+          <TextInput
+            placeholder="Título"
+            placeholderTextColor={colors.borderGray}
+            style={styles.input}
+            onChangeText={(value) => setTitulo(value)}
+            value={cupom?.title}
+            maxLength={50}
+          />
 
-        <NumberSetter title="Número de usos" />
+          <Text style={styles.titleInput}>Descrição:</Text>
+          <TextInput
+            placeholder="Utilize até..."
+            placeholderTextColor={colors.borderGray}
+            style={styles.input}
+            onChangeText={(value) => setDescription(value)}
+            value={cupom?.description}
+            maxLength={100}
+          />
 
-        <Text style={styles.titleInput}>Data máxima</Text>
-        <TextInput
-          placeholder="13/12/2021 ou indeterminado"
-          placeholderTextColor={colors.borderGray}
-          style={styles.input}
-          onChangeText={(value) => setDataMax(value)}
-        />
+          <NumberSetter title="Hamburguinhos🍔" numberOld={cupom?.burgers_added} />
 
-        <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
-      </View>
-    </View>
+          <NumberSetter title="Número de usos" numberOld={cupom?.permitted_uses} />
+
+          <Text style={styles.titleInput}>Data máxima</Text>
+          <TextInput
+            placeholder="13/12/2021 ou indeterminado"
+            placeholderTextColor={colors.borderGray}
+            style={styles.input}
+            value={cupom?.expiration_date}
+            onChangeText={(value) => setDataMax(value)}
+          />
+
+          <View style={{marginTop: 5}}>
+            <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
+          </View>
+        </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }

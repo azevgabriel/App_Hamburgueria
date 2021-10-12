@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity} from 'react-native';
 
 import { styles } from './styles';
 
 interface SetterNumberProps{
     title: string;
+    numberOld?:number;
 }
 
-export default function NumberSetter({title} : SetterNumberProps){
+export default function NumberSetter({title,numberOld} : SetterNumberProps){
 
     const [number, setNumber] = useState(0);
+
+    useEffect(() => {
+        if(numberOld)
+            setNumber(numberOld);
+    },[])
 
     function handleIncrease(){
         setNumber(() => number + 1)
