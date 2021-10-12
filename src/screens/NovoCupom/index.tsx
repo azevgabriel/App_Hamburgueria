@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, ToastAndroid } from "react-native";
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
@@ -15,24 +15,24 @@ import Button from "../../components/Button";
 
 export default function NovoCupom() {
   const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [description, setDescription] = useState("");
   const [datamax, setDataMax] = useState("");
 
   async function handleSubmit() {
     const data = {
       titulo: titulo,
-      descricao: descricao,
+      description: description,
       datamax: datamax,
     };
 
     if (!titulo) {
-      return Alert.alert("Digite o título do cupom, por favor.");
+      return ToastAndroid.show('Digite o título do cupom, por favor.',  ToastAndroid.SHORT);
     }
-    if (!descricao) {
-      return Alert.alert("Digite a descrição, por favor.");
+    if (!description) {
+      return ToastAndroid.show('Digite a descrição, por favor.',  ToastAndroid.SHORT);
     }
     if (!datamax) {
-      return Alert.alert("Digite o número do seu celular, por favor.");
+      return ToastAndroid.show('Digite a data corretamente por favor.',  ToastAndroid.SHORT);
     }
   }
   return (
@@ -49,6 +49,7 @@ export default function NovoCupom() {
           placeholderTextColor={colors.borderGray}
           style={styles.input}
           onChangeText={(value) => setTitulo(value)}
+          maxLength={50}
         />
 
         <Text style={styles.titleInput}>Descrição:</Text>
@@ -56,7 +57,8 @@ export default function NovoCupom() {
           placeholder="Utilize até..."
           placeholderTextColor={colors.borderGray}
           style={styles.input}
-          onChangeText={(value) => setDescricao(value)}
+          onChangeText={(value) => setDescription(value)}
+          maxLength={100}
         />
 
         <NumberSetter title="Hamburguinhos🍔" />
