@@ -16,24 +16,24 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
-    marginTop: 40,
-    marginBottom: 40
+    marginTop: 20,
+    marginBottom: 15
   },
   viewInput: {
-    marginBottom: 80,
-    marginTop: 40
+    marginBottom: 60,
+    marginTop: 20
   },
   textInput: {
     color: colors.darkGray,
     fontFamily: fonts.Jost_600SemiBold,
-    marginTop: 10
+    marginTop: 5
   },
   input: {
     height: 50,
     borderWidth: 3,
     padding: 10,
     borderColor: colors.shapeGray,
-    marginBottom: 30,
+    marginBottom: 20,
     borderRadius: 4
   },
   tab: {

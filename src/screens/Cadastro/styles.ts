@@ -12,17 +12,17 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
-    marginTop: 40,
-    marginBottom: 60,
+    marginTop: 30,
+    marginBottom: 20,
   },
   viewInput: {
-    marginBottom: 40,
-    marginTop: 30
+    marginBottom: 20,
+    marginTop: 20
   },
   titleInput: {
     color: colors.darkGray,
     fontFamily: fonts.Jost_600SemiBold,
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 2
   },
   input: {
