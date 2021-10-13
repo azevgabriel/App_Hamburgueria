@@ -22,6 +22,7 @@ import WelcomeAgain from "./src/screens/WelcomeAgain";
 import QrCode from "./src/screens/QrCode";
 import FidelidadeTela from "./src/screens/FidelidadeTela";
 import { LevelRegistration } from "./src/screens/LevelRegistration";
+import CadastroFoto from "./src/components/CadastroFoto";
 
 export default function App() {
   const id_user = 12345678910; //id de exemplo
@@ -53,14 +54,16 @@ export default function App() {
   if (!fontsLoaded) {
     return <Load />;
   }
-  if (!user) {
-    //colocar mensagem de erro
-    return <Load />;
-  }
-  if (!cupom) {
-    //colocar mensagem de erro
-    return <Load />;
-  }
+  // if (!user) {
+  //   //colocar mensagem de erro
+  //   return <Load />;
+  // }
+  // if (!cupom) {
+  //   //colocar mensagem de erro
+  //   return <Load />;
+  // }
 
-  return <LevelRegistration cupom={cupom}/>;
+  // return <LevelRegistration cupom={cupom}/>;
+
+  return <CadastroFoto />
 }
