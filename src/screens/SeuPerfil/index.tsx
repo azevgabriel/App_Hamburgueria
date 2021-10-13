@@ -61,6 +61,7 @@ export default function SeuPerfil() {
               <View>
                 <TextInputMask
                   placeholder="Telefone"
+                  placeholderTextColor={colors.shapeGray}
                   type={"cel-phone"}
                   options={{
                     maskType: "BRL",

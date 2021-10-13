@@ -17,10 +17,11 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
     marginTop: 40,
+    marginBottom: 40
   },
   viewInput: {
     marginBottom: 80,
-    backgroundColor: colors.white
+    marginTop: 40
   },
   textInput: {
     color: colors.darkGray,
@@ -28,11 +29,11 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   input: {
-    height: 40,
+    height: 50,
     borderWidth: 3,
     padding: 10,
     borderColor: colors.shapeGray,
-    marginBottom: 25,
+    marginBottom: 30,
     borderRadius: 4
   },
   tab: {

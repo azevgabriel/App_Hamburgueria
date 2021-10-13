@@ -69,10 +69,11 @@ export default function Cadastro() {
             maxLength={100}
           />
 
+          <View>
           <Text style={styles.titleInput}>CPF:</Text>
-          <View style={styles.titleInput}>
             <TextInputMask
               placeholder="CPF"
+              placeholderTextColor={colors.shapeGray}
               type={"cpf"}
               value={cpf}
               onChangeText={(value) => {
@@ -89,6 +90,7 @@ export default function Cadastro() {
           <View>
             <TextInputMask
               placeholder="Telefone"
+              placeholderTextColor={colors.shapeGray}
               type={"cel-phone"}
               options={{
                 maskType: "BRL",
