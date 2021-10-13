@@ -5,7 +5,8 @@ import colors from "../../styles/colors";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
   box: {
     margin: 15,
@@ -16,7 +17,6 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
     marginTop: 40,
-    marginBottom: 40
   },
   viewInput: {
     marginBottom: 80,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   input: {
-    height: 50,
+    height: 40,
     borderWidth: 3,
     padding: 10,
     borderColor: colors.shapeGray,
@@ -38,12 +38,12 @@ export const styles = StyleSheet.create({
   tab: {
     flex: 1.15,
     flexDirection: 'row',
-
     justifyContent: 'center',
     alignItems: 'center',
-
     borderTopColor: 'rgba(0,0,0,0.2)',
-    borderTopWidth: 2
+    borderTopWidth: 2,
+    marginTop:-50,
+    height: 70
   },
   spaceTab: {
     flex: 1,

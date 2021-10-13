@@ -46,13 +46,13 @@ export function ViewCupons({ user, navigation }:Props) {
 
     var user_cupons:UserCupomProps[] = [];
     var [cupons] = useState<CupomProps[]>([]);
+    var [Allcupons, setAllCupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
 
     const [loadData, setLoadData] = useState(false);
     const [tipoUser, setTipoUser] = useState(1);
 
     useEffect(() => {
-        fetchUserCupons() // busca os cupons de maneira assincrona
         fetchUser() // descobre que tipo o usuário é (adm ou comum)
     },[])
 
@@ -77,14 +77,34 @@ export function ViewCupons({ user, navigation }:Props) {
     }
 
     async function fetchUser() {
-        if(user.type === 0) {
+        if(user.type === 0) { // admin
             setTipoUser(0);
+            fetchAllCupons();
+        }else{
+            fetchUserCupons();
         }
     }
 
+    async function fetchAllCupons() {
+        const { data } = await api.get('cupom');
+        const AllCuponsLoad:CupomProps[] = data;
+        var NumCupons = 0;
+        for (let i = 0; i < AllCuponsLoad.length; i++) {
+            if(AllCuponsLoad[i].fidelity !== true){
+                Allcupons[NumCupons] = AllCuponsLoad[i];
+                NumCupons++;
+            }
+        }
+        setLoadData(true);
+    }
 
     function handleCupomSelect(item: CupomProps){
-        // Recebendo os dados do cupom, encaminhar para outra tela
+        // Recebendo os dados do cupom, encaminhar para outra tela do user padrao
+        // Tela 7 passando como parametro o cupom e o tipo de usuario
+    }
+    function handleCupomSelectAdmin(item: CupomProps){
+        // Recebendo os dados do cupom, encaminhar para outra tela do admin
+        // Tela 7 passando como parametro o cupom e o tipo de usuario
     }
     return (
         <View style={styles.container}>
@@ -102,33 +122,58 @@ export function ViewCupons({ user, navigation }:Props) {
                     }
                 </View>
             </View>
-
-            <View style={styles.cuponsContainer}>
             {
-                loadData
-
+                tipoUser
                 ?
-
-                <FlatList
-                data={cupons_and_user_cupons}
-                keyExtractor={(item) => String(item.cupom.id)}
-                renderItem={({ item }) => 
-                    <Cupom
-                    
-                        cupom={item.cupom}
-                        user_cupom={item.user_cupom}
-                        onPress={() => handleCupomSelect(item.cupom)}
-                    />
+                <View style={styles.cuponsContainer}>
+                {
+                    loadData
+                    ?
+                    <FlatList
+                    data={cupons_and_user_cupons}
+                    keyExtractor={(item) => String(item.cupom.id)}
+                    renderItem={({ item }) => 
+                        <Cupom
+                        
+                            cupom={item.cupom}
+                            user_cupom={item.user_cupom}
+                            onPress={() => handleCupomSelect(item.cupom)}
+                        />
+                    }
+                    showsVerticalScrollIndicator={false}
+                    numColumns={2}
+                    contentContainerStyle={styles.flatlist}
+                    onEndReachedThreshold={0.1}
+                    /> 
+                    :
+                    <Load/>
                 }
-                showsVerticalScrollIndicator={false}
-                numColumns={2}
-                contentContainerStyle={styles.flatlist}
-                onEndReachedThreshold={0.1}
-                /> 
+                </View>
                 :
-                <Load/>
+                <View style={styles.cuponsContainer}>
+                {
+                    loadData
+                    ?
+                    <FlatList
+                    data={Allcupons}
+                    keyExtractor={(item) => String(item.id)}
+                    renderItem={({ item }) => 
+                        <Cupom
+                        
+                            cupom={item}
+                            onPress={() => handleCupomSelectAdmin(item)}
+                        />
+                    }
+                    showsVerticalScrollIndicator={false}
+                    numColumns={2}
+                    contentContainerStyle={styles.flatlist}
+                    onEndReachedThreshold={0.1}
+                    /> 
+                    :
+                    <Load/>
+                }
+                </View>
             }
-            </View>
             
             <View style={styles.tab}>
                 <BotaoTab 

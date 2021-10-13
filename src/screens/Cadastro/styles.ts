@@ -5,14 +5,15 @@ import fonts from '../../styles/fonts';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 15
+    margin: 15,
+    justifyContent: 'space-between'
   },
   text: {
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
     marginTop: 40,
-    marginBottom: 50
+    marginBottom: 40,
   },
   viewInput: {
     marginBottom: 60,
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   input: {
-    height: 50,
+    height: 40,
     borderWidth: 3,
     padding: 10,
     borderColor: colors.shapeGray,

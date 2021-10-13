@@ -13,7 +13,7 @@ import { CupomProps, UserCupomProps } from '../../global/props';
 import { styles } from './styles';
 
 interface Cupom_UserCupomProps extends TouchableOpacityProps{
-    user_cupom:UserCupomProps;
+    user_cupom?:UserCupomProps;
     cupom: CupomProps;
 }
 
@@ -32,7 +32,15 @@ export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
                     🍔 {cupom.burgers_added }
                 </Text>
                 <Text style={styles.HamIconText}>
-                    x{user_cupom.remaining_uses}
+                    {
+                        user_cupom
+                        ?
+                        <Text>
+                        x{user_cupom.remaining_uses}
+                        </Text>
+                        :
+                        <Text></Text>
+                    }
                 </Text>
             </View>
             <View style={styles.ImageView}>
