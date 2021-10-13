@@ -7,7 +7,7 @@
  * Exemplo : tipo_user: 0 || 1 -> 0 admin || 1 comum
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
     View,
@@ -38,6 +38,12 @@ interface Cupom_UserCupomProps{
 type Props = NativeStackScreenProps<RootStackParamList> & userProps;
 
 export function ViewCupons({ user, navigation }:Props) {
+
+    const handleCupom = useCallback(() => {     //chamar essa funcao para entrar na página de cupom
+        navigation.navigate('CupomDescription');
+    },[])
+
+
     var user_cupons:UserCupomProps[] = [];
     var [cupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);

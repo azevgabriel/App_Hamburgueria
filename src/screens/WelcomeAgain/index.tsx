@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 
 import { styles } from './styles';
@@ -7,13 +7,36 @@ import colors from '../../styles/colors';
 import icon from '../../assets/logo.png';
 import Button from '../../components/Button';
 
-export default function WelcomeAgain(){
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
+
+import { useAuth } from '../../hooks/useAuth';
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function WelcomeAgain({navigation}: Props){
+
+  const { login } = useAuth();
+
   const [cpf, setCPF] = useState("");
   const [senha, setSenha] = useState("");
+ 
+  const handleViewCupons = useCallback(() => {  
+    navigation.navigate('ViewCupons');
+  },[])
 
   async function handleSubmit() {
+      
+    // await login({
+    //   cpf, 
+    //   senha
+    // })
     
+    // pegar os dados, verificar se ambos os campos estao preenchidos, usar sempre useCallback em vez de functions
+
   }
+
+  
   
   return(
 

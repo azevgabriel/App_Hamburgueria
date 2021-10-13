@@ -11,9 +11,14 @@ import Button from '../../components/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
+import { useAuth } from '../../hooks/useAuth';
+
+
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function Confirmacao({navigation}: Props){
+
+    const { user } = useAuth();
 
     const handleViewCupons = useCallback(() => {
         navigation.navigate('ViewCupons');
@@ -32,7 +37,7 @@ export default function Confirmacao({navigation}: Props){
                 </Text>
 
                 <Text style={styles.nameText}>
-                    Marina! 🥰
+                    {user.name}! 🥰
                 </Text>
             </View>
 

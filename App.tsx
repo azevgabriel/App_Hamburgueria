@@ -7,36 +7,51 @@ import {
   useFonts,
 } from "@expo-google-fonts/jost";
 
+import { AuthContextProvider } from './src/contexts/AuthContext';
+
 import api from "./src/services/api";
 import { UserProps } from "./src/global/props";
 
 import Routes from './src/routes';
 
 import NovoCumpom from './src/screens/NovoCupom';
-import {ViewCupons} from './src/screens/ViewCupons';
+import { ViewCupons } from './src/screens/ViewCupons';
 
 export default function App() {
-  const id_user = 12345678910; //id de exemplo
-  const [user, setUser] = useState<UserProps>();
 
-  useEffect(() => {
+    const id_user = 12345678910; //id de exemplo
+    const [user, setUser] = useState<UserProps>();
+
+    useEffect(() => {
     async function fetchUser() {
-      const response = await api.get("user?id=" + id_user);
-      setUser(response.data[0]);
-    }
-    fetchUser(); // busca o user de maneira assincrona
-  }, []);
-  const [fontsLoaded] = useFonts({
+    const response = await api.get ("user?id=" + id_user);
+    setUser(response.data[0]);
+  }
+      fetchUser(); // busca o user de maneira assincrona
+    },[]);
+    const[fontsLoaded]= useFonts({
     Jost_400Regular,
     Jost_600SemiBold,
-  });
+    });
 
-  if (!fontsLoaded) {
-    return <Routes />;
-  }
-  if (!user) {
-    //colocar mensagem de erro
-    return <Routes />;
-  }
-  return <Routes />;
+    if (!fontsLoaded) {
+      return (
+        <AuthContextProvider>
+          <Routes />
+        </AuthContextProvider>
+      )
+    }
+    if (!user) {
+      //colocar mensagem de erro
+      return (
+        <AuthContextProvider>
+          <Routes />
+        </AuthContextProvider>
+      )
+    }
+    return (
+      <AuthContextProvider>
+        <Routes />
+      </AuthContextProvider>
+    )
 }

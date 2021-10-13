@@ -28,7 +28,7 @@ export default function Cadastro({navigation}: Props){
 
   const handleConfirmacao = useCallback(() => {
     navigation.navigate('Confirmacao');
-},[])
+  },[])
 
   async function handleSubmit() {
 
@@ -51,6 +51,8 @@ export default function Cadastro({navigation}: Props){
     if (!senha) {
       return Alert.alert("Digite sua senha, por favor.");
     }
+
+    //chamar funcao de dentro do authContext para cadastro (signUp)
 
   }
 
@@ -98,7 +100,7 @@ export default function Cadastro({navigation}: Props){
         <Button
           color={colors.darkGray}
           title="Confirmar dados."
-          onPress={handleSubmit}
+          onPress={handleConfirmacao}
         />
       </View>
     </TouchableWithoutFeedback>
