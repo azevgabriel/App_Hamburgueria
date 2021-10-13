@@ -1,174 +1,175 @@
 {
   "user": [
     {
-      "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
-      "tipo_user": 0,
+      "id": 841618566,
+      "type": 0,
       "name": "Gabriel Azevedo",
       "cpf": "085.747.566-96",
-      "telefone": "(35)999999999",
-      "senha": "698dc19d489c4e4db73e28a713eab07b",
-      "url_image_user": "https://avatars.githubusercontent.com/u/73303855?v=4",
-      "nivel": 1,
-      "hamburguinhos_coletados": 5
+      "phone": "(35)999999999",
+      "password": "698dc19d489c4e4db73e28a713eab07b",
+      "image": "https://avatars.githubusercontent.com/u/73303855?v=4",
+      "level": 1,
+      "burgers": 5
     },
     {
-      "id_user": "bae5ef60-1af7-11ec-9621-0242ac130002",
-      "tipo_user": 1,
+      "id": 10987654321,
+      "type": 1,
       "name": "Pablo Santos",
       "cpf": "777.757.566-96",
-      "telefone": "(35)88888888",
-      "senha": "698dc19d489c4e4db73e28a713eab07b",
-      "url_image_user": "https://avatars.githubusercontent.com/u/56566628?v=4",
-      "nivel": 0,
-      "hamburguinhos_coletados": 0
+      "phone": "(35)88888888",
+      "password": "698dc19d489c4e4db73e28a713eab07b",
+      "image": "https://avatars.githubusercontent.com/u/56566628?v=4",
+      "level": 0,
+      "burgers": 0
     },
     {
-      "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
-      "tipo_user": 0,
+      "id": 12345678910,
+      "type": 0,
       "name": "Maximo Characteres a",
       "cpf": "555.757.566-55",
-      "telefone": "(35)777777777",
-      "senha": "698dc19d489c4e4db73e28a713eab07b",
-      "url_image_user": "https://github.com/thevinex.png",
-      "nivel": 5,
-      "hamburguinhos_coletados": 6
+      "phone": "(35)777777777",
+      "password": "698dc19d489c4e4db73e28a713eab07b",
+      "image": "https://github.com/thevinex.png",
+      "level": 5,
+      "burgers": 6
     }
   ],
   "cupom": [
     {
-      "id_cupom": "c170df02-1af7-11ec-9621-0242ac130002",
-      "usos_permitidos": 1,
-      "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+      "id": 4894854684846,
+      "permitted_uses": 1,
+      "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 1",
-      "data_validade": null,
-      "descricao": "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
-      "cupom_fidelidade": 1,
-      "nivel_relacionado": 1,
-      "hamburguinhos_fornecidos": 0
+      "expiration_date": null,
+      "description": "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
+      "fidelity": true,
+      "level_id": 1,
+      "burgers_added": 0
     },
     {
-      "id_cupom": "193ddac8-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 1,
-      "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+      "id": 1878764575,
+      "permitted_uses": 1,
+      "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 2",
-      "data_validade": null,
-      "descricao": "Voce Atingiu o Nivel 2, agora voce tem 30% off na proxima compra",
-      "cupom_fidelidade": 1,
-      "nivel_relacionado": 2
+      "expiration_date": null,
+      "description": "Voce Atingiu o Nivel 2, agora voce tem 30% off na proxima compra",
+      "fidelity": true,
+      "level_id": 2,
+      "burgers_added": 0
     },
     {
-      "id_cupom": "2e4c6a6a-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 1,
-      "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+      "id": 164786761786687,
+      "permitted_uses": 1,
+      "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 3",
-      "data_validade": null,
-      "descricao": "Voce Atingiu o Nivel 3, agora voce tem 30% off na proxima compra",
-      "cupom_fidelidade": 1,
-      "nivel_relacionado": 3,
-      "hamburguinhos_fornecidos": 0
+      "expiration_date": null,
+      "description": "Voce Atingiu o Nivel 3, agora voce tem 30% off na proxima compra",
+      "fidelity": true,
+      "level_id": 3,
+      "burgers_added": 0
     },
     {
-      "id_cupom": "417f825c-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 1,
-      "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+      "id": 1745878671616,
+      "permitted_uses": 1,
+      "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 4",
-      "data_validade": null,
-      "descricao": "Voce Atingiu o Nivel 4, agora voce uma coca cola gratis",
-      "cupom_fidelidade": 1,
-      "nivel_relacionado": 4,
-      "hamburguinhos_fornecidos": 0
+      "expiration_date": null,
+      "description": "Voce Atingiu o Nivel 4, agora voce uma coca cola gratis",
+      "fidelity": true,
+      "level_id": 4,
+      "burgers_added": 0
     },
     {
-      "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 100000,
-      "url_image_cupom": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+      "id": 1783475384751454567,
+      "permitted_uses": 100000,
+      "image": "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
       "title": "Atingiu Nivel 5",
-      "data_validade": null,
-      "descricao": "Voce Atingiu o Nivel 5, agora voce Tem 5% gratis em qualquer compra",
-      "cupom_fidelidade": 1,
-      "nivel_relacionado": 5,
-      "hamburguinhos_fornecidos": 0
+      "expiration_date": null,
+      "description": "Voce Atingiu o Nivel 5, agora voce Tem 5% gratis em qualquer compra",
+      "fidelity": true,
+      "level_id": 5,
+      "burgers_added": 0
     },
     {
-      "id_cupom": "7e9a3b32-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 3,
-      "url_image_cupom": "https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg",
+      "id": 9871891786628718962,
+      "permitted_uses": 3,
+      "image": "https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg",
       "title": "15% Off",
-      "data_validade": "25/12/2021",
-      "descricao": "Ganhe 5% Off na sua proxima compra",
-      "cupom_fidelidade": 0,
-      "nivel_relacionado": null,
-      "hamburguinhos_fornecidos": 3
+      "expiration_date": "25/12/2021",
+      "description": "Ganhe 5% Off na sua proxima compra",
+      "fidelity": false,
+      "level_id": null,
+      "burgers_added": 3
     },
     {
-      "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_permitidos": 2,
-      "url_image_cupom": "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
+      "id": 46187827871827871,
+      "permitted_uses": 2,
+      "image": "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
       "title": "Na compra de hamburguer teste maximo de charactere",
-      "data_validade": "25/12/2021",
-      "descricao": "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
-      "cupom_fidelidade": 0,
-      "nivel_relacionado": null,
-      "hamburguinhos_fornecidos": 4
+      "expiration_date": "25/12/2021",
+      "description": "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
+      "fidelity": false,
+      "level_id": null,
+      "burgers_added": 4
     }
   ],
   "user_cupom": [
     {
-      "id_user_cupom": "00c53fee-1af9-11ec-9621-0242ac130002",
-      "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
-      "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": 1
+      "id": 17861789178278718,
+      "user_id": 841618566,
+      "coupon_id": 46187827871827871,
+      "remaining_uses": 1
     },
     {
-      "id_user_cupom": "2578b992-1af9-11ec-9621-0242ac130002",
-      "id_user": "b2dc61d2-1af7-11ec-9621-0242ac130002",
-      "id_cupom": "c170df02-1af7-11ec-9621-0242ac130002",
-      "usos_restantes": 1
+      "id": 4448148217871198781,
+      "user_id": 841618566,
+      "coupon_id": 4894854684846,
+      "remaining_uses": 1
     },
     {
-      "id_user_cupom": "c82b2ec2-1af9-11ec-9621-0242ac130002",
-      "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
-      "id_cupom": "7e9a3b32-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": 1
+      "id": 22256981928178912,
+      "user_id": 12345678910,
+      "coupon_id": 9871891786628718962,
+      "remaining_uses": 1
     },
     {
-      "id_user_cupom": "f21d11d2-1af9-11ec-9621-0242ac130002",
-      "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
-      "id_cupom": "c0853308-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": 1
+      "id": 888171715417171178912,
+      "user_id": 12345678910,
+      "coupon_id": 46187827871827871,
+      "remaining_uses": 1
     },
     {
-      "id_user_cupom": "f21d11d2-1af9-11ec-9621-0242ac130002",
-      "id_user": "55bbcf7c-1af9-11ec-9621-0242ac130002",
-      "id_cupom": "58a01320-1af8-11ec-9621-0242ac130002",
-      "usos_restantes": 99999
+      "id": 3498071178912,
+      "user_id": 12345678910,
+      "coupon_id": 1783475384751454567,
+      "remaining_uses": 99999
     }
   ],
   "nivel": [
     {
-      "id_nivel": "f965ea36-214d-11ec-9621-0242ac130002",
-      "nivel": 1,
-      "hamburguinhos_necessarios:": 15
+      "id": 1111111111111,
+      "level": 1,
+      "burgers_needed": 15
     },
     {
-      "id_nivel": "280a3b30-214e-11ec-9621-0242ac130002",
-      "nivel": 2,
-      "hamburguinhos_necessarios:": 40
+      "id": 2084804890480404,
+      "level": 2,
+      "burgers_needed": 40
     },
     {
-      "id_nivel": "2d181f34-214e-11ec-9621-0242ac130002",
-      "nivel": 3,
-      "hamburguinhos_necessarios:": 70
+      "id": 7070707087287189611,
+      "level": 3,
+      "burgers_needed": 70
     },
     {
-      "id_nivel": "320c6ab8-214e-11ec-9621-0242ac130002",
-      "nivel": 4,
-      "hamburguinhos_necessarios:": 155
+      "id": 15515515515158058485,
+      "level": 4,
+      "burgers_needed": 155
     },
     {
-      "id_nivel": "f969ea36-214d-11ec-9621-0242a5130002",
-      "nivel": 5,
-      "hamburguinhos_necessarios:": 200
+      "id": 2002000202020220202020,
+      "level": 5,
+      "burgers_needed": 200
     }
   ]
 }

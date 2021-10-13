@@ -4,7 +4,7 @@
  * 
  * Verificar o tipo de usuario e fazer as alterações necessarias na pagina
  * 
- * Exemplo : tipo_user: 0 || 1
+ * Exemplo : tipo_user: 0 || 1 -> 0 admin || 1 comum
  */
 
 import React, { useEffect, useState } from 'react';
@@ -12,8 +12,7 @@ import React, { useEffect, useState } from 'react';
 import {
     View,
     FlatList,
-    Image,
-    Text
+    Image
 } from 'react-native';
 
 import { styles } from './styles';
@@ -52,15 +51,15 @@ export function ViewCupons({ user, navigation }:Props) {
     },[])
 
     async function fetchUserCupons() {
-        const { data } = await api.get('user_cupom?id_user='+user.id_user);
+        const { data } = await api.get('user_cupom?user_id='+user.id);
         user_cupons = data;
         fetchCupons();
     }
 
     async function fetchCupons() {
         for (let index = 0; index < user_cupons.length; index++) {
-            const id_cupom = user_cupons[index].id_cupom;
-            const { data } = await api.get('cupom?id_cupom='+id_cupom);
+            const id_cupom = user_cupons[index].coupon_id;
+            const { data } = await api.get('cupom?id='+id_cupom);
             const cupom:CupomProps = data[0];
             cupons[index] = cupom;
             cupons_and_user_cupons[index] = {
@@ -72,7 +71,7 @@ export function ViewCupons({ user, navigation }:Props) {
     }
 
     async function fetchUser() {
-        if(user.tipo_user == 0) {
+        if(user.type === 0) {
             setTipoUser(0);
         }
     }
@@ -85,18 +84,20 @@ export function ViewCupons({ user, navigation }:Props) {
         <View style={styles.container}>
             <View style={styles.rowheader}>
                 <View style={styles.viewheader}>
-                    <Header id_user={user?.id_user} name={user?.name} tipo_user={user?.tipo_user}/>
+                    <Header id={user.id} name={user.name} type={user.type}/>
                 </View>
                 <View style={styles.viewimage}>
                     {
-                        user.url_image_user
+                        user.image
                         ?
-                        <Image style={styles.image} source={{ uri: user?.url_image_user }} />
+                        <Image style={styles.image} source={{ uri: user.image }} />
                         :
                         <Image style={styles.image} source={require('../../assets/logo.png')} />
                     }
                 </View>
             </View>
+
+            <View style={styles.cuponsContainer}>
             {
                 loadData
 
@@ -104,7 +105,7 @@ export function ViewCupons({ user, navigation }:Props) {
 
                 <FlatList
                 data={cupons_and_user_cupons}
-                keyExtractor={(item) => String(item.cupom.id_cupom)}
+                keyExtractor={(item) => String(item.cupom.id)}
                 renderItem={({ item }) => 
                     <Cupom
                     
@@ -121,6 +122,7 @@ export function ViewCupons({ user, navigation }:Props) {
                 :
                 <Load/>
             }
+            </View>
             
             <View style={styles.tab}>
                 <BotaoTab 

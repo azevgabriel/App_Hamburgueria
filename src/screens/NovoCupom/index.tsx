@@ -1,72 +1,78 @@
-import React from 'react';
-import { View, Text, TextInput } from 'react-native';
-import Voltar from '../../components/Voltar';
+import React, { useState } from "react";
+import { Alert, View, Text, TextInput } from "react-native";
+import Voltar from "../../components/Voltar";
 
-import { styles } from './styles';
+import { styles } from "./styles";
 
-import CadastroFoto from '../../components/CadastroFoto';
-import colors from '../../styles/colors';
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import NumberSetter from '../../components/NumberSetter'
+import CadastroFoto from "../../components/CadastroFoto";
+import colors from "../../styles/colors";
 
-import Button from '../../components/Button';
+import NumberSetter from "../../components/NumberSetter";
 
-export default function NovoCupom(){
-    return (
-        <View style={styles.container}>
-            <View style={styles.back}>
-                <Voltar color='black'/>
-            </View>
-            <View style={styles.components}>
-                <CadastroFoto />
+import Button from "../../components/Button";
 
-                <Text 
-                    style={styles.titleInput}
-                >
-                    Título:
-                </Text>
-                <TextInput
-                    placeholder= "Título"
-                    placeholderTextColor={colors.borderGray}
-                    style={styles.input}
-                />
+export default function NovoCupom() {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [datamax, setDataMax] = useState("");
 
-                <Text 
-                    style={styles.titleInput}
-                >
-                    Descrição:
-                </Text>
-                <TextInput
-                    placeholder= "Utilize até..."
-                    placeholderTextColor={colors.borderGray}
-                    style={styles.input}
-                />
+  async function handleSubmit() {
+    const data = {
+      titulo: titulo,
+      descricao: descricao,
+      datamax: datamax,
+    };
 
-                <NumberSetter 
-                    title="Hamburguinhos🍔"
-                />
+    if (!titulo) {
+      return Alert.alert("Digite o título do cupom, por favor.");
+    }
+    if (!descricao) {
+      return Alert.alert("Digite a descrição, por favor.");
+    }
+    if (!datamax) {
+      return Alert.alert("Digite o número do seu celular, por favor.");
+    }
+  }
+  return (
+    <View style={styles.container}>
+      <View style={styles.back}>
+        <Voltar color="black" />
+      </View>
+      <View style={styles.components}>
+        <CadastroFoto />
 
-                <NumberSetter 
-                    title="Número de usos"
-                />
+        <Text style={styles.titleInput}>Título:</Text>
+        <TextInput
+          placeholder="Título"
+          placeholderTextColor={colors.borderGray}
+          style={styles.input}
+          onChangeText={(value) => setTitulo(value)}
+        />
 
-                <Text 
-                    style={styles.titleInput}
-                >
-                    Data máxima
-                </Text>
-                <TextInput
-                    placeholder= "13/12/2021 ou indeterminado"
-                    placeholderTextColor={colors.borderGray}
-                    style={styles.input}
-                />
+        <Text style={styles.titleInput}>Descrição:</Text>
+        <TextInput
+          placeholder="Utilize até..."
+          placeholderTextColor={colors.borderGray}
+          style={styles.input}
+          onChangeText={(value) => setDescricao(value)}
+        />
 
-            <Button 
-                color="#32cd32"
-                title="Cadastrar"
-            />
+        <NumberSetter title="Hamburguinhos🍔" />
 
-            </View>
-        </View>
-    )
+        <NumberSetter title="Número de usos" />
+
+        <Text style={styles.titleInput}>Data máxima</Text>
+        <TextInput
+          placeholder="13/12/2021 ou indeterminado"
+          placeholderTextColor={colors.borderGray}
+          style={styles.input}
+          onChangeText={(value) => setDataMax(value)}
+        />
+
+        <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
+      </View>
+    </View>
+  );
 }

@@ -24,20 +24,24 @@ export const styles = StyleSheet.create({
     height: 80,
     borderRadius:40
   },
+  cuponsContainer: {
+    flex: 9
+  },
   flatlist:{
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 50,
   },
   tab: {
-    flex: 0.6,
     flexDirection: 'row',
 
     justifyContent: 'center',
     alignItems: 'center',
 
     borderTopColor: 'rgba(0,0,0,0.2)',
-    borderTopWidth: 2
+    borderTopWidth: 2,
+
+    flex: 1.5
   },
   spaceTab: {
     flex: 1,

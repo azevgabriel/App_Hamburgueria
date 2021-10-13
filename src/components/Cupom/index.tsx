@@ -29,14 +29,14 @@ export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
         <TouchableOpacity style={styles.container} {...rest}>
             <View style={styles.hamburguinhos}>
                 <Text style={styles.HamIconText}>
-                    🍔 {cupom.hamburguinhos_fornecidos }
+                    🍔 {cupom.burgers_added }
                 </Text>
                 <Text style={styles.HamIconText}>
-                    x{user_cupom.usos_restantes}
+                    x{user_cupom.remaining_uses}
                 </Text>
             </View>
             <View style={styles.ImageView}>
-                <Image style={styles.image} source={{ uri: cupom.url_image_cupom }} />
+                <Image style={styles.image} source={{ uri: cupom.image }} />
             </View>
             <View style={styles.titleText}>
                 {
@@ -55,9 +55,9 @@ export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
             <View style={styles.bodyText}>
                 <Text style={styles.day}>
                     {
-                        (cupom.data_validade?.toUpperCase() != 'NULL' && cupom.data_validade != '' && cupom.data_validade != null)
+                        (cupom.expiration_date?.toUpperCase() != 'NULL' && cupom.expiration_date != '' && cupom.expiration_date != null)
                         ?
-                        'até dia '+cupom.data_validade
+                        'até dia '+cupom.expiration_date
                         :
                         'Tempo Ilimitado'
                     }

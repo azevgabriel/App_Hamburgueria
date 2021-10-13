@@ -16,12 +16,12 @@ import NovoCumpom from './src/screens/NovoCupom';
 import {ViewCupons} from './src/screens/ViewCupons';
 
 export default function App() {
-  const id_user = "55bbcf7c-1af9-11ec-9621-0242ac130002"; //id de exemplo
+  const id_user = 12345678910; //id de exemplo
   const [user, setUser] = useState<UserProps>();
 
   useEffect(() => {
     async function fetchUser() {
-      const response = await api.get("user?id_user=" + id_user);
+      const response = await api.get("user?id=" + id_user);
       setUser(response.data[0]);
     }
     fetchUser(); // busca o user de maneira assincrona
