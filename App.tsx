@@ -54,16 +54,14 @@ export default function App() {
   if (!fontsLoaded) {
     return <Load />;
   }
-  // if (!user) {
-  //   //colocar mensagem de erro
-  //   return <Load />;
-  // }
-  // if (!cupom) {
-  //   //colocar mensagem de erro
-  //   return <Load />;
-  // }
+  if (!user) {
+    //colocar mensagem de erro
+    return <Load />;
+  }
+  if (!cupom) {
+    //colocar mensagem de erro
+    return <Load />;
+  }
 
-  // return <LevelRegistration cupom={cupom}/>;
-
-  return <CadastroFoto />
+  return <LevelRegistration cupom={cupom}/>;
 }
