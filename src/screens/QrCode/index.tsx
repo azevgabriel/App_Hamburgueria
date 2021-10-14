@@ -9,20 +9,26 @@ import Voltar from '../../components/Voltar';
 import { Cupom } from '../../components/Cupom';
 import colors from '../../styles/colors';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+
+type Props = NativeStackScreenProps<RootStackParamList> ;
+
 const largura = Dimensions.get('window').width;
 const altura = Dimensions.get('window').height;
 
-interface Props {
-    cupom: CupomProps
-}
-export default function QrCode({ cupom }: Props) {
+export default function QrCode({ navigation, route, ...rest}:Props) {
     function handleWhatsSubmit(){
-        // Ir pra proxima tela
+        navigation.navigate('ViewCupons')
+    }
+
+    function handleBack(){
+        navigation.navigate('ViewCupons')
     }
     return (
         <View style={styles.container}>
             <View style={styles.back}>
-                <Voltar color='black' />
+                <Voltar color='black' onPress={handleBack}/>
             </View>
             <View style={styles.textViewP}>
                 <Text style={styles.textDescHam}>15% OFF! 😜</Text>

@@ -4,39 +4,47 @@
  */
 import React from 'react';
 import {View, Image, Text, Dimensions} from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import img from '../../../assets/image-solid.png';
 import {styles} from './styles';
 import Button from '../../components/Button';
-import { CupomProps, UserProps } from '../../global/props';
+import { CupomProps, UserProps, ObjectCupons } from '../../global/props';
 import Voltar from '../../components/Voltar';
-import { Cupom } from '../../components/Cupom';
-import colors from '../../styles/colors';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+import { useAuth } from '../../hooks/useAuth';
 
 const largura = Dimensions.get('window').width;
 const altura = Dimensions.get('window').height;
 
-interface Props{
-    cupom:CupomProps
-    user:UserProps
-}
-export default function CupomDescription({ cupom, user, ...rest}:Props){
+type Props = NativeStackScreenProps<RootStackParamList> ;
 
-    function handleAdminClick(){
-        //Ir para tela 8 (QrCode)
-    }
+export default function CupomDescription({ navigation, route, ...rest}:Props){
+
+    const { cupom } = route.params as ObjectCupons;
+    const { user } = useAuth();
 
     function handleUserClick(){
-        //Ir para tela 14 (NovoCupom)
+        user.type
+        ?
+        navigation.navigate('QrCode',{
+            cupom,
+        })
+        :
+        navigation.navigate('NovoCupom',{
+            cupom,
+        })
     }
+    function handleBack(){
+        navigation.navigate('ViewCupons');
+    }
+    
     return(
         <View style={styles.container}>
             <View style={styles.back}>
-                <Voltar color='black'/>
+                <Voltar color='black' onPress={handleBack}/>
             </View>
             <View style={styles.textViewP}>
                 <View style={styles.hamburguinhos}>
-                    <Text style={styles.HamIconText}>🍔 {cupom.permitted_uses}</Text>
+                    <Text style={styles.HamIconText}>🍔 {cupom.burgers_added}</Text>
                  </View>
                 <Text style={styles.textDescHam}>15% OFF! 😜</Text>
             </View>
@@ -53,7 +61,7 @@ export default function CupomDescription({ cupom, user, ...rest}:Props){
                     ?
                     <Button color='colors.darkGray' title={'Gerar QRCode'} onPress={() => handleUserClick()}/>
                     :
-                    <Button color='colors.darkGray' title={'Editar'} onPress={() => handleAdminClick()}/>
+                    <Button color='colors.darkGray' title={'Editar'} onPress={() => handleUserClick()}/>
                 }
             </View>
         </View>

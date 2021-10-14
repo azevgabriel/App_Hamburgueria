@@ -6,7 +6,9 @@ import {
   ToastAndroid,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView
+  ScrollView,
+  Image,
+  TouchableOpacity
 } from "react-native";
 import CadastroFoto from "../../components/CadastroFoto";
 import BotaoTab from "../../components/BotãoTab";
@@ -15,12 +17,35 @@ import colors from "../../styles/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../SeuPerfil/styles";
 import { TextInputMask } from "react-native-masked-text";
+import { useAuth } from "../../hooks/useAuth";
+import { AntDesign } from "@expo/vector-icons";
 
-export default function SeuPerfil() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+
+import * as ImagePicker from 'expo-image-picker';
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function SeuPerfil({ navigation, }: Props) {
+  const {user} = useAuth()
+  const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+  const [password, setPassword] = useState(user.password);
   let telefoneField = null;
+
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+      alert('Precisamos dessa permissão para prosseguir!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    console.log(pickerResult);
+  };
 
   async function handleSubmit() {
     const data = {
@@ -38,6 +63,7 @@ export default function SeuPerfil() {
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
     }
+    navigation.navigate('ViewCupons')
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -46,7 +72,25 @@ export default function SeuPerfil() {
           <View style={styles.box}>
             <Text style={styles.title}>Seu Perfil</Text>
 
-            <CadastroFoto />
+            {
+            user
+              ?
+              <View style={styles.userContainer}>
+                <Image source={{ uri: user.image }} style={{ width: 140, height: 140, }} />
+                <TouchableOpacity
+                  style={styles.plus}
+                  activeOpacity={0.8}
+                  onPress={openImagePickerAsync}
+                >
+                  <Text>
+                    <AntDesign name="plus" style={styles.iconPlus} />
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              :
+              <CadastroFoto />
+          }
 
             <View style={styles.viewInput}>
               <Text style={styles.textInput}>Nome:</Text>
@@ -54,7 +98,8 @@ export default function SeuPerfil() {
                 style={styles.input}
                 placeholder="Nome"
                 placeholderTextColor={colors.shapeGray}
-                onChangeText={(value) => setName(value)}
+                onChangeText={setName}
+                value={name}
               />
 
               <Text style={styles.textInput}>Celular:</Text>
@@ -68,10 +113,8 @@ export default function SeuPerfil() {
                     withDDD: true,
                     dddMask: "(55) ",
                   }}
+                  onChangeText={setPhone}
                   value={phone}
-                  onChangeText={(value) => {
-                    setPhone(value);
-                  }}
                   keyboardType="phone-pad"
                   returnKeyType="done"
                   ref={(ref) => (telefoneField = ref)}
@@ -84,7 +127,7 @@ export default function SeuPerfil() {
                 style={styles.input}
                 placeholder="********"
                 placeholderTextColor={colors.shapeGray}
-                onChangeText={(value) => setPassword(value)}
+                onChangeText={setPassword}
               />
 
               <Button
@@ -93,12 +136,6 @@ export default function SeuPerfil() {
                 onPress={handleSubmit}
               />
             </View>
-          </View>
-
-          <View style={styles.tab}>
-            <BotaoTab title={"🏆 Fidelidade"} style={styles.spaceTab} />
-            <View style={styles.divisor} />
-            <BotaoTab title={"😎 Perfil"} style={styles.spaceTab} />
           </View>
         </View>
       </ScrollView>

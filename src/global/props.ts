@@ -45,14 +45,21 @@ export type RootStackParamList = {
     Welcome: undefined;
     CadastroFoto: undefined;
     Confirmacao: undefined;
-    CupomDescription: undefined;
+    CupomDescription: ObjectCupons;
     FidelidadeTela: undefined;
-    LevelRegistration: undefined;
-    NovoCupom: undefined;
+    LevelRegistration: ObjectCupons;
+    NovoCupom: ObjectCuponsUndefined;
     PassouNivel: undefined;
-    QrCode: undefined;
+    QrCode: ObjectCupons;
     SeuPerfil: undefined;
     VisualizarFidelidade: undefined;
     ViewCupons: undefined;
     WelcomeAgain: undefined;
-  };
+};
+
+export interface ObjectCupons{
+    cupom: CupomProps;
+}
+export interface ObjectCuponsUndefined{
+    cupom?: CupomProps;
+}

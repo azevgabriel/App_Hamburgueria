@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TextInput } from "react-native";
+import { View, Text, Image, TextInput, Alert } from "react-native";
 import api from "../../services/api";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
@@ -8,22 +8,30 @@ import icon from "../../assets/logo.png";
 import Button from "../../components/Button";
 import { TextInputMask } from "react-native-masked-text";
 
-interface Props {
-  user: UserProps;
-}
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+import { useAuth } from '../../hooks/useAuth';
 
-export default function WelcomeAgain() {
+type Props = NativeStackScreenProps<RootStackParamList>;
+
+export default function WelcomeAgain({ navigation }: Props) {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   let cpfField = null;
 
-  async function fetchUser(cpf:string, password:string) {
-    console.log(password)
-    // Procurar o user com um post passando o cpf e senha
-  }
+	const { login, loading } = useAuth();
+
 
   async function handleSubmit() {
-    fetchUser(cpf, password);
+		try {
+			await login({cpf, senha : password});
+      if(!loading){
+        // Carregou o fectch
+        navigation.navigate('ViewCupons');
+      }
+		} catch (error) {
+			Alert.alert('Erro: '+error)
+		}
   }
 
   return (
@@ -35,18 +43,18 @@ export default function WelcomeAgain() {
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.inputText}>Digite seu CPF abaixo:</Text>
-          <TextInputMask
-            placeholder="CPF"
-            type={"cpf"}
-            value={cpf}
-            onChangeText={(value) => {
-              setCpf(value);
-            }}
-            keyboardType="number-pad"
-            returnKeyType="done"
-            ref={(ref) => (cpfField = ref)}
-            style={styles.input}
-          />
+        <TextInputMask
+          placeholder="CPF"
+          type={"cpf"}
+          value={cpf}
+          onChangeText={(value) => {
+            setCpf(value);
+          }}
+          keyboardType="number-pad"
+          returnKeyType="done"
+          ref={(ref) => (cpfField = ref)}
+          style={styles.input}
+        />
         <Text style={styles.inputText}>Digite sua senha abaixo:</Text>
         <TextInput
           placeholder="*********"

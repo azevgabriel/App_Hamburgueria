@@ -6,24 +6,36 @@ import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
 
 import Button from "../../components/Button";
-import { CupomProps } from "../../global/props";
+import { CupomProps, ObjectCupons } from "../../global/props";
 
-interface Props {
-  cupom: CupomProps
-}
-export const LevelRegistration = ({ cupom }: Props) => {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
+
+  const { cupom } = route.params as ObjectCupons;
   useEffect(() => {
+    setNumberOfBurgers(cupom.burgers_added?cupom.burgers_added:0)
     // fazer o fech de hamburguinhos_fornecidos da tabela level
     // setNumberOfBurgers(valor buscado)
   }, [])
-
+  
   const [numberOfBurgers, setNumberOfBurgers] = useState<number>(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(cupom.description);
 
+  function handleBack(){
+
+    navigation.navigate('VisualizarFidelidade')
+  }
   async function handleSubmit() {
     if (!description) {
       return ToastAndroid.show('Digite a descrição do prêmio, por favor.', ToastAndroid.SHORT);
     }
+    // Salvar via post
+
+    //
+    navigation.navigate('VisualizarFidelidade')
   }
 
   const handleButton = (type: string) => {
@@ -39,7 +51,7 @@ export const LevelRegistration = ({ cupom }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleBack}>
           <AntDesign name="caretleft" size={25} color="black" />
         </TouchableOpacity>
         {/* Fazer o fech de nivel */}
@@ -54,7 +66,8 @@ export const LevelRegistration = ({ cupom }: Props) => {
           textBreakStrategy="highQuality"
           placeholder="Insira a descrição do Prêmio"
           maxLength={100}
-          value={cupom.description}
+          value={description}
+          onChangeText={setDescription}
         />
       </View>
       <View

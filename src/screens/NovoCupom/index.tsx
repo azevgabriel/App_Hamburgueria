@@ -12,18 +12,39 @@ import colors from "../../styles/colors";
 import NumberSetter from "../../components/NumberSetter";
 
 import Button from "../../components/Button";
-import { CupomProps } from "../../global/props";
+import { CupomProps, ObjectCupons } from "../../global/props";
 import { AntDesign } from "@expo/vector-icons";
 
-interface Props {
-  cupom?: CupomProps
-}
-export default function NovoCupom({ cupom }: Props) {
-  const [titulo, setTitulo] = useState("");
-  const [description, setDescription] = useState("");
-  const [datamax, setDataMax] = useState("");
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
 
-  async function handleSubmit() {
+import * as ImagePicker from 'expo-image-picker';
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+export default function NovoCupom({ navigation, route, ...rest }: Props) {
+  const { cupom } = route.params as ObjectCupons;
+  const [titulo, setTitulo] = useState(cupom?cupom.title:'');
+  const [description, setDescription] = useState(cupom?cupom.description:'');
+  const [datamax, setDataMax] = useState(cupom?cupom.expiration_date:'');
+
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+      alert('Precisamos dessa permissão para prosseguir!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    console.log(pickerResult);
+  };
+
+  function handleBack() {
+    navigation.navigate('ViewCupons')
+  }
+
+  function handleSubmit() {
     const data = {
       titulo: titulo,
       description: description,
@@ -39,13 +60,15 @@ export default function NovoCupom({ cupom }: Props) {
     if (!datamax) {
       return ToastAndroid.show('Digite a data corretamente por favor.', ToastAndroid.SHORT);
     }
+    // Salvamento via post
+    navigation.navigate('ViewCupons')
   }
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView style={styles.container}>
         <View style={styles.back}>
-          <Voltar color="black" />
+          <Voltar color="black" onPress={handleBack} />
         </View>
         <View style={styles.components}>
           {
@@ -56,6 +79,7 @@ export default function NovoCupom({ cupom }: Props) {
                 <TouchableOpacity
                   style={styles.plus}
                   activeOpacity={0.8}
+                  onPress={openImagePickerAsync}
                 >
                   <Text>
                     <AntDesign name="plus" style={styles.iconPlus} />
@@ -72,8 +96,8 @@ export default function NovoCupom({ cupom }: Props) {
             placeholder="Título"
             placeholderTextColor={colors.borderGray}
             style={styles.input}
-            onChangeText={(value) => setTitulo(value)}
-            value={cupom?.title}
+            onChangeText={setTitulo}
+            value={titulo}
             maxLength={50}
           />
 
@@ -82,8 +106,8 @@ export default function NovoCupom({ cupom }: Props) {
             placeholder="Utilize até..."
             placeholderTextColor={colors.borderGray}
             style={styles.input}
-            onChangeText={(value) => setDescription(value)}
-            value={cupom?.description}
+            onChangeText={setDescription}
+            value={description}
             maxLength={100}
           />
 
@@ -96,11 +120,11 @@ export default function NovoCupom({ cupom }: Props) {
             placeholder="13/12/2021 ou indeterminado"
             placeholderTextColor={colors.borderGray}
             style={styles.input}
-            value={cupom?.expiration_date}
-            onChangeText={(value) => setDataMax(value)}
+            onChangeText={setDataMax}
+            value={datamax}
           />
 
-          <View style={{marginTop: 5}}>
+          <View style={{ marginTop: 5 }}>
             <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
           </View>
         </View>

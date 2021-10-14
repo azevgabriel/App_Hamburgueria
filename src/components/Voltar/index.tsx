@@ -1,18 +1,19 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import {styles} from './styles';
 
-type Props = {
+interface Props extends TouchableOpacityProps{
   color: string;
 }
 
-export default function Voltar({color}: Props) {
+export default function Voltar({color, ...rest}: Props) {
     return(
-      <View style={styles.container}>
-        <TouchableOpacity>
-                    <AntDesign name="caretleft" size={25} color={color} />
-                </TouchableOpacity>
-      </View>
+        <TouchableOpacity 
+          style={styles.container}
+          {...rest}
+        >
+            <AntDesign name="caretleft" size={25} color={color} />
+        </TouchableOpacity>
     )
 }

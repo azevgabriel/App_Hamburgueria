@@ -6,7 +6,8 @@ import {
   ToastAndroid,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView
+  ScrollView,
+  Alert
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../Cadastro/styles";
@@ -16,7 +17,13 @@ import Button from "../../components/Button";
 import colors from "../../styles/colors";
 import { TextInputMask } from "react-native-masked-text";
 
-export default function Cadastro() {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../global/props';
+import { useAuth } from "../../hooks/useAuth";
+type Props = NativeStackScreenProps<RootStackParamList> ;
+
+export default function Cadastro({ navigation}:Props) {
+
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,6 +31,8 @@ export default function Cadastro() {
   const [inputError, setInputError] = useState("");
   let cpfField = null;
   let telefoneField = null;
+
+	const { login, loading } = useAuth();
 
 
   async function handleSubmit() {
@@ -48,6 +57,15 @@ export default function Cadastro() {
       return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
     }
     // Ir para Confirmação
+    try {
+			await login({cpf, senha : password});
+      if(!loading){
+        // Carregou o fectch
+        navigation.navigate('ViewCupons');
+      }
+		} catch (error) {
+			Alert.alert('Erro: '+error)
+		}
   }
 
   return (

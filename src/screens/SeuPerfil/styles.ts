@@ -6,7 +6,15 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
+  },
+  userContainer: {
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  iconPlus: {
+      fontSize: 30,
+      color: colors.green
   },
   box: {
     margin: 15,
@@ -16,8 +24,8 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
-    marginTop: 20,
-    marginBottom: 15
+    marginTop: 40,
+    marginBottom: 40
   },
   viewInput: {
     marginBottom: 60,
@@ -54,5 +62,20 @@ export const styles = StyleSheet.create({
     width: 2,
     height: '60%',
     backgroundColor: colors.shapeGray
-  }
+  },
+  plus: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      borderColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.white,
+      marginTop: -45,
+      marginLeft: 130,
+      shadowColor: colors.black,
+      shadowOpacity: 1,
+      shadowRadius: 6,
+      elevation: 7
+  },
 })

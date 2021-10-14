@@ -29,9 +29,7 @@
       "cpf": "555.757.566-55",
       "phone": "(35)777777777",
       "password": "698dc19d489c4e4db73e28a713eab07b",
-      "image": "https://github.com/thevinex.png",
-      "level": 5,
-      "burgers": 6
+      "image": "https://github.com/thevinex.png"
     }
   ],
   "cupom": [
@@ -125,24 +123,6 @@
       "user_id": 841618566,
       "coupon_id": 4894854684846,
       "remaining_uses": 1
-    },
-    {
-      "id": 22256981928178912,
-      "user_id": 12345678910,
-      "coupon_id": 9871891786628718962,
-      "remaining_uses": 1
-    },
-    {
-      "id": 888171715417171178912,
-      "user_id": 12345678910,
-      "coupon_id": 46187827871827871,
-      "remaining_uses": 1
-    },
-    {
-      "id": 3498071178912,
-      "user_id": 12345678910,
-      "coupon_id": 1783475384751454567,
-      "remaining_uses": 99999
     }
   ],
   "nivel": [
