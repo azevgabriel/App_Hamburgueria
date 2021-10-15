@@ -70,8 +70,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
              * ===========================================
              */
 
-            setUser(userReturn1)
-
             // Rota post para buscar o usuario (testar entre as duas rotas depois)
             //
             // const response = await api.post('login',{

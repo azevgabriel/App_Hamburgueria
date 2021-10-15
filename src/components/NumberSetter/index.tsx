@@ -54,6 +54,7 @@ export default function NumberSetter({title,numberOld,...rest} : SetterNumberPro
                     style={styles.button}
                     activeOpacity={0.6}
                     onPress={handleIncrease}
+                    {...rest}
                 >
                     <Text 
                         style={styles.buttonText}

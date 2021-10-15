@@ -20,6 +20,7 @@ import { RootStackParamList } from '../../global/props';
 
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../hooks/useAuth";
+import { TextInputMask } from "react-native-masked-text";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export default function NovoCupom({ navigation, route, ...rest }: Props) {
@@ -65,14 +66,13 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if(!cupom){
       try{
         await (newCupom({
-          // permitted_uses: number;
-          // image?: string;
-          // title?: string;
-          // expiration_date?: string;
-          // description?:string;
-          // fidelity?: boolean;
-          // level_id?:number;
-          // burgers_added?:number;
+          permitted_uses: 5,// Mudar para o valor
+          image: "",//pegar image
+          title: titulo,
+          expiration_date: datamax,
+          description:description,
+          fidelity: false,
+          burgers_added:5// Mudar para o valor
         }));
         navigation.navigate('ViewCupons')
       } catch (error) {
@@ -80,22 +80,22 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       }
     }else{      try{
       await (updateCupom({
-        id:1
-        // id: number;
-        // permitted_uses?: number;
-        // image?: string;
-        // title?: string;
-        // expiration_date?: string;
-        // description?:string;
-        // fidelity?: boolean;
-        // level_id?:number;
-        // burgers_added?:number;
+        id: cupom.id,
+        permitted_uses: 5,// Mudar para o valor
+        image: "",//pegar image
+        title: titulo,
+        expiration_date: datamax,
+        description: description,
+        fidelity: cupom.fidelity,
+        level_id: cupom.level_id,
+        burgers_added:5// Mudar para o valor
       }));
       navigation.navigate('ViewCupons')
     } catch (error) {
       Alert.alert('Erro: '+error)
     }
     }
+
   }
   return (
 
@@ -150,14 +150,19 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
           <NumberSetter title="Número de usos" numberOld={cupom?.permitted_uses} />
 
           <Text style={styles.titleInput}>Data máxima</Text>
-          <TextInput
-            placeholder="13/12/2021 ou indeterminado"
-            placeholderTextColor={colors.borderGray}
-            style={styles.input}
-            onChangeText={setDataMax}
-            value={datamax}
-          />
-
+          <TextInputMask
+              placeholder="Data"
+              placeholderTextColor={colors.shapeGray}
+              type={"datetime"}
+              options={{
+                format : 'DD/MM/AAAA'
+              }}
+              value={datamax}
+              onChangeText={setDataMax}
+              keyboardType="phone-pad"
+              returnKeyType="done"
+              style={styles.input}
+            />
           <View style={{ marginTop: 5 }}>
             <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
           </View>
