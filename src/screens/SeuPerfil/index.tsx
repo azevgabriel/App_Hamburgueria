@@ -139,7 +139,6 @@ export default function SeuPerfil({ navigation, }: Props) {
                   options={{
                     maskType: "BRL",
                     withDDD: true,
-                    dddMask: "(55) ",
                   }}
                   onChangeText={setPhone}
                   value={phone}

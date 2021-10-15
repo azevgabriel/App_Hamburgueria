@@ -51,7 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                         phone: "(35)999999999",
                         password: "698dc19d489c4e4db73e28a713eab07b",
                         image: "https://avatars.githubusercontent.com/u/73303855?v=4",
-                        level: 5,
+                        level: 2,
                         burgers: 50,
                     }
                 // User Admin (0)
@@ -69,6 +69,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
              *                      FIM 
              * ===========================================
              */
+
+            setUser(userReturn1)
 
             // Rota post para buscar o usuario (testar entre as duas rotas depois)
             //
