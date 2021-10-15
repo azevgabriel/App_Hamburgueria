@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   View,
   Text,
@@ -9,7 +10,6 @@ import {
   ScrollView,
   Alert
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../Cadastro/styles";
 import { useNavigation } from "@react-navigation/native";
 import CadastroFoto from "../../components/CadastroFoto";
@@ -32,7 +32,7 @@ export default function Cadastro({ navigation}:Props) {
   let cpfField = null;
   let telefoneField = null;
 
-	const { login, loading } = useAuth();
+	const { signUp,login, loading } = useAuth();
 
 
   async function handleSubmit() {
@@ -42,25 +42,63 @@ export default function Cadastro({ navigation}:Props) {
       phone: phone,
       password: password,
     };
-
     if (!name) {
       return ToastAndroid.show('Digite seu nome, por favor.',  ToastAndroid.SHORT);
-      
+    }
+    if (name.length > 100) {
+      return ToastAndroid.show('Nome muito grande.',  ToastAndroid.SHORT);
     }
     if (!cpf) {
       return ToastAndroid.show('Digite seu cpf, por favor.',  ToastAndroid.SHORT);
     }
+    if (cpf.length < 14) {
+      return ToastAndroid.show('CPF Invalido.',  ToastAndroid.SHORT);
+    }else{
+      const sumDigit = 
+      parseInt(cpf[0])
+      +parseInt(cpf[1])
+      +parseInt(cpf[2])
+      +parseInt(cpf[4])
+      +parseInt(cpf[5])
+      +parseInt(cpf[6])
+      +parseInt(cpf[8])
+      +parseInt(cpf[9])
+      +parseInt(cpf[10])
+      +parseInt(cpf[12])
+      +parseInt(cpf[13])
+      if(!((sumDigit.toString())[0] == (sumDigit.toString())[1]))
+      return ToastAndroid.show('CPF Invalido.',  ToastAndroid.SHORT);
+    }
     if (!phone) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.',  ToastAndroid.SHORT);
+    }
+    if (phone.length < 13) {
+      return ToastAndroid.show('Telefone Invalido.',  ToastAndroid.SHORT);
     }
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
     }
-    // Ir para Confirmação
+    if (password.length < 8) {
+      return ToastAndroid.show('Senha muito pequena.',  ToastAndroid.SHORT);
+    }
+    if (password.length > 20) {
+      return ToastAndroid.show('Senha muito grande.',  ToastAndroid.SHORT);
+    }
+
     try {
-			await login({cpf, senha : password});
+			await (signUp({
+        image: "",
+        cpf,
+        phone,
+        name,
+        password //criptografar
+      }));
       if(!loading){
-        // Carregou o fectch
+
+        setCpf('')
+        setName('')
+        setPhone('')
+        setPassword('')
         navigation.navigate('ViewCupons');
       }
 		} catch (error) {
@@ -70,7 +108,7 @@ export default function Cadastro({ navigation}:Props) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView style={{marginTop: 20}} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <Text style={styles.text}>Faça seu cadastro!</Text>
 
@@ -113,7 +151,6 @@ export default function Cadastro({ navigation}:Props) {
               options={{
                 maskType: "BRL",
                 withDDD: true,
-                dddMask: "(55) ",
               }}
               value={phone}
               onChangeText={(value) => {

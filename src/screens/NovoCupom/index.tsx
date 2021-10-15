@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ToastAndroid, TouchableWithoutFeedback, Keyboard, ScrollView, Image, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, ToastAndroid, TouchableWithoutFeedback, Keyboard, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
@@ -19,9 +19,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 
 import * as ImagePicker from 'expo-image-picker';
+import { useAuth } from "../../hooks/useAuth";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export default function NovoCupom({ navigation, route, ...rest }: Props) {
+  const { newCupom,updateCupom } = useAuth();
   const { cupom } = route.params as ObjectCupons;
   const [titulo, setTitulo] = useState(cupom?cupom.title:'');
   const [description, setDescription] = useState(cupom?cupom.description:'');
@@ -44,7 +46,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     navigation.navigate('ViewCupons')
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const data = {
       titulo: titulo,
       description: description,
@@ -60,8 +62,40 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if (!datamax) {
       return ToastAndroid.show('Digite a data corretamente por favor.', ToastAndroid.SHORT);
     }
-    // Salvamento via post
-    navigation.navigate('ViewCupons')
+    if(!cupom){
+      try{
+        await (newCupom({
+          // permitted_uses: number;
+          // image?: string;
+          // title?: string;
+          // expiration_date?: string;
+          // description?:string;
+          // fidelity?: boolean;
+          // level_id?:number;
+          // burgers_added?:number;
+        }));
+        navigation.navigate('ViewCupons')
+      } catch (error) {
+        Alert.alert('Erro: '+error)
+      }
+    }else{      try{
+      await (updateCupom({
+        id:1
+        // id: number;
+        // permitted_uses?: number;
+        // image?: string;
+        // title?: string;
+        // expiration_date?: string;
+        // description?:string;
+        // fidelity?: boolean;
+        // level_id?:number;
+        // burgers_added?:number;
+      }));
+      navigation.navigate('ViewCupons')
+    } catch (error) {
+      Alert.alert('Erro: '+error)
+    }
+    }
   }
   return (
 

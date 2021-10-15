@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, TextInput, Text, ToastAndroid } from "react-native";
+import { View, TouchableOpacity, TextInput, Text, ToastAndroid, Alert } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
 import Button from "../../components/Button";
-import { CupomProps, ObjectCupons } from "../../global/props";
+import { CupomProps, CuposAndLevels, ObjectCupons } from "../../global/props";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
+import { useAuth } from "../../hooks/useAuth";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
-
-  const { cupom } = route.params as ObjectCupons;
+  const {updateCupom, updateLevel} = useAuth();
+  const { cupom, level } = route.params as CuposAndLevels;
   useEffect(() => {
     setNumberOfBurgers(cupom.burgers_added?cupom.burgers_added:0)
-    // fazer o fech de hamburguinhos_fornecidos da tabela level
-    // setNumberOfBurgers(valor buscado)
+    setNumberOfBurgers(level.burgers_needed?level.burgers_needed:0)
   }, [])
   
   const [numberOfBurgers, setNumberOfBurgers] = useState<number>(0);
@@ -33,9 +33,28 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
       return ToastAndroid.show('Digite a descrição do prêmio, por favor.', ToastAndroid.SHORT);
     }
     // Salvar via post
-
+    try {
+			await (updateCupom({
+        id: cupom.id,
+        permitted_uses: cupom.permitted_uses,
+        image: cupom.image,
+        title: cupom.title,
+        expiration_date: cupom.expiration_date,
+        description:description,
+        fidelity: cupom.fidelity,
+        level_id:cupom.level_id,
+        burgers_added:cupom.burgers_added,
+      }));
+      await (updateLevel({
+        id: level.id,
+        level: level.level,
+        burgers_needed: numberOfBurgers
+      }));
+        navigation.navigate('VisualizarFidelidade')
+		} catch (error) {
+			Alert.alert('Erro: '+error)
+		}
     //
-    navigation.navigate('VisualizarFidelidade')
   }
 
   const handleButton = (type: string) => {

@@ -41,69 +41,83 @@ export function ViewCupons({ navigation }: Props) {
     }, [])
 
     async function fetchUserCupons() {
+
+        // Antigo Fetch
+        //
         // const { data } = await api.get('user_cupom?user_id='+user.id);
         // user_cupons = data;
+        //
+
+        /**
+         * ===========================================
+         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
+         * ===========================================
+         */
+        user_cupons = [
+            {
+                id: 17861789178278718,
+                user_id: 841618566,
+                coupon_id: 46187827871827871,
+                remaining_uses: 1
+            },
+            {
+                id: 4448148217871198781,
+                user_id: 841618566,
+                coupon_id: 4894854684846,
+                remaining_uses: 1
+            }
+        ]
         fetchCupons();
     }
 
     async function fetchCupons() {
-        // for (let index = 0; index < user_cupons.length; index++) {
-        //     const id_cupom = user_cupons[index].coupon_id;
-        //     const { data } = await api.get('cupom?id='+id_cupom);
-        //     const cupom:CupomProps = data[0];
-        //     cupons[index] = cupom;
-        //     cupons_and_user_cupons[index] = {
-        //         user_cupom : user_cupons[index],
-        //         cupom: cupons[index]
-        //     }
-        // }
-        
-        // Teste de valores de cupons
-        setCupons_and_user_cupons(
-            [
-                {
-                    user_cupom: {
-                        id: 17861789178278718,
-                        user_id: 841618566,
-                        coupon_id: 46187827871827871,
-                        remaining_uses: 1
-                    },
-                    cupom: {
-                        id: 46187827871827871,
-                        permitted_uses: 2,
-                        image: "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
-                        title: "Na compra de hamburguer teste maximo de charactere",
-                        expiration_date: "25/12/2021",
-                        description: "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
-                        fidelity: false,
-                        level_id: 0,
-                        burgers_added: 4
-                    }
-                },
-                {
-                    user_cupom: {
-                        id: 4448148217871198781,
-                        user_id: 841618566,
-                        coupon_id: 4894854684846,
-                        remaining_uses: 1
-                    },
-                    cupom: {
-                        id: 4894854684846,
-                        permitted_uses: 1,
-                        image: "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
-                        title: "Atingiu Nivel 1",
-                        description: "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
-                        fidelity: true,
-                        level_id: 1,
-                        burgers_added: 0
-                    }
-                }
-            ]
-        )
+
+        /**
+         * ===========================================
+         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
+         * ===========================================
+         */
+        cupons = [
+            {
+                id: 46187827871827871,
+                permitted_uses: 2,
+                image: "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
+                title: "Na compra de hamburguer teste maximo de charactere",
+                expiration_date: "25/12/2021",
+                description: "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
+                fidelity: false,
+                level_id: 0,
+                burgers_added: 4
+            },
+            {
+                id: 4894854684846,
+                permitted_uses: 1,
+                image: "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
+                title: "Atingiu Nivel 1",
+                description: "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
+                fidelity: true,
+                level_id: 1,
+                burgers_added: 0
+            }
+        ]
+        for (let index = 0; index < user_cupons.length; index++) {
+            const id_cupom = user_cupons[index].coupon_id;
+            // Antigo Fetch
+            //
+            // const { data } = await api.get('cupom?id='+id_cupom);
+            // const cupom:CupomProps = data[0];
+            // cupons[index] = cupom;
+            cupons_and_user_cupons[index] = {
+                user_cupom : user_cupons[index],
+                cupom: cupons[index]
+            }
+        }
         setLoadData(true);
     }
 
     async function fetchAllCupons() {
+        // Antigo Fetch
+        //
         // const { data } = await api.get('cupom');
         // const AllCuponsLoad:CupomProps[] = data;
         // var NumCupons = 0;
@@ -114,7 +128,11 @@ export function ViewCupons({ navigation }: Props) {
         //     }
         // }
 
-        // Teste de valores de cupons
+        /**
+         * ===========================================
+         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
+         * ===========================================
+         */
         setAllCupons([
             {
                 id: 9871891786628718962,
@@ -143,9 +161,7 @@ export function ViewCupons({ navigation }: Props) {
     }
 
     function handleCupomSelect(item: CupomProps) {
-        // Recebendo os dados do cupom, encaminhar para outra tela do user padrao
-        // Tela 7 passando como parametro o cupom e o tipo de usuario
-
+        
         navigation.navigate('CupomDescription',{
             cupom: item
         });
@@ -154,15 +170,20 @@ export function ViewCupons({ navigation }: Props) {
     function handleProfile(){
         navigation.navigate('SeuPerfil');
     }
+
     function handleAdd(){
         navigation.navigate('NovoCupom',{})
     }
+    
     function handleFidelity(){
         user.type
         ?
         navigation.navigate('FidelidadeTela')
         :
         navigation.navigate('VisualizarFidelidade')
+    }
+    function handleQrCodeColeted(id_user_cupom: number){
+        // post da rota
     }
     return (
         <View style={styles.container}>
@@ -172,7 +193,7 @@ export function ViewCupons({ navigation }: Props) {
                 </View>
                 <View style={styles.viewimage}>
                     {
-                        user.image
+                        user.image && user.image != ""
                             ?
                             <Image style={styles.image} source={{ uri: user.image }} />
                             :

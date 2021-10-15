@@ -8,7 +8,8 @@ import {
   Keyboard,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import CadastroFoto from "../../components/CadastroFoto";
 import BotaoTab from "../../components/BotãoTab";
@@ -28,10 +29,10 @@ import * as ImagePicker from 'expo-image-picker';
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function SeuPerfil({ navigation, }: Props) {
-  const {user} = useAuth()
+	const { update, user, loading } = useAuth();
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
-  const [password, setPassword] = useState(user.password);
+  const [password, setPassword] = useState('');
   let telefoneField = null;
 
   let openImagePickerAsync = async () => {
@@ -51,29 +52,55 @@ export default function SeuPerfil({ navigation, }: Props) {
     const data = {
       name: name,
       phone: phone,
-      password: password,
+      password: password, //ccriptografar
     };
 
     if (!name) {
       return ToastAndroid.show('Digite seu nome, por favor.', ToastAndroid.SHORT);
     }
+    if (name.length > 100) {
+      return ToastAndroid.show('Nome muito grande.',  ToastAndroid.SHORT);
+    }
     if (!phone) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
+    }
+    if (phone.length < 13) {
+      return ToastAndroid.show('Telefone Invalido.',  ToastAndroid.SHORT);
     }
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
     }
+    if (password.length < 8) {
+      return ToastAndroid.show('Senha muito pequena.',  ToastAndroid.SHORT);
+    }
+    try {
+			await (update({
+        id: user.id,
+        image: "",
+        phone,
+        name,
+        password
+      }));
+      if(!loading){
+        // Carregou o fectch
+        navigation.navigate('ViewCupons');
+      }
+		} catch (error) {
+			Alert.alert('Erro: '+error)
+		}
     navigation.navigate('ViewCupons')
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView>
+      <ScrollView style={{marginTop:20}}>
         <View style={styles.container}>
           <View style={styles.box}>
             <Text style={styles.title}>Seu Perfil</Text>
 
             {
             user
+              ?
+              user.image && user.image != ""
               ?
               <View style={styles.userContainer}>
                 <Image source={{ uri: user.image }} style={{ width: 140, height: 140, }} />
@@ -87,7 +114,8 @@ export default function SeuPerfil({ navigation, }: Props) {
                   </Text>
                 </TouchableOpacity>
               </View>
-
+              :
+              <CadastroFoto />
               :
               <CadastroFoto />
           }

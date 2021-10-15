@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 import { styles } from './styles';
 
-interface SetterNumberProps{
+interface SetterNumberProps extends TouchableOpacityProps{
     title: string;
     numberOld?:number;
 }
 
-export default function NumberSetter({title,numberOld} : SetterNumberProps){
+export default function NumberSetter({title,numberOld,...rest} : SetterNumberProps){
 
     const [number, setNumber] = useState(0);
 

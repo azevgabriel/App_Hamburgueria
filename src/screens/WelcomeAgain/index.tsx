@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TextInput, Alert } from "react-native";
+import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView } from "react-native";
 import api from "../../services/api";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
@@ -23,6 +23,14 @@ export default function WelcomeAgain({ navigation }: Props) {
 
 
   async function handleSubmit() {
+
+    if (!cpf) {
+      return ToastAndroid.show('Digite o CPF, por favor.', ToastAndroid.SHORT);
+    }
+    if (!password) {
+      return ToastAndroid.show('Digite a Senha, por favor.', ToastAndroid.SHORT);
+    }
+
 		try {
 			await login({cpf, senha : password});
       if(!loading){
@@ -35,7 +43,7 @@ export default function WelcomeAgain({ navigation }: Props) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={icon} resizeMode="contain" style={styles.logo} />
         <Text style={styles.welcomeText}>Bem vindo(a)</Text>
@@ -68,6 +76,6 @@ export default function WelcomeAgain({ navigation }: Props) {
         <Text style={styles.ofertaText}>Aproveite nossas ofertas!</Text>
         <Button color={colors.darkGray} title="Bora!" onPress={handleSubmit} />
       </View>
-    </View>
+    </ScrollView>
   );
 }

@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
   },
   viewInput: {

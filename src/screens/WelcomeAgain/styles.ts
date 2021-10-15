@@ -5,10 +5,13 @@ import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
     container: {
+      marginTop:20,
       flex: 1,
+      height: '100%',
       flexDirection: 'column'
     },
     logoContainer: {
+      marginTop:50,
       flex: 5,
       justifyContent: 'center',
       alignItems: 'center'
@@ -51,6 +54,7 @@ export const styles = StyleSheet.create({
       alignItems: 'flex-end'
     },
     ofertaText:{
+      marginTop: 20,
       color: colors.darkGray,
       fontSize: 16,
       fontFamily: fonts.Jost_600SemiBold

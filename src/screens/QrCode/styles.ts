@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     },
     textDescHam:{
         fontFamily: fonts.Jost_400Regular,
-        fontSize:40,
+        fontSize:30,
         color: colors.darkGray,
         fontWeight: 'bold',
     },
