@@ -10,77 +10,52 @@ export const styles = StyleSheet.create({
     container:{
         backgroundColor: '#fbe292',
         flex: 1,
-        alignItems: 'center',
-        padding: 5,
-        paddingTop: 10
+        alignItems: 'center'
     },
     back:{
         width:largura,
         bottom:altura/50,
-        left:largura*0.05,
+        paddingHorizontal: '5%',
+        marginTop: 20
     },
     textViewP:{
-        width:largura/1.5,
-        flex:0.2,
-        textAlign: 'center',
-        flexDirection: 'row',
+        paddingHorizontal: '5%',
+        marginTop: 20,
+        width:largura,
+        flex:0.3,
         justifyContent:'center',
         fontSize:16,
-        fontFamily: fonts.Jost_600SemiBold,
-        color: colors.darkGray,
     },
     textDescHam:{
-        fontFamily: fonts.Jost_400Regular,
+        fontFamily: fonts.Jost_600SemiBold,
         fontSize:30,
-        color: colors.darkGray,
-        fontWeight: 'bold',
+        color: colors.black,
+        textAlign: 'center'
     },
     cupomPicture:{
         alignItems: 'center',
+        justifyContent: 'center',
         flex: 0.9,
-        borderColor:colors.borderGray,
-        width:largura/1.5,
-        height:altura,
-    },
-    imagem:{
-        width:largura/1.5,
-        flex: 1,
-        padding:30,
-        height:altura,
+        width:largura,
+        paddingHorizontal: '5%'
     },
     textViewS:{
-        marginTop:40,
-        marginBottom:30,
-        fontFamily: fonts.Jost_600SemiBold,
         flex:0.5,
-        textAlign: 'center',
-        flexDirection:'column',
-        justifyContent:'center',
-        width:largura/1.2,
+        width:largura,
+        paddingHorizontal: '5%',
+        justifyContent: 'center'
     },
     textS:{
+        fontFamily: fonts.Jost_600SemiBold,
         fontSize:23,
-        flex:1,
         color:colors.darkGray,
-        fontFamily: fonts.Jost_400Regular,
-        fontWeight:'bold',
-        justifyContent:'center',
-        alignItems:'center',
         textAlign:'center',
     },
-      HamIconText:{
-        fontFamily: fonts.Jost_400Regular,
-        fontSize:20,
-        color: colors.darkGray,
-        fontWeight: 'bold',
-      },
-      botao:{
-        fontFamily: fonts.Jost_600SemiBold,
-        justifyContent:'center',
-        textAlign:'center',
-        width: largura/1.5,
-        borderRadius:10,
-        backgroundColor: colors.darkGray,
-        flex:0.15,
+    botao:{
+    justifyContent:'center',
+    textAlign:'center',
+    width: largura,
+    flex:0.3,
+    paddingHorizontal: '5%'
     },
 })
