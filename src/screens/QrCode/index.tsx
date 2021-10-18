@@ -34,13 +34,14 @@ export default function QrCode({ navigation, route, ...rest}:Props) {
     function handleBack(){
         navigation.navigate('ViewCupons')
     }
+
     return (
         <View style={styles.container}>
             <View style={styles.back}>
                 <Voltar color='black' onPress={handleBack}/>
             </View>
             <View style={styles.textViewP}>
-                <Text style={styles.textDescHam}>{cupom.title}</Text>
+                <Text style={styles.textDescHam}>{cupom.title?.substring(0,15)+'...'}</Text>
             </View>
             <View style={styles.cupomPicture}>
                 <QRCode

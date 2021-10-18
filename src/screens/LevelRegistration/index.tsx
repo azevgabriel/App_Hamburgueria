@@ -71,7 +71,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity onPress={handleBack}>
-          <AntDesign name="caretleft" size={25} color="black" />
+          <AntDesign name="left" size={25} color="black" />
         </TouchableOpacity>
         {/* Fazer o fech de nivel */}
         <Text style={styles.title}>Nível 1</Text>

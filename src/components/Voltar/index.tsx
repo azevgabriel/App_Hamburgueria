@@ -13,7 +13,7 @@ export default function Voltar({color, ...rest}: Props) {
           style={styles.container}
           {...rest}
         >
-            <AntDesign name="caretleft" size={25} color={color} />
+            <AntDesign name="left" size={25} color={color} />
         </TouchableOpacity>
     )
 }

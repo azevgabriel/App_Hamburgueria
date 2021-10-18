@@ -70,7 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
              * ===========================================
              */
 
-            setUser(userReturn1)
+            setUser(userReturn2)
 
             // Rota post para buscar o usuario (testar entre as duas rotas depois)
             //

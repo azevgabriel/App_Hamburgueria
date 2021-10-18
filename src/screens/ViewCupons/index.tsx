@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {
     View,
     FlatList,
-    Image
+    Image,
+    TextInput,
+    TouchableOpacity,
+    Modal,
+    ToastAndroid,
+    Text
 } from 'react-native';
 
 import { styles } from './styles';
@@ -11,13 +16,16 @@ import Header from '../../components/Header';
 import { Cupom } from '../../components/Cupom';
 import BotaoTab from '../../components/BotãoTab';
 import { Load } from '../../components/Load';
+import  QRScanner  from '../../components/QRScanner';
 import { CupomProps, UserCupomProps, UserProps } from '../../global/props';
 import api from '../../services/api';
 import userImg from '../../assets/hamburger.png';
+import { AntDesign } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
+import Button from '../../components/Button';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 interface Cupom_UserCupomProps {
@@ -31,6 +39,19 @@ export function ViewCupons({ navigation }: Props) {
     var [cupons_and_user_cupons, setCupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
     const [loadData, setLoadData] = useState(false);
     const { user, loading } = useAuth();
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const onCodeScanned = (type: string, data: string) => {
+        console.log(data);
+        ToastAndroid.showWithGravityAndOffset(
+            "QRCode lido com sucesso!",
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50
+          );
+        setModalVisible(false);
+    }
 
     useEffect(() => {
         user.type
@@ -252,6 +273,52 @@ export function ViewCupons({ navigation }: Props) {
                                 <Load />
                         }
                     </View>
+            }
+
+            <View>
+                <Modal
+                    visible={modalVisible}
+                    transparent={true}
+                    animationType="fade"
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={styles.QRModal}>
+                        <QRScanner onCodeScanned = {onCodeScanned} />
+                        <TouchableOpacity 
+                            onPress={() => setModalVisible(false)}
+                            style={styles.cancelButton}
+                        >
+                            <AntDesign name="closecircleo" size={50} color="white" />
+                        </TouchableOpacity>
+                        
+                    </View>
+                </Modal>
+            </View>
+
+            {
+                user.type
+                
+                ?
+
+                'NA'
+
+                :
+
+                <View style={styles.QRCode}>
+                    <TextInput
+                        placeholder="Cole o código aqui"
+                        style={styles.inputQRCode}
+                    />
+                    <TouchableOpacity style={styles.icons}>
+                        <AntDesign name="search1" size={25} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.icons}
+                        onPress={() => setModalVisible(true)}
+                    >
+                        <AntDesign name="qrcode" size={25} color="white" />
+                    </TouchableOpacity>
+                </View>
             }
 
             <View style={styles.tab}>
