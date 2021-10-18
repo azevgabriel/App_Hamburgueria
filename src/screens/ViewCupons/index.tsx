@@ -42,7 +42,9 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible, setModalVisible] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
-        console.log(data);
+        // Essa é a função que será chamada quando um QR Code for lido com sucesso!
+        console.log(type); // type é o tipo de código que o scanner leu. Geralmente é o número 256, mas acho que esse dado não importa muito pra gente
+        console.log(data); // data é o valor que foi usado na criação do QR Code. No nosso caso, data será o id do user_coupon
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
             ToastAndroid.LONG,
@@ -300,7 +302,7 @@ export function ViewCupons({ navigation }: Props) {
                 
                 ?
 
-                'NA'
+                null
 
                 :
 
@@ -321,7 +323,7 @@ export function ViewCupons({ navigation }: Props) {
                 </View>
             }
 
-            <View style={styles.tab}>
+            <View style={user.type? styles.tabUser : styles.tabAdm}>
                 <BotaoTab
                     title={"🏆 Fidelidade"}
                     style={styles.spaceTab}

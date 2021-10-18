@@ -77,13 +77,22 @@ export const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 30
   },
-  tab: {
+  tabAdm: {
     flexDirection: 'row',
 
     justifyContent: 'center',
     alignItems: 'center',
 
 
+    flex: 1.3,
+  },
+  tabUser: {
+    flexDirection: 'row',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopColor: 'rgba(0,0,0,0.2)',
+    borderTopWidth: 2,
     flex: 1.3,
   },
   spaceTab: {

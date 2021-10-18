@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.Jost_400Regular,
     fontSize: 24,
-    color: colors.white
+    color: colors.white,
+    textAlign: 'center'
   },
   container: {
     flex: 1,
