@@ -11,6 +11,7 @@ import { AuthProvider } from './src/contexts/AuthContext';
 import Welcome from "./src/screens/Welcome";
 import { LevelRegistration } from "./src/screens/LevelRegistration";
 import Cadastro from "./src/screens/Cadastro";
+import CadastroFoto from "./src/components/CadastroFoto";
 
 export default function App() {
 
@@ -26,9 +27,11 @@ export default function App() {
     return <Load />;
   }
 
-  return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
-  )
+  // return (
+  //   <AuthProvider>
+  //     <Routes />
+  //   </AuthProvider>
+  // )
+
+  return <CadastroFoto />
 }
