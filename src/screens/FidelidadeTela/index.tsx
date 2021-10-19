@@ -34,14 +34,42 @@ export default function FidelidadeTela({ navigation }: Props) {
     setLoading(true)
     const response = await listAllLevel();
     setLevels(response)
+    if(user.level && user.level > 1 && user.level < 5){
+      const valueMax = response[user.level].burgers_needed;
+      let valueMin;
+        valueMin = response[user.level - 1].burgers_needed;
+        if(valueMax && valueMin && user.burgers){
+          const value = valueMax - valueMin;
+          const burguers = user.burgers - valueMin;
+          setProgresso(burguers/value)
+      }
+    }else{
+      setProgresso(1)
+    }
     fetchBurguerLevel()
   }
   async function fetchBurguerLevel() {
     const response = await listBurguerLevel();
     setCupomLevels(response);
-
     setLoading(false)
   }
+  // function setBar(){
+  //   let valueMax;
+  //   let valueMin;
+  //   if(user.level && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level){
+  //     valueMax =  levels[user.level].burgers_needed;
+  //     if(user.level > 1){
+  //       valueMin = levels[user.level - 1].burgers_needed;
+  //     }else{
+  //       valueMin = 0
+  //     }
+  //     if(valueMax && valueMin && user.burgers){
+  //       const value = valueMax - valueMin;
+  //       const burguers = user.burgers - valueMin;
+  //       return value/ burguers
+  //     }
+  //   }
+  // }
   function handleBack() {
     navigation.navigate('ViewCupons')
   }
@@ -93,7 +121,7 @@ export default function FidelidadeTela({ navigation }: Props) {
               }
             </Text>
           </View>
-            <ProgressBar progress={0.33} color={Colors.orange400} style={styles.progressBar}/>
+            <ProgressBar progress={progresso} color={Colors.orange400} style={styles.progressBar}/>
           <View style={{ justifyContent: 'center', alignItems:'center'}}>
             <Text>
               {user.burgers}🍔
