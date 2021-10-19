@@ -1,5 +1,6 @@
 import * as React from "react";
-import { View, Image, Text, Dimensions, ProgressBarAndroid, ScrollView } from "react-native";
+import { View, Image, Text, Dimensions, ScrollView } from "react-native";
+import { ProgressBar, Colors } from 'react-native-paper';
 import { Feather } from "@expo/vector-icons";
 import img from "../../../assets/image-solid.png";
 import { styles } from "./styles";
@@ -18,7 +19,6 @@ import { RootStackParamList } from '../../global/props';
 type Props = NativeStackScreenProps<RootStackParamList>;
 const largura = Dimensions.get("window").width;
 const altura = Dimensions.get("window").height;
-
 
 export default function FidelidadeTela({ navigation }: Props) {
   const { user,listAllLevel,listBurguerLevel } = useAuth();
@@ -93,7 +93,7 @@ export default function FidelidadeTela({ navigation }: Props) {
               }
             </Text>
           </View>
-            <ProgressBarAndroid  styleAttr="Horizontal" color='orange' />
+            <ProgressBar progress={0.33} color={Colors.orange400} style={styles.progressBar}/>
           <View style={{ justifyContent: 'center', alignItems:'center'}}>
             <Text>
               {user.burgers}🍔

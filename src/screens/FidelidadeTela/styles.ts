@@ -61,5 +61,10 @@ export const styles = StyleSheet.create({
     marginBottom: 40,
     width: largura,
     alignItems: 'center'
+  },
+  progressBar: {
+    borderRadius: 50,
+    height:altura/60
   }
+  
 });
