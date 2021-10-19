@@ -11,6 +11,21 @@ export default function CadastroFoto(){
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  // Abre a câmera do dispositivo
+  async function takeAndUploadPhotoAsync(){
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if(result.cancelled){
+      return;
+    }
+
+    console.log(result);
+  }
+
+  // Escolher imagem da galeria
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -42,7 +57,7 @@ export default function CadastroFoto(){
           <View style={styles.modalView}>
             <Pressable
                 style={styles.buttonChoose}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={takeAndUploadPhotoAsync}
               >
                 <Text>Abrir câmera</Text>
             </Pressable>
