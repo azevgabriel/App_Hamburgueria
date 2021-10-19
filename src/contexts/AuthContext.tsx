@@ -51,8 +51,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                         phone: "(35)999999999",
                         password: "698dc19d489c4e4db73e28a713eab07b",
                         image: "https://avatars.githubusercontent.com/u/73303855?v=4",
-                        level: 2,
-                        burgers: 50,
+                        level: 1,
+                        burgers: 10,
                     }
                 // User Admin (0)
                     const userReturn2 = {
@@ -123,12 +123,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
             {
               id: 1111111111111,
               level: 1,
-              burgers_needed: 15
+              burgers_needed: 1
             },
             {
               id: 2084804890480404,
               level: 2,
-              burgers_needed: 40
+              burgers_needed: 30
             },
             {
               id: 7070707087287189611,

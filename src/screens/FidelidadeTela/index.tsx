@@ -34,14 +34,19 @@ export default function FidelidadeTela({ navigation }: Props) {
     setLoading(true)
     const response = await listAllLevel();
     setLevels(response)
-    if (user.level && user.level > 1 && user.level < 5) {
+
+    if (user.level && user.level > 0 && user.level < 5) {
       const valueMax = response[user.level].burgers_needed;
       let valueMin;
-      valueMin = response[user.level - 1].burgers_needed;
-      if (valueMax && valueMin && user.burgers) {
-        const value = valueMax - valueMin;
-        const burguers = user.burgers - valueMin;
-        setProgresso(burguers / value)
+
+      if(user.level === 1)
+        valueMin = 0
+      else
+        valueMin = response[user.level - 1].burgers_needed;
+
+      if (valueMax != undefined && valueMin != undefined && user.burgers != undefined) {
+        const value = (user.burgers - valueMin) / (valueMax - valueMin);
+        setProgresso(value)
       }
     } else {
       setProgresso(1)
@@ -53,23 +58,6 @@ export default function FidelidadeTela({ navigation }: Props) {
     setCupomLevels(response);
     setLoading(false)
   }
-  // function setBar(){
-  //   let valueMax;
-  //   let valueMin;
-  //   if(user.level && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level){
-  //     valueMax =  levels[user.level].burgers_needed;
-  //     if(user.level > 1){
-  //       valueMin = levels[user.level - 1].burgers_needed;
-  //     }else{
-  //       valueMin = 0
-  //     }
-  //     if(valueMax && valueMin && user.burgers){
-  //       const value = valueMax - valueMin;
-  //       const burguers = user.burgers - valueMin;
-  //       return value/ burguers
-  //     }
-  //   }
-  // }
   function handleBack() {
     navigation.navigate('ViewCupons')
   }
@@ -108,7 +96,7 @@ export default function FidelidadeTela({ navigation }: Props) {
                     :
                     ''
                   :
-                  '--'
+                  ''
               }🍔
             </Text>
             <Text>
@@ -121,7 +109,7 @@ export default function FidelidadeTela({ navigation }: Props) {
                     :
                     ''
                   :
-                  '--'
+                  ''
               }
             </Text>
           </View>
