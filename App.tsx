@@ -27,11 +27,9 @@ export default function App() {
     return <Load />;
   }
 
-  // return (
-  //   <AuthProvider>
-  //     <Routes />
-  //   </AuthProvider>
-  // )
-
-  return <CadastroFoto />
+  return (
+    <AuthProvider>
+    <Routes />
+    </AuthProvider>
+  );
 }
