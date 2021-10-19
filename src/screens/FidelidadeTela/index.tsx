@@ -35,15 +35,15 @@ export default function FidelidadeTela({ navigation }: Props) {
     const response = await listAllLevel();
     setLevels(response)
 
-    if (user.level && user.level > 0 && user.level < 5) {
+    if (user.level != undefined && user.level < 5) {
       const valueMax = response[user.level].burgers_needed;
       let valueMin;
 
-      if(user.level === 1)
+      if(user.level === 0)
         valueMin = 0
       else
         valueMin = response[user.level - 1].burgers_needed;
-
+        
       if (valueMax != undefined && valueMin != undefined && user.burgers != undefined) {
         const value = (user.burgers - valueMin) / (valueMax - valueMin);
         setProgresso(value)
@@ -88,10 +88,14 @@ export default function FidelidadeTela({ navigation }: Props) {
           }}>
             <Text>
               {
-                user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level
+                user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level != undefined
                   ?
                   user.level < 5
                     ?
+                    user.level === 0
+                    ?
+                    '0'
+                    :
                     levels[user.level - 1].burgers_needed
                     :
                     ''
@@ -101,7 +105,7 @@ export default function FidelidadeTela({ navigation }: Props) {
             </Text>
             <Text>
               🍔{
-                user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level
+                user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level != undefined
                   ?
                   user.level < 5
                     ?
@@ -117,7 +121,7 @@ export default function FidelidadeTela({ navigation }: Props) {
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text>
               {
-                user.level && user.level < 5
+                user.level != undefined && user.level < 5
                   ?
                   user.burgers
                   :
