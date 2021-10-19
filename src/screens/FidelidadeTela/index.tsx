@@ -21,9 +21,9 @@ const largura = Dimensions.get("window").width;
 const altura = Dimensions.get("window").height;
 
 export default function FidelidadeTela({ navigation }: Props) {
-  const { user,listAllLevel,listBurguerLevel } = useAuth();
+  const { user, listAllLevel, listBurguerLevel } = useAuth();
   const [progresso, setProgresso] = React.useState(0.0);
-  const [loading,setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   const [levels, setLevels] = React.useState<NivelProps[]>([] as NivelProps[]);
   const [cupomLevels, setCupomLevels] = React.useState<CupomProps[]>([] as CupomProps[]);
 
@@ -34,16 +34,16 @@ export default function FidelidadeTela({ navigation }: Props) {
     setLoading(true)
     const response = await listAllLevel();
     setLevels(response)
-    if(user.level && user.level > 1 && user.level < 5){
+    if (user.level && user.level > 1 && user.level < 5) {
       const valueMax = response[user.level].burgers_needed;
       let valueMin;
-        valueMin = response[user.level - 1].burgers_needed;
-        if(valueMax && valueMin && user.burgers){
-          const value = valueMax - valueMin;
-          const burguers = user.burgers - valueMin;
-          setProgresso(burguers/value)
+      valueMin = response[user.level - 1].burgers_needed;
+      if (valueMax && valueMin && user.burgers) {
+        const value = valueMax - valueMin;
+        const burguers = user.burgers - valueMin;
+        setProgresso(burguers / value)
       }
-    }else{
+    } else {
       setProgresso(1)
     }
     fetchBurguerLevel()
@@ -73,12 +73,12 @@ export default function FidelidadeTela({ navigation }: Props) {
   function handleBack() {
     navigation.navigate('ViewCupons')
   }
-  function handleNivel(nivel:Number){
+  function handleNivel(nivel: Number) {
     nivel === user.level
-    ?
-    navigation.navigate('PassouNivel')
-    :
-    nivel = nivel
+      ?
+      navigation.navigate('PassouNivel')
+      :
+      nivel = nivel
   }
   return (
     <View style={styles.container}>
@@ -100,31 +100,41 @@ export default function FidelidadeTela({ navigation }: Props) {
           }}>
             <Text>
               {
-              user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level
-              ?
-              levels[user.level - 1].burgers_needed
-              :
-              '--'
+                user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level
+                  ?
+                  user.level < 5
+                    ?
+                    levels[user.level - 1].burgers_needed
+                    :
+                    ''
+                  :
+                  '--'
               }🍔
             </Text>
             <Text>
               🍔{
                 user && !loading && cupomLevels.length > 0 && levels.length > 0 && user.level
-                ?
-                user.level < 5
-                ?
-                levels[user.level].burgers_needed
-                :
-                'Fim'
-                :
-                '--'
+                  ?
+                  user.level < 5
+                    ?
+                    levels[user.level].burgers_needed
+                    :
+                    ''
+                  :
+                  '--'
               }
             </Text>
           </View>
-            <ProgressBar progress={progresso} color={Colors.orange400} style={styles.progressBar}/>
-          <View style={{ justifyContent: 'center', alignItems:'center'}}>
+          <ProgressBar progress={progresso} color={Colors.orange400} style={styles.progressBar} />
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text>
-              {user.burgers}🍔
+              {
+                user.level && user.level < 5
+                  ?
+                  user.burgers
+                  :
+                  ''
+              }🍔
             </Text>
           </View>
         </View>
@@ -132,16 +142,16 @@ export default function FidelidadeTela({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.cupom}>
         {
           user && !loading && cupomLevels.length > 0 && levels.length > 0
-          ?
-          <View>
-            <Fidelidade onPress={() => handleNivel(1)} nivel={1} image={cupomLevels[0].image} hamburguinhos={levels[0].burgers_needed?levels[0].burgers_needed:0} texto={cupomLevels[0].description?cupomLevels[0].description:""} checked={user.level == 1} />
-            <Fidelidade onPress={() => handleNivel(2)} nivel={2} image={cupomLevels[1].image} hamburguinhos={levels[1].burgers_needed?levels[1].burgers_needed:0} texto={cupomLevels[1].description?cupomLevels[1].description:""} checked={user.level == 2} />
-            <Fidelidade onPress={() => handleNivel(3)} nivel={3} image={cupomLevels[2].image} hamburguinhos={levels[2].burgers_needed?levels[2].burgers_needed:0} texto={cupomLevels[2].description?cupomLevels[2].description:""} checked={user.level == 3} />
-            <Fidelidade onPress={() => handleNivel(4)} nivel={4} image={cupomLevels[3].image} hamburguinhos={levels[3].burgers_needed?levels[3].burgers_needed:0} texto={cupomLevels[3].description?cupomLevels[3].description:""} checked={user.level == 4} />
-            <Fidelidade onPress={() => handleNivel(5)} nivel={5} image={cupomLevels[4].image} hamburguinhos={levels[4].burgers_needed?levels[4].burgers_needed:0} texto={cupomLevels[4].description?cupomLevels[4].description:""} checked={user.level == 5} />
-          </View>
-          :
-          <Load />
+            ?
+            <View>
+              <Fidelidade onPress={() => handleNivel(1)} nivel={1} image={cupomLevels[0].image} hamburguinhos={levels[0].burgers_needed ? levels[0].burgers_needed : 0} texto={cupomLevels[0].description ? cupomLevels[0].description : ""} checked={user.level == 1} />
+              <Fidelidade onPress={() => handleNivel(2)} nivel={2} image={cupomLevels[1].image} hamburguinhos={levels[1].burgers_needed ? levels[1].burgers_needed : 0} texto={cupomLevels[1].description ? cupomLevels[1].description : ""} checked={user.level == 2} />
+              <Fidelidade onPress={() => handleNivel(3)} nivel={3} image={cupomLevels[2].image} hamburguinhos={levels[2].burgers_needed ? levels[2].burgers_needed : 0} texto={cupomLevels[2].description ? cupomLevels[2].description : ""} checked={user.level == 3} />
+              <Fidelidade onPress={() => handleNivel(4)} nivel={4} image={cupomLevels[3].image} hamburguinhos={levels[3].burgers_needed ? levels[3].burgers_needed : 0} texto={cupomLevels[3].description ? cupomLevels[3].description : ""} checked={user.level == 4} />
+              <Fidelidade onPress={() => handleNivel(5)} nivel={5} image={cupomLevels[4].image} hamburguinhos={levels[4].burgers_needed ? levels[4].burgers_needed : 0} texto={cupomLevels[4].description ? cupomLevels[4].description : ""} checked={user.level == 5} />
+            </View>
+            :
+            <Load />
         }
       </ScrollView>
     </View>
