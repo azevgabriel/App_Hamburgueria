@@ -8,12 +8,16 @@ import icon from '../../assets/nivel.png';
 import Button from '../../components/Button';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../global/props';
+import { CupomProps, ObjectCupons, RootStackParamList } from '../../global/props';
+import { useAuth } from '../../hooks/useAuth';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function PassouNivel({ navigation }: Props){
-  function handleNext(){
+export default function PassouNivel({ navigation, route, ...rest }: Props){
+  const {create_user_cupom, user} = useAuth();
+  const  cupom  = route.params as CupomProps;
+  async function handleNext(){
+    await create_user_cupom(cupom.id, user);
     navigation.navigate('FidelidadeTela')
   }
   return(

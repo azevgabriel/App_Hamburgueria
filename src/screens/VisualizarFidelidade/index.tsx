@@ -13,7 +13,7 @@ import { useAuth } from '../../hooks/useAuth';
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function PassouNivel({ navigation }: Props) {
-  const { listAllLevel,listBurguerLevel } = useAuth();
+  const { listAllLevel,listCupons } = useAuth();
   const [loading,setLoading] = React.useState(false)
   const [levels, setLevels] = React.useState<NivelProps[]>([] as NivelProps[]);
   const [cupomLevels, setCupomLevels] = React.useState<CupomProps[]>([] as CupomProps[]);
@@ -30,8 +30,14 @@ export default function PassouNivel({ navigation }: Props) {
     fetchBurguerLevel()
   }
   async function fetchBurguerLevel() {
-    const response = await listBurguerLevel();
-    setCupomLevels(response);
+    const response = await listCupons();
+    var just_cupons:CupomProps[] = []
+    response.forEach(element => {
+        if(element.fidelity){
+            just_cupons.push(element)
+        }
+    });
+    setCupomLevels(just_cupons);
     setLoading(false)
   }
   function handleEdit (){

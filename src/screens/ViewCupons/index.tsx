@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Modal,
     ToastAndroid,
-    Text
+    Text,
+    Alert
 } from 'react-native';
 
 import { styles } from './styles';
@@ -16,8 +17,8 @@ import Header from '../../components/Header';
 import { Cupom } from '../../components/Cupom';
 import BotaoTab from '../../components/BotãoTab';
 import { Load } from '../../components/Load';
-import  QRScanner  from '../../components/QRScanner';
-import { CupomProps, UserCupomProps, UserProps } from '../../global/props';
+import QRScanner from '../../components/QRScanner';
+import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
 import api from '../../services/api';
 import userImg from '../../assets/hamburger.png';
 import { AntDesign } from "@expo/vector-icons";
@@ -28,184 +29,97 @@ import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/Button';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
-interface Cupom_UserCupomProps {
-    user_cupom: UserCupomProps;
-    cupom: CupomProps;
-}
+
 export function ViewCupons({ navigation }: Props) {
     var user_cupons: UserCupomProps[] = [];
     var [cupons] = useState<CupomProps[]>([]);
+    var [valorCode, setValorCode] = useState('');
+
     var [Allcupons, setAllCupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons, setCupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
     const [loadData, setLoadData] = useState(false);
-    const { user, loading } = useAuth();
+    const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
         // Essa é a função que será chamada quando um QR Code for lido com sucesso!
         console.log(type); // type é o tipo de código que o scanner leu. Geralmente é o número 256, mas acho que esse dado não importa muito pra gente
         console.log(data); // data é o valor que foi usado na criação do QR Code. No nosso caso, data será o id do user_coupon
+        passaValor(parseInt(data))
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
             25,
             50
-          );
+        );
         setModalVisible(false);
     }
 
     useEffect(() => {
         user.type
             ?
-            fetchUserCupons()
+            fetchUserCupons(user.id)
             :
             fetchAllCupons()
     }, [])
 
-    async function fetchUserCupons() {
-
-        // Antigo Fetch
-        //
-        // const { data } = await api.get('user_cupom?user_id='+user.id);
-        // user_cupons = data;
-        //
-
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
-        user_cupons = [
-            {
-                id: 17861789178278718,
-                user_id: 841618566,
-                coupon_id: 46187827871827871,
-                remaining_uses: 1
-            },
-            {
-                id: 4448148217871198781,
-                user_id: 841618566,
-                coupon_id: 4894854684846,
-                remaining_uses: 1
-            }
-        ]
+    async function passaValor(id: number) {
+        if (id) {
+            await edit_all_values(id)
+        } else {
+            Alert.alert('Digite um numero')
+        }
+    }
+    
+    async function fetchUserCupons(user_id: number) {
+        const response = await fetchUser_Cupons(user_id);
+        user_cupons = response
         fetchCupons();
     }
 
     async function fetchCupons() {
-
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
-        cupons = [
-            {
-                id: 46187827871827871,
-                permitted_uses: 2,
-                image: "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
-                title: "Na compra de hamburguer teste maximo de charactere",
-                expiration_date: "25/12/2021",
-                description: "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
-                fidelity: false,
-                level_id: 0,
-                burgers_added: 4
-            },
-            {
-                id: 4894854684846,
-                permitted_uses: 1,
-                image: "https://www.adot.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/a/d/adot-luminaria-infantil-estrela-01.jpg",
-                title: "Atingiu Nivel 1",
-                description: "Voce Atingiu o Nivel 1, agora voce tem 50% off na proxima compra",
-                fidelity: true,
-                level_id: 1,
-                burgers_added: 0
-            }
-        ]
-        for (let index = 0; index < user_cupons.length; index++) {
-            const id_cupom = user_cupons[index].coupon_id;
-            // Antigo Fetch
-            //
-            // const { data } = await api.get('cupom?id='+id_cupom);
-            // const cupom:CupomProps = data[0];
-            // cupons[index] = cupom;
-            cupons_and_user_cupons[index] = {
-                user_cupom : user_cupons[index],
-                cupom: cupons[index]
-            }
-        }
+        const response = await fetch_Cupons(user_cupons);
+        setCupons_and_user_cupons(response)
         setLoadData(true);
     }
 
     async function fetchAllCupons() {
-        // Antigo Fetch
-        //
-        // const { data } = await api.get('cupom');
-        // const AllCuponsLoad:CupomProps[] = data;
-        // var NumCupons = 0;
-        // for (let i = 0; i < AllCuponsLoad.length; i++) {
-        //     if(AllCuponsLoad[i].fidelity !== true){
-        //         Allcupons[NumCupons] = AllCuponsLoad[i];
-        //         NumCupons++;
-        //     }
-        // }
-
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
-        setAllCupons([
-            {
-                id: 9871891786628718962,
-                permitted_uses: 3,
-                image: "https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg",
-                title: "15% Off",
-                expiration_date: "25/12/2021",
-                description: "Ganhe 5% Off na sua proxima compra",
-                fidelity: false,
-                level_id: 0,
-                burgers_added: 3
-            },
-            {
-                id: 46187827871827871,
-                permitted_uses: 2,
-                image: "https://www.receitasetemperos.com.br/wp-content/uploads/2019/02/Imagem-1copy.jpg",
-                title: "Na compra de hamburguer teste maximo de charactere",
-                expiration_date: "25/12/2021",
-                description: "Na compra de um hamburguer o proximo lanche sai de graça, Alem disso estou testando tamanho dde char",
-                fidelity: false,
-                level_id: 0,
-                burgers_added: 4
+        const response = await listCupons();
+        var just_cupons: CupomProps[] = []
+        response.forEach(element => {
+            if (!element.fidelity) {
+                just_cupons.push(element)
             }
-        ])
+        });
+        setAllCupons(just_cupons)
         setLoadData(true);
     }
 
     function handleCupomSelect(item: CupomProps) {
-        
-        navigation.navigate('CupomDescription',{
+
+        navigation.navigate('CupomDescription', {
             cupom: item
         });
     }
 
-    function handleProfile(){
+    function handleProfile() {
         navigation.navigate('SeuPerfil');
     }
 
-    function handleAdd(){
-        navigation.navigate('NovoCupom',{})
+    function handleAdd() {
+        navigation.navigate('NovoCupom', {})
     }
-    
-    function handleFidelity(){
+
+    function handleFidelity() {
         user.type
-        ?
-        navigation.navigate('FidelidadeTela')
-        :
-        navigation.navigate('VisualizarFidelidade')
+            ?
+            navigation.navigate('FidelidadeTela')
+            :
+            navigation.navigate('VisualizarFidelidade')
     }
-    function handleQrCodeColeted(id_user_cupom: number){
+
+    function handleQrCodeColeted(id_user_cupom: number) {
         // post da rota
     }
     return (
@@ -285,45 +199,46 @@ export function ViewCupons({ navigation }: Props) {
                     onRequestClose={() => setModalVisible(false)}
                 >
                     <View style={styles.QRModal}>
-                        <QRScanner onCodeScanned = {onCodeScanned} />
-                        <TouchableOpacity 
+                        <QRScanner onCodeScanned={onCodeScanned} />
+                        <TouchableOpacity
                             onPress={() => setModalVisible(false)}
                             style={styles.cancelButton}
                         >
                             <AntDesign name="closecircleo" size={50} color="white" />
                         </TouchableOpacity>
-                        
+
                     </View>
                 </Modal>
             </View>
 
             {
                 user.type
-                
-                ?
 
-                null
+                    ?
 
-                :
+                    null
 
-                <View style={styles.QRCode}>
-                    <TextInput
-                        placeholder="Cole o código aqui"
-                        style={styles.inputQRCode}
-                    />
-                    <TouchableOpacity style={styles.icons}>
-                        <AntDesign name="search1" size={25} color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.icons}
-                        onPress={() => setModalVisible(true)}
-                    >
-                        <AntDesign name="qrcode" size={25} color="white" />
-                    </TouchableOpacity>
-                </View>
+                    :
+
+                    <View style={styles.QRCode}>
+                        <TextInput
+                            placeholder="Cole o código aqui"
+                            style={styles.inputQRCode}
+                            onChangeText={setValorCode}
+                        />
+                        <TouchableOpacity onPress={() => passaValor(parseInt(valorCode))} style={styles.icons}>
+                            <AntDesign name="search1" size={25} color="white" />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.icons}
+                            onPress={() => setModalVisible(true)}
+                        >
+                            <AntDesign name="qrcode" size={25} color="white" />
+                        </TouchableOpacity>
+                    </View>
             }
 
-            <View style={user.type? styles.tabUser : styles.tabAdm}>
+            <View style={user.type ? styles.tabUser : styles.tabAdm}>
                 <BotaoTab
                     title={"🏆 Fidelidade"}
                     style={styles.spaceTab}

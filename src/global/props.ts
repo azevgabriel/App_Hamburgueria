@@ -63,7 +63,7 @@ export type RootStackParamList = {
     FidelidadeTela: undefined;
     LevelRegistration: CuposAndLevels;
     NovoCupom: ObjectCuponsUndefined;
-    PassouNivel: undefined;
+    PassouNivel: CupomProps;
     QrCode: ObjectCupons;
     SeuPerfil: undefined;
     VisualizarFidelidade: undefined;
@@ -81,4 +81,8 @@ export interface ObjectCuponsUndefined{
 export interface CuposAndLevels{
     cupom: CupomProps;
     level: NivelProps;
+}
+export interface Cupom_UserCupomProps {
+    user_cupom: UserCupomProps;
+    cupom: CupomProps;
 }

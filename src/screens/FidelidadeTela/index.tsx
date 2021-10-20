@@ -21,7 +21,7 @@ const largura = Dimensions.get("window").width;
 const altura = Dimensions.get("window").height;
 
 export default function FidelidadeTela({ navigation }: Props) {
-  const { user, listAllLevel, listBurguerLevel } = useAuth();
+  const { user, listAllLevel, listCupons } = useAuth();
   const [progresso, setProgresso] = React.useState(0.0);
   const [loading, setLoading] = React.useState(false)
   const [levels, setLevels] = React.useState<NivelProps[]>([] as NivelProps[]);
@@ -54,19 +54,33 @@ export default function FidelidadeTela({ navigation }: Props) {
     fetchBurguerLevel()
   }
   async function fetchBurguerLevel() {
-    const response = await listBurguerLevel();
-    setCupomLevels(response);
+    const response = await listCupons();
+    var just_cupons:CupomProps[] = []
+    response.forEach(element => {
+        if(element.fidelity){
+            just_cupons.push(element)
+        }
+    });
+    setCupomLevels(just_cupons);
     setLoading(false)
   }
   function handleBack() {
     navigation.navigate('ViewCupons')
   }
   function handleNivel(nivel: Number) {
-    nivel === user.level
-      ?
-      navigation.navigate('PassouNivel')
-      :
-      nivel = nivel
+    if(nivel === user.level){
+      var level_id:number = 0;
+      levels.forEach(element => {
+        if(element.level === nivel){
+          level_id = element.id;
+        }
+      });
+      cupomLevels.forEach(element => {
+        if(element.level_id === level_id){
+          navigation.navigate('PassouNivel', element)
+        }
+      });
+    }
   }
   return (
     <View style={styles.container}>
