@@ -3,14 +3,13 @@ import colors from '../../styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     paddingBottom: 2,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
+
   rowheader:{
     flexDirection:'row',
-    marginBottom: 50,
-    flex: 2
   },
   viewheader:{
     width: '70%',
@@ -18,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   viewimage:{
     width: '30%',
-    marginTop: 50
+    marginTop: 50,
   },
   image:{
     width: 80,
@@ -82,7 +81,6 @@ export const styles = StyleSheet.create({
 
     justifyContent: 'center',
     alignItems: 'center',
-
 
     flex: 1.3,
   },

@@ -43,7 +43,7 @@ export default function WelcomeAgain({ navigation }: Props) {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={icon} resizeMode="contain" style={styles.logo} />
         <Text style={styles.welcomeText}>Bem vindo(a)</Text>

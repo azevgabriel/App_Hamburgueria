@@ -8,8 +8,8 @@ import {
     TouchableOpacity,
     Modal,
     ToastAndroid,
-    Text,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 
 import { styles } from './styles';
@@ -26,7 +26,6 @@ import { AntDesign } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
-import Button from '../../components/Button';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -123,7 +122,7 @@ export function ViewCupons({ navigation }: Props) {
         // post da rota
     }
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.rowheader}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />
@@ -267,7 +266,6 @@ export function ViewCupons({ navigation }: Props) {
                 }
 
             </View>
-
-        </View>
+         </ScrollView>
     );
 }

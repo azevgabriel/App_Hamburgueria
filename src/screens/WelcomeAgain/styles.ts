@@ -6,9 +6,9 @@ import fonts from '../../styles/fonts';
 export const styles = StyleSheet.create({
     container: {
       marginTop:20,
-      flex: 1,
-      height: '100%',
-      flexDirection: 'column'
+      flexGrow: 1,
+      flexDirection: 'column',
+      paddingBottom: 20
     },
     logoContainer: {
       marginTop:50,
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     buttonContainer: {
       flex: 1.3,
       marginHorizontal: '5%',
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
     },
     ofertaText:{
       marginTop: 20,
