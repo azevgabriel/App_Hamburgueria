@@ -40,7 +40,6 @@ export const styles = StyleSheet.create({
   textInput: {
     color: colors.darkGray,
     fontFamily: fonts.Jost_600SemiBold,
-    marginTop: 5
   },
   input: {
     height: 50,

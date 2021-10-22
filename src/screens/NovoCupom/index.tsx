@@ -24,16 +24,16 @@ import { TextInputMask } from "react-native-masked-text";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export default function NovoCupom({ navigation, route, ...rest }: Props) {
-  const { newCupom,updateCupom } = useAuth();
+  const { newCupom, updateCupom } = useAuth();
   const { cupom } = route.params as ObjectCupons;
-  const [titulo, setTitulo] = useState(cupom?cupom.title:'');
-  const [description, setDescription] = useState(cupom?cupom.description:'');
-  const [datamax, setDataMax] = useState(cupom?cupom.expiration_date:'');
+  const [titulo, setTitulo] = useState(cupom ? cupom.title : '');
+  const [description, setDescription] = useState(cupom ? cupom.description : '');
+  const [datamax, setDataMax] = useState(cupom ? cupom.expiration_date : '');
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
+    if (permissionResult.granted === false) {
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
@@ -63,37 +63,38 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if (!datamax) {
       return ToastAndroid.show('Digite a data corretamente por favor.', ToastAndroid.SHORT);
     }
-    if(!cupom){
-      try{
+    if (!cupom) {
+      try {
         await (newCupom({
           permitted_uses: 5,// Mudar para o valor
           image: "",//pegar image
           title: titulo,
           expiration_date: datamax,
-          description:description,
+          description: description,
           fidelity: false,
-          burgers_added:5// Mudar para o valor
+          burgers_added: 5// Mudar para o valor
         }));
         navigation.navigate('ViewCupons')
       } catch (error) {
-        Alert.alert('Erro: '+error)
+        Alert.alert('Erro ao Criar Cupom' + error)
       }
-    }else{      try{
-      await (updateCupom({
-        id: cupom.id,
-        permitted_uses: 5,// Mudar para o valor
-        image: "",//pegar image
-        title: titulo,
-        expiration_date: datamax,
-        description: description,
-        fidelity: cupom.fidelity,
-        level_id: cupom.level_id,
-        burgers_added:5// Mudar para o valor
-      }));
-      navigation.navigate('ViewCupons')
-    } catch (error) {
-      Alert.alert('Erro: '+error)
-    }
+    } else {
+      try {
+        await (updateCupom({
+          id: cupom.id,
+          permitted_uses: 5,// Mudar para o valor
+          image: "",//pegar image
+          title: titulo,
+          expiration_date: datamax,
+          description: description,
+          fidelity: cupom.fidelity,
+          level_id: cupom.level_id,
+          burgers_added: 5// Mudar para o valor
+        }));
+        navigation.navigate('ViewCupons')
+      } catch (error) {
+        Alert.alert('Erro ao Atualizar Cupom' + error)
+      }
     }
 
   }
@@ -151,18 +152,18 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
           <Text style={styles.titleInput}>Data máxima</Text>
           <TextInputMask
-              placeholder="Data"
-              placeholderTextColor={colors.shapeGray}
-              type={"datetime"}
-              options={{
-                format : 'DD/MM/AAAA'
-              }}
-              value={datamax}
-              onChangeText={setDataMax}
-              keyboardType="phone-pad"
-              returnKeyType="done"
-              style={styles.input}
-            />
+            placeholder="Data"
+            placeholderTextColor={colors.shapeGray}
+            type={"datetime"}
+            options={{
+              format: 'DD/MM/AAAA'
+            }}
+            value={datamax}
+            onChangeText={setDataMax}
+            keyboardType="phone-pad"
+            returnKeyType="done"
+            style={styles.input}
+          />
           <View style={{ marginTop: 5 }}>
             <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
           </View>

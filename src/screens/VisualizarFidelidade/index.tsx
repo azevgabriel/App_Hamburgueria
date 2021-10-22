@@ -25,9 +25,13 @@ export default function PassouNivel({ navigation }: Props) {
   }, [])
   async function fetchLevel() {
     setLoading(true)
-    const response = await listAllLevel();
-    setLevels(response)
-    fetchBurguerLevel()
+    try {
+      const response = await listAllLevel();
+      setLevels(response)
+      fetchBurguerLevel()
+    } catch {
+      
+    }
   }
   async function fetchBurguerLevel() {
     const response = await listCupons();

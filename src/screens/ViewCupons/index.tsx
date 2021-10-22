@@ -65,34 +65,50 @@ export function ViewCupons({ navigation }: Props) {
 
     async function passaValor(id: number) {
         if (id) {
-            await edit_all_values(id)
+            try {
+                await edit_all_values(id)
+            } catch (error) {
+                Alert.alert('Erro ao dar baixa no cupom' + error)
+            }
         } else {
             Alert.alert('Digite um numero')
         }
     }
-    
+
     async function fetchUserCupons(user_id: number) {
-        const response = await fetchUser_Cupons(user_id);
-        user_cupons = response
-        fetchCupons();
+        try {
+            const response = await fetchUser_Cupons(user_id);
+            user_cupons = response
+            fetchCupons();
+        } catch (error) {
+            Alert.alert('Erro ao Listar cupons do usuario' + error)
+        }
     }
 
     async function fetchCupons() {
-        const response = await fetch_Cupons(user_cupons);
-        setCupons_and_user_cupons(response)
-        setLoadData(true);
+        try {
+            const response = await fetch_Cupons(user_cupons);
+            setCupons_and_user_cupons(response)
+            setLoadData(true);
+        } catch (error) {
+            Alert.alert('Erro ao Listar cupons' + error)
+        }
     }
 
     async function fetchAllCupons() {
-        const response = await listCupons();
-        var just_cupons: CupomProps[] = []
-        response.forEach(element => {
-            if (!element.fidelity) {
-                just_cupons.push(element)
-            }
-        });
-        setAllCupons(just_cupons)
-        setLoadData(true);
+        try {
+            const response = await listCupons();
+            var just_cupons: CupomProps[] = []
+            response.forEach(element => {
+                if (!element.fidelity) {
+                    just_cupons.push(element)
+                }
+            });
+            setAllCupons(just_cupons)
+            setLoadData(true);
+        } catch (error) {
+            Alert.alert('Erro ao Listar Cupons' + error)
+        }
     }
 
     function handleCupomSelect(item: CupomProps) {
@@ -266,6 +282,6 @@ export function ViewCupons({ navigation }: Props) {
                 }
 
             </View>
-         </ScrollView>
+        </ScrollView>
     );
 }

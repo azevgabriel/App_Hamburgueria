@@ -14,17 +14,17 @@ import { useAuth } from "../../hooks/useAuth";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
-  const {updateCupom, updateLevel} = useAuth();
+  const { updateCupom, updateLevel } = useAuth();
   const { cupom, level } = route.params as CuposAndLevels;
   useEffect(() => {
-    setNumberOfBurgers(cupom.burgers_added?cupom.burgers_added:0)
-    setNumberOfBurgers(level.burgers_needed?level.burgers_needed:0)
+    setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0)
+    setNumberOfBurgers(level.burgers_needed ? level.burgers_needed : 0)
   }, [])
-  
+
   const [numberOfBurgers, setNumberOfBurgers] = useState<number>(0);
   const [description, setDescription] = useState(cupom.description);
 
-  function handleBack(){
+  function handleBack() {
 
     navigation.navigate('VisualizarFidelidade')
   }
@@ -34,26 +34,26 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
     }
     // Salvar via post
     try {
-			await (updateCupom({
+      await (updateCupom({
         id: cupom.id,
         permitted_uses: cupom.permitted_uses,
         image: cupom.image,
         title: cupom.title,
         expiration_date: cupom.expiration_date,
-        description:description,
+        description: description,
         fidelity: cupom.fidelity,
-        level_id:cupom.level_id,
-        burgers_added:cupom.burgers_added,
+        level_id: cupom.level_id,
+        burgers_added: cupom.burgers_added,
       }));
       await (updateLevel({
         id: level.id,
         level: level.level,
         burgers_needed: numberOfBurgers
       }));
-        navigation.navigate('VisualizarFidelidade')
-		} catch (error) {
-			Alert.alert('Erro: '+error)
-		}
+      navigation.navigate('VisualizarFidelidade')
+    } catch (error) {
+      Alert.alert('Erro ao Atualizar Nivel e Level' + error)
+    }
     //
   }
 

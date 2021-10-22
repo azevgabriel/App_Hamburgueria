@@ -12,7 +12,7 @@ interface AuthContextData {
     user: UserProps;
     login: (data: loginType) => Promise<void>;
     signUp: (data: UserPropsPost) => Promise<void>;
-    update: (data: UserProps) => Promise<void>;
+    update: (data: UserProps, oldPassword: string) => Promise<void>;
     newCupom: (data: CupomPropsPost) => Promise<void>;
     updateCupom: (data: CupomProps) => Promise<void>;
     listAllLevel: () => Promise<NivelProps[]>;
@@ -36,61 +36,48 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState(false);
 
     async function login(data: loginType) {
-        try {
-            setLoading(true);
-            /**
-             * ===========================================
-             * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-             * ===========================================
-             */
-            //User normal (1)
-            const userReturn1 = {
-                id: 841618566,
-                type: 1,
-                name: "Gabriel Azevedo",
-                cpf: "085.747.566-96",
-                phone: "(35)999999999",
-                password: "698dc19d489c4e4db73e28a713eab07b",
-                image: "https://avatars.githubusercontent.com/u/73303855?v=4",
-                level: 1,
-                burgers: 17,
-            }
-            // User Admin (0)
-            const userReturn2 = {
-                id: 12345678910,
-                type: 0,
-                name: "Maximo Characteres a",
-                cpf: "555.757.566-55",
-                phone: "(35)777777777",
-                password: "698dc19d489c4e4db73e28a713eab07b",
-                image: "https://github.com/thevinex.png",
-            }
-            /**
-             * ===========================================
-             *                      FIM 
-             * ===========================================
-             */
-
-            setUser(userReturn1)
-
-            // Rota post para buscar o usuario (testar entre as duas rotas depois)
-            //
-            // const response = await api.post('login',{
-            //     cpf : data.cpf,
-            //     password : data.senha
-            // })
-
-        } catch {
-            Alert.alert('Erro ao Fazer Login')
+        setLoading(true);
+        // Testes:
+        //
+        //User normal (1)
+        const userReturn1 = {
+            id: 841618566,
+            type: 1,
+            name: "Gabriel Azevedo",
+            cpf: "085.747.566-96",
+            phone: "(35)999999999",
+            password: "698dc19d489c4e4db73e28a713eab07b",
+            image: "https://avatars.githubusercontent.com/u/73303855?v=4",
+            level: 1,
+            burgers: 17,
         }
-        finally {
-            setLoading(false)
+        // User Admin (0)
+        const userReturn2 = {
+            id: 12345678910,
+            type: 0,
+            name: "Maximo Characteres a",
+            cpf: "555.757.566-55",
+            phone: "(35)777777777",
+            password: "698dc19d489c4e4db73e28a713eab07b",
+            image: "https://github.com/thevinex.png",
         }
+        // fim testes
+
+        setUser(userReturn1)
+        // Possivel Relação com o back
+        //
+        // Rota post para buscar o usuario (testar entre as duas rotas depois)
+        //
+        // const response = await api.post('login', {
+        //     cpf: data.cpf,
+        //     password: data.senha
+        // })
+
+        setLoading(false)
     }
     async function signUp(data: UserPropsPost) {
-        // fazer post
+        //Teste:
         //
-        //teste:
         setUser({
             id: 5206566505,
             image: data.image,
@@ -102,8 +89,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
             level: 0,
             type: 1,
         })
+        // Chamar a Rota
+        //
     }
-    async function update(data: UserProps) {
+    async function update(data: UserProps, oldPassword: string) {
+        // Teste
+        //
         setUser({
             id: data.id,
             image: data.image,
@@ -115,8 +106,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
             level: user.level,
             type: user.type
         })
+        console.log(data, oldPassword)
     }
     async function listAllLevel() {
+        // Teste
+        //
         const allLevels: NivelProps[] = [
             {
                 id: 1111111111111,
@@ -144,18 +138,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 burgers_needed: 200
             }
         ]
+        // Fazer Rota
+        //
+
         return allLevels
     }
     async function listCupons() {
-        // exemplo de fetch
-        // const { data } = await api.get('cupom');
-
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
-
+        // Teste
+        //
         const cupons: CupomProps[] = [
             {
                 id: 4894854684846,
@@ -229,41 +219,42 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 burgers_added: 4
             }
         ]
+        // Fazer Rota
+        //
         return cupons
     }
     async function newCupom(data: CupomPropsPost) {
-        // Fazer post cadastro de cupons
-        //
         // Teste
+        //
         console.log(data)
+        // Fazer Rota
+        //
     }
     async function updateCupom(data: CupomProps) {
-        // Fazer post update de cupons
-        //
         // Teste
+        //
         console.log(data)
+        // Fazer Rota
+        //
     }
     async function updateLevel(data: NivelProps) {
-        // Fazer post update de level
-        //
         // Teste
+        //
         console.log(data)
+        // Fazer Rota
+        //
     }
     async function create_user_cupom(cupom_id: number, user: UserProps) {
+
+        // Teste
+        //
         console.log(cupom_id, user)
+        // Fazer Rota
+        //
     }
     async function fetchUser_Cupons(user_id: number) {
-        // Antigo Fetch
+        // Teste
         //
-        // const { data } = await api.get('user_cupom?user_id='+user.id);
-        // user_cupons = data;
-        //
-
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
         const user_cupons: UserCupomProps[] = [
             {
                 id: 17861789178278718,
@@ -278,14 +269,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 remaining_uses: 1
             }
         ]
+        // Fazer Rota
+        //
         return user_cupons
     }
     async function fetch_Cupons(user_cupons: UserCupomProps[]) {
-        /**
-         * ===========================================
-         * VALORES DE TESTES POIS O BACK NAO FUNCIONOU
-         * ===========================================
-         */
+
+        var cupons_and_user_cupons: Cupom_UserCupomProps[] = []
+        // Teste
+        //
         const cupons = [
             {
                 id: 46187827871827871,
@@ -309,7 +301,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 burgers_added: 0
             }
         ]
-        var cupons_and_user_cupons: Cupom_UserCupomProps[] = []
         for (let index = 0; index < user_cupons.length; index++) {
             const id_cupom = user_cupons[index].coupon_id;
             // Antigo Fetch
@@ -322,10 +313,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 cupom: cupons[index]
             }
         }
+
         return cupons_and_user_cupons
     }
     async function edit_all_values(id_user_cupom: number) {
+        // Teste
+        //
         console.log(id_user_cupom)
+        // Fazer Rota
+        //
     }
     return (
         <AuthContext.Provider value={{

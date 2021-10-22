@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Image, Text, Dimensions, ScrollView } from "react-native";
+import { View, Image, Text, Dimensions, ScrollView, Alert } from "react-native";
 import { ProgressBar, Colors } from 'react-native-paper';
 import { Feather } from "@expo/vector-icons";
 import img from "../../../assets/image-solid.png";
@@ -32,34 +32,38 @@ export default function FidelidadeTela({ navigation }: Props) {
   }, [])
   async function fetchLevel() {
     setLoading(true)
-    const response = await listAllLevel();
-    setLevels(response)
+    try {
+      const response = await listAllLevel();
+      setLevels(response)
 
-    if (user.level != undefined && user.level < 5) {
-      const valueMax = response[user.level].burgers_needed;
-      let valueMin;
+      if (user.level != undefined && user.level < 5) {
+        const valueMax = response[user.level].burgers_needed;
+        let valueMin;
 
-      if(user.level === 0)
-        valueMin = 0
-      else
-        valueMin = response[user.level - 1].burgers_needed;
-        
-      if (valueMax != undefined && valueMin != undefined && user.burgers != undefined) {
-        const value = (user.burgers - valueMin) / (valueMax - valueMin);
-        setProgresso(value)
+        if (user.level === 0)
+          valueMin = 0
+        else
+          valueMin = response[user.level - 1].burgers_needed;
+
+        if (valueMax != undefined && valueMin != undefined && user.burgers != undefined) {
+          const value = (user.burgers - valueMin) / (valueMax - valueMin);
+          setProgresso(value)
+        }
+      } else {
+        setProgresso(1)
       }
-    } else {
-      setProgresso(1)
+      fetchBurguerLevel()
+    } catch (Error) {
+      Alert.alert('Erro ao Listar Leveis')
     }
-    fetchBurguerLevel()
   }
   async function fetchBurguerLevel() {
     const response = await listCupons();
-    var just_cupons:CupomProps[] = []
+    var just_cupons: CupomProps[] = []
     response.forEach(element => {
-        if(element.fidelity){
-            just_cupons.push(element)
-        }
+      if (element.fidelity) {
+        just_cupons.push(element)
+      }
     });
     setCupomLevels(just_cupons);
     setLoading(false)
@@ -68,15 +72,15 @@ export default function FidelidadeTela({ navigation }: Props) {
     navigation.navigate('ViewCupons')
   }
   function handleNivel(nivel: Number) {
-    if(nivel === user.level){
-      var level_id:number = 0;
+    if (nivel === user.level) {
+      var level_id: number = 0;
       levels.forEach(element => {
-        if(element.level === nivel){
+        if (element.level === nivel) {
           level_id = element.id;
         }
       });
       cupomLevels.forEach(element => {
-        if(element.level_id === level_id){
+        if (element.level_id === level_id) {
           navigation.navigate('PassouNivel', element)
         }
       });
@@ -107,10 +111,10 @@ export default function FidelidadeTela({ navigation }: Props) {
                   user.level < 5
                     ?
                     user.level === 0
-                    ?
-                    '0'
-                    :
-                    levels[user.level - 1].burgers_needed
+                      ?
+                      '0'
+                      :
+                      levels[user.level - 1].burgers_needed
                     :
                     ''
                   :

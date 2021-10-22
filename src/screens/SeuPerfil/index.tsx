@@ -29,16 +29,17 @@ import * as ImagePicker from 'expo-image-picker';
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function SeuPerfil({ navigation, }: Props) {
-	const { update, user, loading } = useAuth();
+  const { update, user, loading } = useAuth();
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
   const [password, setPassword] = useState('');
+  const [Oldpassword, setOldPassword] = useState('');
   let telefoneField = null;
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
+    if (permissionResult.granted === false) {
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
@@ -59,116 +60,126 @@ export default function SeuPerfil({ navigation, }: Props) {
       return ToastAndroid.show('Digite seu nome, por favor.', ToastAndroid.SHORT);
     }
     if (name.length > 100) {
-      return ToastAndroid.show('Nome muito grande.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Nome muito grande.', ToastAndroid.SHORT);
     }
     if (!phone) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
     }
     if (phone.length < 13) {
-      return ToastAndroid.show('Telefone inválido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Telefone inválido.', ToastAndroid.SHORT);
+    }
+    if (!Oldpassword) {
+      return ToastAndroid.show('Digite sua senha antiga, por favor.', ToastAndroid.SHORT);
     }
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
     }
     if (password.length < 8) {
-      return ToastAndroid.show('Senha muito pequena.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Senha muito pequena.', ToastAndroid.SHORT);
     }
     try {
-			await (update({
+      await (update({
+
         id: user.id,
         image: "",
         phone,
         name,
         password
-      }));
-      if(!loading){
+
+      }, Oldpassword));
+      if (!loading) {
         // Carregou o fectch
         navigation.navigate('ViewCupons');
       }
-		} catch (error) {
-			Alert.alert('Erro: '+error)
-		}
-    navigation.navigate('ViewCupons')
+    } catch (error) {
+      Alert.alert('Erro ao Atualizar Perfil' + error)
+    }
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-          <View style={styles.box}>
-            
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Seu Perfil</Text>
-            </View>
+        <View style={styles.box}>
 
-            {
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Seu Perfil</Text>
+          </View>
+
+          {
             user
               ?
               user.image && user.image != ""
-              ?
-              <View style={styles.userContainer}>
-                <Image source={{ uri: user.image }} style={{ width: 140, height: 140, }} />
-                <TouchableOpacity
-                  style={styles.plus}
-                  activeOpacity={0.8}
-                  onPress={openImagePickerAsync}
-                >
-                  <Text>
-                    <AntDesign name="plus" style={styles.iconPlus} />
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              :
-              <CadastroFoto />
+                ?
+                <View style={styles.userContainer}>
+                  <Image source={{ uri: user.image }} style={{ width: 140, height: 140, }} />
+                  <TouchableOpacity
+                    style={styles.plus}
+                    activeOpacity={0.8}
+                    onPress={openImagePickerAsync}
+                  >
+                    <Text>
+                      <AntDesign name="plus" style={styles.iconPlus} />
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                :
+                <CadastroFoto />
               :
               <CadastroFoto />
           }
 
-            <View style={styles.viewInput}>
-              <Text style={styles.textInput}>Nome:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Nome"
+          <View style={styles.viewInput}>
+            <Text style={styles.textInput}>Nome:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Nome"
+              placeholderTextColor={colors.shapeGray}
+              onChangeText={setName}
+              value={name}
+            />
+
+            <Text style={styles.textInput}>Celular:</Text>
+            <View>
+              <TextInputMask
+                placeholder="Telefone"
                 placeholderTextColor={colors.shapeGray}
-                onChangeText={setName}
-                value={name}
-              />
-
-              <Text style={styles.textInput}>Celular:</Text>
-              <View>
-                <TextInputMask
-                  placeholder="Telefone"
-                  placeholderTextColor={colors.shapeGray}
-                  type={"cel-phone"}
-                  options={{
-                    maskType: "BRL",
-                    withDDD: true,
-                  }}
-                  onChangeText={setPhone}
-                  value={phone}
-                  keyboardType="phone-pad"
-                  returnKeyType="done"
-                  ref={(ref) => (telefoneField = ref)}
-                  style={styles.input}
-                />
-              </View>
-
-              <Text style={styles.textInput}>Senha:</Text>
-              <TextInput
+                type={"cel-phone"}
+                options={{
+                  maskType: "BRL",
+                  withDDD: true,
+                }}
+                onChangeText={setPhone}
+                value={phone}
+                keyboardType="phone-pad"
+                returnKeyType="done"
+                ref={(ref) => (telefoneField = ref)}
                 style={styles.input}
-                placeholder="********"
-                placeholderTextColor={colors.shapeGray}
-                onChangeText={setPassword}
               />
+            </View>
+            <Text style={styles.textInput}>Senha Antiga:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="********"
+              placeholderTextColor={colors.shapeGray}
+              onChangeText={setOldPassword}
+            />
+            <Text style={styles.textInput}>Senha Nova:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="********"
+              placeholderTextColor={colors.shapeGray}
+              onChangeText={setPassword}
+            />
 
-              
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button
-                  title="Atualizar dados."
-                  color={colors.darkGray}
-                  onPress={handleSubmit}
-                />
-            </View>
+
           </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Atualizar dados."
+              color={colors.darkGray}
+              onPress={handleSubmit}
+            />
+          </View>
+        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

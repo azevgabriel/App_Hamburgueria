@@ -102,8 +102,8 @@ export default function Cadastro({ navigation}:Props) {
         navigation.navigate('ViewCupons');
       }
 		} catch (error) {
-			Alert.alert('Erro: '+error)
-		}
+      Alert.alert('Erro ao Fazer Cadastro' + error)
+    }
   }
 
   return (

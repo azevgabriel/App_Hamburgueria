@@ -19,7 +19,7 @@ export default function WelcomeAgain({ navigation }: Props) {
   const [password, setPassword] = useState("");
   let cpfField = null;
 
-	const { login, loading } = useAuth();
+  const { login, loading } = useAuth();
 
 
   async function handleSubmit() {
@@ -31,15 +31,15 @@ export default function WelcomeAgain({ navigation }: Props) {
       return ToastAndroid.show('Digite a Senha, por favor.', ToastAndroid.SHORT);
     }
 
-		try {
-			await login({cpf, senha : password});
-      if(!loading){
+    try {
+      await login({ cpf, senha: password });
+      if (!loading) {
         // Carregou o fectch
         navigation.navigate('ViewCupons');
       }
-		} catch (error) {
-			Alert.alert('Erro: '+error)
-		}
+    } catch (er) {
+      Alert.alert('Erro ao Fazer Login' + er)
+    }
   }
 
   return (
