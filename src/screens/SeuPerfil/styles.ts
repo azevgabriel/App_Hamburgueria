@@ -4,13 +4,19 @@ import colors from "../../styles/colors";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    marginTop: 20,
+    paddingBottom: 20
   },
   userContainer: {
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      flex: 1,
+      marginBottom: 10
+  },
+  titleContainer: {
+    flex: 0.5
   },
   iconPlus: {
       fontSize: 30,
@@ -18,18 +24,18 @@ export const styles = StyleSheet.create({
   },
   box: {
     margin: 15,
-    flex:9
+    flex: 1
   },
   title: {
     fontSize: 25,
     fontFamily: fonts.Jost_600SemiBold,
     color: colors.darkGray,
-    marginTop: 40,
-    marginBottom: 40
+    marginTop: 20,
+    marginBottom: 10
   },
   viewInput: {
-    marginBottom: 60,
-    marginTop: 20
+    marginTop: 20,
+    flex: 5
   },
   textInput: {
     color: colors.darkGray,
@@ -44,24 +50,9 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 4
   },
-  tab: {
-    flex: 1.15,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopColor: 'rgba(0,0,0,0.2)',
-    borderTopWidth: 2,
-    marginTop:-50,
-    height: 70
-  },
-  spaceTab: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  divisor: {
-    width: 2,
-    height: '60%',
-    backgroundColor: colors.shapeGray
+  buttonContainer: {
+    flex: 2,
+    justifyContent: 'center'
   },
   plus: {
       width: 40,

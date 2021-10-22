@@ -12,14 +12,13 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingBottom: 10
+        paddingBottom: 10,
     },
     back:{
-        width:largura,
-        bottom:altura/50,
-        left:largura*0.05,
-        marginTop: 10,
-        marginBottom: 10
+        marginTop: 20,
+        marginBottom: 40,
+        paddingHorizontal: '5%',
+        alignSelf: 'flex-start'
     },
     cupomPicture:{
         alignItems: 'center',
@@ -30,20 +29,18 @@ export const styles = StyleSheet.create({
         borderRadius:1,
         width:largura/1.5,
         marginTop: 5,
+        marginBottom: 20
     },
     imagem:{
         width:largura/1.5,
         flex: 1,
-        padding:30,
+        padding:30
     },
     botao:{
-        fontFamily: fonts.Jost_600SemiBold,
-        justifyContent:'center',
-        textAlign:'center',
         width: largura/1.5,
         borderRadius:10,
         backgroundColor: colors.darkGray,
-        flex:0.2,
+        marginBottom: 20
     },
     textViewP:{
         width:largura/1.5,
@@ -70,7 +67,7 @@ export const styles = StyleSheet.create({
         width:largura/1.5,
     },
     textS:{
-        fontSize:20,
+        fontSize:18,
         flex:1,
         color:colors.darkGray,
         fontFamily: fonts.Jost_400Regular,

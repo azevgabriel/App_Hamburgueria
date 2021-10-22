@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingBottom: 2,
-    backgroundColor: colors.white,
+    marginTop: 20
   },
 
   rowheader:{

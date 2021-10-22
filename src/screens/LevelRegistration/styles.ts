@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 15,
-        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "flex-start",
     },
@@ -46,7 +45,5 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: fonts.Jost_400Regular,
         color: colors.darkGray,
-    },
-    
-    
+    }
 })

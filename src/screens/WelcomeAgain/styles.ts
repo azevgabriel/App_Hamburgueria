@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
       marginTop:20,
       flexGrow: 1,
       flexDirection: 'column',
-      paddingBottom: 20
+      paddingBottom: 30
     },
     logoContainer: {
       marginTop:50,

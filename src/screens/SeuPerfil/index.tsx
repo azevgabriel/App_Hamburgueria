@@ -65,7 +65,7 @@ export default function SeuPerfil({ navigation, }: Props) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
     }
     if (phone.length < 13) {
-      return ToastAndroid.show('Telefone Invalido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Telefone inválido.',  ToastAndroid.SHORT);
     }
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
@@ -92,10 +92,12 @@ export default function SeuPerfil({ navigation, }: Props) {
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={{marginTop:20}}>
-        <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
           <View style={styles.box}>
-            <Text style={styles.title}>Seu Perfil</Text>
+            
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Seu Perfil</Text>
+            </View>
 
             {
             user
@@ -157,14 +159,16 @@ export default function SeuPerfil({ navigation, }: Props) {
                 onChangeText={setPassword}
               />
 
-              <Button
-                title="Atualizar dados."
-                color={colors.darkGray}
-                onPress={handleSubmit}
-              />
+              
+            </View>
+            <View style={styles.buttonContainer}>
+                <Button
+                  title="Atualizar dados."
+                  color={colors.darkGray}
+                  onPress={handleSubmit}
+                />
             </View>
           </View>
-        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

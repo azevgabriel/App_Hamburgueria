@@ -74,7 +74,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
           <AntDesign name="left" size={25} color="black" />
         </TouchableOpacity>
         {/* Fazer o fech de nivel */}
-        <Text style={styles.title}>Nível 1</Text>
+        <Text style={styles.title}>Nível {level.level}</Text>
       </View>
       <View style={styles.column}>
         <Text style={styles.label}>Prêmio:</Text>

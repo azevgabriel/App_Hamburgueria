@@ -4,9 +4,19 @@ import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     margin: 15,
-    justifyContent: 'space-between'
+    marginTop: 30,
+    paddingBottom: 40
+  },
+  viewTitle: {
+    flex: 1,
+  },
+  viewPhoto: {
+    flex: 3
+  },
+  viewButton: {
+    flex: 2
   },
   text: {
     fontSize: 25,
@@ -17,7 +27,8 @@ export const styles = StyleSheet.create({
   },
   viewInput: {
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 20,
+    flex: 12
   },
   titleInput: {
     color: colors.darkGray,

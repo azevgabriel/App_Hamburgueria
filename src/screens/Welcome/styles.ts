@@ -4,8 +4,9 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: '15%',
+        marginHorizontal: '5%',
         marginVertical: '10%',
+        paddingTop: 20
         //paddingTop: Platform.OS === 'android' ? 15 : 0,
     },
     welcomeText: {
@@ -22,11 +23,12 @@ export const styles = StyleSheet.create({
         marginVertical: '15%',
     },
     titleOne: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'left',
         letterSpacing: -.3,
-        color: '#D85B6E'
+        color: '#D85B6E',
+        marginHorizontal: '13%'
     },
     titleTwo: {
         fontSize: 30,
@@ -35,6 +37,7 @@ export const styles = StyleSheet.create({
         letterSpacing: -.3,
         color: '#2B7F70',   
         marginBottom: '15%',
+        marginHorizontal: '13%'
     },
     label: {
         fontSize: 15,

@@ -49,10 +49,10 @@ export default function Cadastro({ navigation}:Props) {
       return ToastAndroid.show('Nome muito grande.',  ToastAndroid.SHORT);
     }
     if (!cpf) {
-      return ToastAndroid.show('Digite seu cpf, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite seu CPF, por favor.',  ToastAndroid.SHORT);
     }
     if (cpf.length < 14) {
-      return ToastAndroid.show('CPF Invalido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('CPF Inválido.',  ToastAndroid.SHORT);
     }else{
       const sumDigit = 
       parseInt(cpf[0])
@@ -67,13 +67,13 @@ export default function Cadastro({ navigation}:Props) {
       +parseInt(cpf[12])
       +parseInt(cpf[13])
       if(!((sumDigit.toString())[0] == (sumDigit.toString())[1]))
-      return ToastAndroid.show('CPF Invalido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('CPF inválido.',  ToastAndroid.SHORT);
     }
     if (!phone) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.',  ToastAndroid.SHORT);
     }
     if (phone.length < 13) {
-      return ToastAndroid.show('Telefone Invalido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Telefone inválido.',  ToastAndroid.SHORT);
     }
     if (!password) {
       return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
@@ -108,11 +108,14 @@ export default function Cadastro({ navigation}:Props) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={{marginTop: 20}} showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <Text style={styles.text}>Faça seu cadastro!</Text>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.viewTitle}>
+          <Text style={styles.text}>Faça seu cadastro!</Text>
+        </View>
 
-        <CadastroFoto />
+        <View style={styles.viewPhoto}>
+          <CadastroFoto />
+        </View>
 
         <View style={styles.viewInput}>
           <Text style={styles.titleInput}>Nome:</Text>
@@ -174,12 +177,13 @@ export default function Cadastro({ navigation}:Props) {
           />
         </View>
 
-        <Button
-          color={colors.darkGray}
-          title="Confirmar dados."
-          onPress={handleSubmit}
-        />
-      </View>
+        <View style={styles.viewButton}>
+          <Button
+            color={colors.darkGray}
+            title="Confirmar dados."
+            onPress={handleSubmit}
+          />
+        </View>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

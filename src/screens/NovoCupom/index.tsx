@@ -100,7 +100,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.back}>
           <Voltar color="black" onPress={handleBack} />
         </View>

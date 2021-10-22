@@ -7,8 +7,8 @@ const altura = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: Platform.OS === 'android' ? 15 : 0,
+        flexGrow: 1,
+        paddingTop: 20,
         flexDirection: 'column',
         width: '100%',
     },
