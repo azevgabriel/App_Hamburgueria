@@ -8,7 +8,6 @@ const altura = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        paddingTop: 20,
         flexDirection: 'column',
         width: '100%',
     },
