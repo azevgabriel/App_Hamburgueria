@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView } from "react-native";
-import api from "../../services/api";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
-import { UserProps } from "../../global/props";
 import icon from "../../assets/logo.png";
 import Button from "../../components/Button";
 import { TextInputMask } from "react-native-masked-text";
@@ -17,26 +15,29 @@ type Props = NativeStackScreenProps<RootStackParamList>;
 export default function WelcomeAgain({ navigation }: Props) {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
+
   let cpfField = null;
 
-  const { login, loading } = useAuth();
+  const { user, signInUser } = useAuth();
 
-
-  async function handleSubmit() {
+  const handleSubmit = async() => {
 
     if (!cpf) {
       return ToastAndroid.show('Digite o CPF, por favor.', ToastAndroid.SHORT);
     }
+
     if (!password) {
       return ToastAndroid.show('Digite a Senha, por favor.', ToastAndroid.SHORT);
     }
 
     try {
-      await login({ cpf, senha: password });
-      if (!loading) {
-        // Carregou o fectch
-        navigation.navigate('ViewCupons');
-      }
+      await signInUser({ 
+        cpf: cpf, 
+        password: password 
+      });
+      if (user)
+      console.log(user);
+      //navigation.navigate('ViewCupons');
     } catch (er) {
       Alert.alert('Erro ao Fazer Login' + er)
     }
