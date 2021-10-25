@@ -94,15 +94,16 @@ export default function Cadastro({ navigation}:Props) {
         password //criptografar
       }));
       if(!loading){
-
         setCpf('')
         setName('')
         setPhone('')
         setPassword('')
-        navigation.navigate('ViewCupons');
+        Alert.alert('Usuário Cadastrado com sucesso')
+        navigation.navigate('WelcomeAgain');
       }
 		} catch (error) {
       Alert.alert('Erro ao Fazer Cadastro' + error)
+      console.log(error)
     }
   }
 

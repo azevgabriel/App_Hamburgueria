@@ -5,27 +5,41 @@ import {
     Image,
 } from 'react-native';
 
-import {styles} from './styles';
+import { styles } from './styles';
 
 import Hamburger from '../../assets/hamburger.png';
 
 import Button from '../../components/Button';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../global/props';
+import { RootStackParamList, UserProps } from '../../global/props';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { api } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Welcome({navigation}: Props){
+export default function Welcome({ navigation }: Props) {
+    const { set_User } = useAuth();
     const handleCadastro = useCallback(() => {
         navigation.navigate('Cadastro');
-    },[])
+    }, [])
 
-    const handleLogin = useCallback(() => {
-        navigation.navigate('WelcomeAgain');
-    },[])
+    const handleLogin = useCallback(async () => {
 
-    return(
+        const token = await AsyncStorage.getItem('@Hamburgueria:TOKEN');
+        const user = await AsyncStorage.getItem('@Hamburgueria:USER');
+
+        if (token && user) {
+            api.defaults.headers.authorization = `Bearer ${token}`;
+            set_User(JSON.parse(user));
+            navigation.navigate('ViewCupons');
+        }else{
+            navigation.navigate('WelcomeAgain');
+        }
+    }, [])
+
+    return (
         <View style={styles.container}>
             <Text style={styles.welcomeText}>
                 Bem vindo, visitante!
@@ -48,9 +62,9 @@ export default function Welcome({navigation}: Props){
                 color="#293845"
                 onPress={handleCadastro}
             />
-            <Text style={[styles.label,{marginTop: "8%"}]}>
+            <Text style={[styles.label, { marginTop: "8%" }]}>
                 Já tenho cadastro.
-                </Text>
+            </Text>
             <Button
                 title="Entrar"
                 color="#293845"

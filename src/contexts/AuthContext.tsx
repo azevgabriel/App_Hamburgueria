@@ -1,8 +1,15 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
-import { CupomProps, CupomPropsPost, Cupom_UserCupomProps, NivelProps, UserCupomProps, UserProps, UserPropsPost } from '../global/props';
-import api from "../services/api";
+import { CupomProps, CupomPropsPost, Cupom_UserCupomProps, NivelProps, RootStackParamList, UserCupomProps, UserProps, UserPropsPost } from '../global/props';
+import { api } from "../services/api";
+
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { UseProps } from "react-native-svg";
+
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 type loginType = {
     cpf: string;
@@ -22,59 +29,59 @@ interface AuthContextData {
     fetchUser_Cupons: (user_id: number) => Promise<UserCupomProps[]>;
     fetch_Cupons: (user_cupons: UserCupomProps[]) => Promise<Cupom_UserCupomProps[]>;
     edit_all_values: (id_user_cupom: number) => Promise<void>;
+    set_User: (user: UserProps) => void;
     loading: boolean;
 }
 interface AuthProviderProps {
     children: ReactNode;
 }
-
+interface signInResponse {
+    token: {
+        token: string;
+    };
+    user: UserProps;
+}
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
+
     var [user, setUser] = useState<UserProps>({} as UserProps)
     const [loading, setLoading] = useState(false);
 
-    async function login(data: loginType) {
-        setLoading(true);
-        // Testes:
-        //
-        //User normal (1)
-        const userReturn1 = {
-            id: 841618566,
-            type: 1,
-            name: "Gabriel Azevedo",
-            cpf: "085.747.566-96",
-            phone: "(35)999999999",
-            password: "698dc19d489c4e4db73e28a713eab07b",
-            image: "https://avatars.githubusercontent.com/u/73303855?v=4",
-            level: 1,
-            burgers: 17,
-        }
-        // User Admin (0)
-        const userReturn2 = {
-            id: 12345678910,
-            type: 0,
-            name: "Maximo Characteres a",
-            cpf: "555.757.566-55",
-            phone: "(35)777777777",
-            password: "698dc19d489c4e4db73e28a713eab07b",
-            image: "https://github.com/thevinex.png",
-        }
-        // fim testes
+    useEffect(() => {
+        loadStorageData();
+    }, [])
 
-        setUser(userReturn1)
-        // Possivel Relação com o back
-        //
-        // Rota post para buscar o usuario (testar entre as duas rotas depois)
-        //
-        // const response = await api.post('login', {
-        //     cpf: data.cpf,
-        //     password: data.senha
-        // })
-
-        setLoading(false)
+    function set_User(user:UserProps) {
+        setUser(user);
     }
+    async function loadStorageData() {
+        const token = await AsyncStorage.getItem('@Hamburgueria:TOKEN');
+        const user = await AsyncStorage.getItem('@Hamburgueria:USER');
+
+        if (token && user) {
+            api.defaults.headers.authorization = `Bearer ${token}`;
+            setUser(JSON.parse(user));
+        }
+    }
+
+    const login = useCallback(async (data: loginType) => {
+
+        setLoading(true);
+        const response = await api.post<signInResponse>('/login', {
+            cpf: data.cpf,
+            password: data.senha
+        })
+        const { token, user } = response.data;
+        const userString = JSON.stringify(user);
+        await AsyncStorage.setItem('@Hamburgueria:TOKEN', token.token);
+        await AsyncStorage.setItem('@Hamburgueria:USER', userString);
+
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        setUser(user);
+        setLoading(false)
+    }, []);
     async function signUp(data: UserPropsPost) {
         //Teste:
         //
@@ -338,7 +345,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             create_user_cupom,
             fetchUser_Cupons,
             fetch_Cupons,
-            edit_all_values
+            edit_all_values,
+            set_User
         }}>
             {children}
         </AuthContext.Provider>

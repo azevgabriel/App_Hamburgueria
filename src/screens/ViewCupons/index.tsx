@@ -19,7 +19,6 @@ import BotaoTab from '../../components/BotãoTab';
 import { Load } from '../../components/Load';
 import QRScanner from '../../components/QRScanner';
 import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
-import api from '../../services/api';
 import userImg from '../../assets/hamburger.png';
 import { AntDesign } from "@expo/vector-icons";
 
@@ -138,7 +137,7 @@ export function ViewCupons({ navigation }: Props) {
         // post da rota
     }
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
             <View style={styles.rowheader}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />

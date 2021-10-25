@@ -24,6 +24,8 @@ export default function App() {
   }
 
   return (
-    <Routes />
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }

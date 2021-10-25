@@ -18,9 +18,9 @@ export default function WelcomeAgain({ navigation }: Props) {
 
   let cpfField = null;
 
-  const { user, signInUser } = useAuth();
+  const { user, login } = useAuth();
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
 
     if (!cpf) {
       return ToastAndroid.show('Digite o CPF, por favor.', ToastAndroid.SHORT);
@@ -31,10 +31,7 @@ export default function WelcomeAgain({ navigation }: Props) {
     }
 
     try {
-      await signInUser({ 
-        cpf: cpf, 
-        password: password 
-      });
+      await login({ cpf, senha: password });
       navigation.navigate('ViewCupons');
     } catch (er) {
       Alert.alert('Erro ao Fazer Login' + er)

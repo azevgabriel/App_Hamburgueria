@@ -2,11 +2,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import AppRoutes from './stack.routes'
-import { AuthProvider } from '../hooks/useAuth';
 
-declare global{
-    namespace ReactNavigation{
-        interface RootParamList{
+declare global {
+    namespace ReactNavigation {
+        interface RootParamList {
             Welcome: string;
             Cadastro: string;
             Confirmacao: string;
@@ -25,11 +24,9 @@ declare global{
 }
 
 const Routes = () => (
-    <AuthProvider>
-        <NavigationContainer>
-            <AppRoutes />
-        </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer>
+        <AppRoutes />
+    </NavigationContainer>
 );
 
 export default Routes;
