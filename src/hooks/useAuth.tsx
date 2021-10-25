@@ -12,6 +12,13 @@ interface signInUserProps {
   password: string;
 }
 
+interface signInResponse {
+  token: {
+    token: string;
+  };
+  user: iUser;
+}
+
 interface iUser {
   id: number;
   type: number;
@@ -39,7 +46,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const user = await AsyncStorage.getItem('@Hamburgueria:USER');
 
       if (token && user) {
-        api.defaults.headers.authorization = `Bearer ${token[1]}`;
+        api.defaults.headers.authorization = `Bearer ${token}`;
         setUser(JSON.parse(user));
       }
     }
@@ -49,7 +56,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signInUser = useCallback(async ({cpf, password}: signInUserProps) => {
 
-    const response = await api.post('/login', {
+    const response = await api.post<signInResponse>('/login', {
       cpf, 
       password
     }).catch((err) => {
@@ -60,10 +67,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const userString = JSON.stringify(user);
 
-    await AsyncStorage.setItem('@Hamburgueria:TOKEN', token)
-    await AsyncStorage.setItem('@Hamburgueria:USER', userString)
+    await AsyncStorage.setItem('@Hamburgueria:TOKEN', token.token);
+    await AsyncStorage.setItem('@Hamburgueria:USER', userString);
     
-    api.defaults.headers.authorization = `Bearer ${token}`
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setUser(user);
 

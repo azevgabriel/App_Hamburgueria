@@ -35,9 +35,7 @@ export default function WelcomeAgain({ navigation }: Props) {
         cpf: cpf, 
         password: password 
       });
-      if (user)
-      console.log(user);
-      //navigation.navigate('ViewCupons');
+      navigation.navigate('ViewCupons');
     } catch (er) {
       Alert.alert('Erro ao Fazer Login' + er)
     }
