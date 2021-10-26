@@ -1,5 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ToastAndroid, TouchableWithoutFeedback, Keyboard, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  ToastAndroid, 
+  TouchableWithoutFeedback, 
+  Keyboard, 
+  ScrollView, 
+  Image, 
+  TouchableOpacity, 
+  Alert,
+  Pressable,
+  Modal
+} from "react-native";
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
@@ -29,11 +42,27 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [titulo, setTitulo] = useState(cupom ? cupom.title : '');
   const [description, setDescription] = useState(cupom ? cupom.description : '');
   const [datamax, setDataMax] = useState(cupom ? cupom.expiration_date : '');
+  const [modalVisible, setModalVisible] = useState(false);
 
+  // Abre a câmera do dispositivo
+  async function takeAndUploadPhotoAsync(){
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if(result.cancelled){
+      return;
+    }
+
+    console.log(result);
+  }
+
+  // Escolher imagem da galeria
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (permissionResult.granted === false) {
+    if(permissionResult.granted === false){
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
@@ -111,15 +140,50 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
               ?
               <View style={styles.userContainer}>
                 <Image source={{ uri: cupom.image }} style={{ width: 140, height: 140, }} />
-                <TouchableOpacity
-                  style={styles.plus}
-                  activeOpacity={0.8}
-                  onPress={openImagePickerAsync}
+
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Pressable
+                        style={styles.buttonChoose}
+                        onPress={takeAndUploadPhotoAsync}
+                      >
+                        <Text>Abrir câmera</Text>
+                    </Pressable>
+                    <Pressable
+                      style={styles.buttonChoose}
+                      onPress={openImagePickerAsync}
+                    >
+                      <Text>Escolha da galeria</Text>
+                    </Pressable>
+                    <Pressable
+                      style={styles.buttonChoose}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <Text>Cancelar</Text>
+                    </Pressable>
+                  </View>
+                </View>
+                </Modal>
+      
+                <TouchableOpacity 
+                style={styles.plus}
+                activeOpacity={0.8}
+                onPress={() => setModalVisible(true)}
                 >
                   <Text>
-                    <AntDesign name="plus" style={styles.iconPlus} />
+                  <AntDesign name="plus" style={styles.iconPlus}/>
                   </Text>
                 </TouchableOpacity>
+
               </View>
 
               :
