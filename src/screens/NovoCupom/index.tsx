@@ -11,7 +11,8 @@ import {
   TouchableOpacity, 
   Alert,
   Pressable,
-  Modal
+  Modal,
+  StatusBar
 } from "react-native";
 import Voltar from "../../components/Voltar";
 
@@ -131,6 +132,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
+        <StatusBar hidden = {false}/>
         <View style={styles.back}>
           <Voltar color="black" onPress={handleBack} />
         </View>

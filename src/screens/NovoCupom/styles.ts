@@ -1,4 +1,4 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet,  } from 'react-native';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         flexGrow: 1,
         flexDirection: 'column',
         width: '100%',
-    },
+},
     back: {
         width: largura,
         bottom: altura / 50,

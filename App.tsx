@@ -20,12 +20,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <Load />;
+    return <Load/>;
   }
 
   return (
     <AuthProvider>
-      <Routes />
+      <Routes/>
     </AuthProvider>
   );
 }

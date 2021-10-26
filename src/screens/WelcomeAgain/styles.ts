@@ -61,5 +61,5 @@ export const styles = StyleSheet.create({
       color: colors.darkGray,
       fontSize: 16,
       fontFamily: fonts.Jost_600SemiBold
-    }
+    },
 })

@@ -46,5 +46,5 @@ export const styles = StyleSheet.create({
         letterSpacing: -.3,
         color: '#293845',
         marginBottom: '1%',
-    }
+    },
 })
