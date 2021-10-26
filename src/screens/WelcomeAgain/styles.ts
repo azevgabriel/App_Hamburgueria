@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
       flexDirection: 'column',
       paddingBottom: 30
     },
+    checkbox: {
+      alignSelf: "center",
+    },
     logoContainer: {
       marginTop:50,
       flex: 5,

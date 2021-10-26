@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView } from "react-native";
+import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView, CheckBox } from "react-native";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
 import icon from "../../assets/logo.png";
@@ -15,6 +15,7 @@ type Props = NativeStackScreenProps<RootStackParamList>;
 export default function WelcomeAgain({ navigation }: Props) {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
+  const [isSelected, setSelection] = useState(false);
 
   let cpfField = null;
 
@@ -31,7 +32,7 @@ export default function WelcomeAgain({ navigation }: Props) {
     }
 
     try {
-      await login({ cpf, senha: password });
+      await login({ cpf, senha: password}, isSelected);
       navigation.navigate('ViewCupons');
     } catch (er) {
       Alert.alert('Erro ao Fazer Login' + er)
@@ -46,6 +47,14 @@ export default function WelcomeAgain({ navigation }: Props) {
         <Text style={styles.againText}>novamente! 🥰</Text>
       </View>
       <View style={styles.inputContainer}>
+        <View style={{alignItems:'center', justifyContent: 'center', flexDirection: 'row'}}>
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
+        <Text style={styles.inputText}>Admin</Text>
+        </View>
         <Text style={styles.inputText}>Digite seu CPF abaixo:</Text>
         <TextInputMask
           placeholder="CPF"

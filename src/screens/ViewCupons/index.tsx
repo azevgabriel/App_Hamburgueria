@@ -9,7 +9,8 @@ import {
     Modal,
     ToastAndroid,
     Alert,
-    ScrollView
+    ScrollView,
+    Text,
 } from 'react-native';
 
 import { styles } from './styles';
@@ -36,13 +37,11 @@ export function ViewCupons({ navigation }: Props) {
     var [Allcupons, setAllCupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons, setCupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
     const [loadData, setLoadData] = useState(false);
-    const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values } = useAuth();
+    const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
-        // Essa é a função que será chamada quando um QR Code for lido com sucesso!
-        console.log(type); // type é o tipo de código que o scanner leu. Geralmente é o número 256, mas acho que esse dado não importa muito pra gente
-        console.log(data); // data é o valor que foi usado na criação do QR Code. No nosso caso, data será o id do user_coupon
+      
         passaValor(parseInt(data))
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
@@ -133,8 +132,9 @@ export function ViewCupons({ navigation }: Props) {
             navigation.navigate('VisualizarFidelidade')
     }
 
-    function handleQrCodeColeted(id_user_cupom: number) {
-        // post da rota
+    async function handleLogOut() {
+        await logOut();
+        navigation.navigate('Welcome')
     }
     return (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
@@ -152,6 +152,14 @@ export function ViewCupons({ navigation }: Props) {
                     }
                 </View>
             </View>
+                <TouchableOpacity
+                    onPress={handleLogOut}
+                    style={{borderWidth:2}}
+                >
+                    <Text>
+                        LogOut
+                    </Text>
+                </TouchableOpacity>
             {
                 user.type
                     ?

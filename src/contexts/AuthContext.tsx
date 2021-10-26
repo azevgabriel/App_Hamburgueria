@@ -17,7 +17,7 @@ type loginType = {
 }
 interface AuthContextData {
     user: UserProps;
-    login: (data: loginType) => Promise<void>;
+    login: (data: loginType, isAdmin: boolean) => Promise<void>;
     signUp: (data: UserPropsPost) => Promise<void>;
     update: (data: UserProps, oldPassword: string) => Promise<void>;
     newCupom: (data: CupomPropsPost) => Promise<void>;
@@ -31,6 +31,7 @@ interface AuthContextData {
     edit_all_values: (id_user_cupom: number) => Promise<void>;
     set_User: (user: UserProps) => void;
     loading: boolean;
+    logOut: () => Promise<void>
 }
 interface AuthProviderProps {
     children: ReactNode;
@@ -45,7 +46,6 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-
     var [user, setUser] = useState<UserProps>({} as UserProps)
     const [loading, setLoading] = useState(false);
 
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         loadStorageData();
     }, [])
 
-    function set_User(user:UserProps) {
+    function set_User(user: UserProps) {
         setUser(user);
     }
     async function loadStorageData() {
@@ -66,13 +66,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    const login = useCallback(async (data: loginType) => {
-
+    const login = useCallback(async (data: loginType, isAdmin: boolean) => {
+        var response;
+        if (isAdmin) {
+            response = await api.post<signInResponse>('/login/admin', {
+                cpf: data.cpf,
+                password: data.senha
+            })
+        } else {
+            response = await api.post<signInResponse>('/login', {
+                cpf: data.cpf,
+                password: data.senha
+            })
+        }
         setLoading(true);
-        const response = await api.post<signInResponse>('/login', {
-            cpf: data.cpf,
-            password: data.senha
-        })
         const { token, user } = response.data;
         const userString = JSON.stringify(user);
         await AsyncStorage.setItem('@Hamburgueria:TOKEN', token.token);
@@ -330,6 +337,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         // Fazer Rota
         //
     }
+    async function logOut() {
+        await AsyncStorage.clear()
+        setUser({} as UserProps);
+    }
     return (
         <AuthContext.Provider value={{
             user,
@@ -346,7 +357,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             fetchUser_Cupons,
             fetch_Cupons,
             edit_all_values,
-            set_User
+            set_User,
+            logOut
         }}>
             {children}
         </AuthContext.Provider>
