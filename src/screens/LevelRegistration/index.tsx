@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, TextInput, Text, ToastAndroid, Alert } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Text,
+  ToastAndroid,
+  Alert,
+} from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
 
@@ -8,8 +16,8 @@ import { styles } from "./styles";
 import Button from "../../components/Button";
 import { CupomProps, CuposAndLevels, ObjectCupons } from "../../global/props";
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../global/props';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../global/props";
 import { useAuth } from "../../hooks/useAuth";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
@@ -17,24 +25,26 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   const { updateCupom, updateLevel } = useAuth();
   const { cupom, level } = route.params as CuposAndLevels;
   useEffect(() => {
-    setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0)
-    setNumberOfBurgers(level.burgers_needed ? level.burgers_needed : 0)
-  }, [])
+    setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0);
+    setNumberOfBurgers(level.burgers_needed ? level.burgers_needed : 0);
+  }, []);
 
   const [numberOfBurgers, setNumberOfBurgers] = useState<number>(0);
   const [description, setDescription] = useState(cupom.description);
 
   function handleBack() {
-
-    navigation.navigate('VisualizarFidelidade')
+    navigation.navigate("VisualizarFidelidade");
   }
   async function handleSubmit() {
     if (!description) {
-      return ToastAndroid.show('Digite a descrição do prêmio, por favor.', ToastAndroid.SHORT);
+      return ToastAndroid.show(
+        "Digite a descrição do prêmio, por favor.",
+        ToastAndroid.SHORT
+      );
     }
     // Salvar via post
     try {
-      await (updateCupom({
+      await updateCupom({
         id: cupom.id,
         permitted_uses: cupom.permitted_uses,
         image: cupom.image,
@@ -44,15 +54,15 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         fidelity: cupom.fidelity,
         level_id: cupom.level_id,
         burgers_added: cupom.burgers_added,
-      }));
-      await (updateLevel({
+      });
+      await updateLevel({
         id: level.id,
         level: level.level,
-        burgers_needed: numberOfBurgers
-      }));
-      navigation.navigate('VisualizarFidelidade')
+        burgers_needed: numberOfBurgers,
+      });
+      navigation.navigate("VisualizarFidelidade");
     } catch (error) {
-      Alert.alert('Erro ao Atualizar Nivel e Level' + error)
+      Alert.alert("Erro ao Atualizar Nivel e Level" + error);
     }
     //
   }
@@ -68,7 +78,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity onPress={handleBack}>
           <AntDesign name="left" size={25} color="black" />
@@ -122,6 +132,6 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         </View>
       </View>
       <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
-    </View>
+    </ScrollView>
   );
 };
