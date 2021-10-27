@@ -78,60 +78,60 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.row}>
-        <TouchableOpacity onPress={handleBack}>
-          <AntDesign name="left" size={25} color="black" />
-        </TouchableOpacity>
-        {/* Fazer o fech de nivel */}
-        <Text style={styles.title}>Nível {level.level}</Text>
-      </View>
-      <View style={styles.column}>
-        <Text style={styles.label}>Prêmio:</Text>
-        <TextInput
-          multiline={true}
-          numberOfLines={4}
-          style={styles.input}
-          textBreakStrategy="highQuality"
-          placeholder="Insira a descrição do Prêmio"
-          maxLength={100}
-          value={description}
-          onChangeText={setDescription}
-        />
-      </View>
-      <View
-        style={[
-          styles.column,
-          {
-            justifyContent: "flex-start",
-            height: "10%",
-            marginTop: "5%",
-            marginBottom: "auto",
-          },
-        ]}
-      >
-        <Text style={styles.label}>🍔 Hamburguinhos:</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.row}>
+          <TouchableOpacity onPress={handleBack}>
+            <AntDesign name="left" size={25} color="black" />
+          </TouchableOpacity>
+          {/* Fazer o fech de nivel */}
+          <Text style={styles.title}>Nível {level.level}</Text>
+        </View>
+        <View style={styles.column}>
+          <Text style={styles.label}>Prêmio:</Text>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            style={styles.input}
+            textBreakStrategy="highQuality"
+            placeholder="Insira a descrição do Prêmio"
+            maxLength={100}
+            value={description}
+            onChangeText={setDescription}
+          />
+        </View>
         <View
           style={[
-            styles.row,
+            styles.column,
             {
-              marginTop: "auto",
-              height: "80%",
+              justifyContent: "flex-start",
+              height: "10%",
+              marginTop: "5%",
+              marginBottom: "auto",
             },
           ]}
         >
-          <TouchableOpacity onPress={() => handleButton("minus")}>
-            <AntDesign name="minussquareo" size={30} color="black" />
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.label}>{numberOfBurgers}</Text>
+          <Text style={styles.label}>🍔 Hamburguinhos:</Text>
+          <View
+            style={[
+              styles.row,
+              {
+                marginTop: 10,
+                height: "80%",
+              },
+            ]}
+          >
+            <TouchableOpacity onPress={() => handleButton("minus")}>
+              <AntDesign name="minussquareo" size={30} color="black" />
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.label}>{numberOfBurgers}</Text>
+            </View>
+            <TouchableOpacity onPress={() => handleButton("plus")}>
+              <AntDesign name="plussquareo" size={30} color="black" />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => handleButton("plus")}>
-            <AntDesign name="plussquareo" size={30} color="black" />
-          </TouchableOpacity>
         </View>
-      </View>
-      <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
+        <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
     </ScrollView>
   );
 };

@@ -34,6 +34,18 @@ export default function FidelidadeTela({ navigation }: Props) {
     setLoading(true)
     try {
       const response = await listAllLevel();
+
+      response.sort(function (a: NivelProps, b: NivelProps) {
+        if (a.level != undefined && b.level != undefined) {
+          if (a.level > b.level) {
+            return 1;
+          }
+          if (a.level < b.level) {
+            return -1;
+          }
+        }
+        return 0;
+      });
       setLevels(response)
 
       if (user.level != undefined && user.level < 5) {
@@ -72,7 +84,7 @@ export default function FidelidadeTela({ navigation }: Props) {
     navigation.navigate('ViewCupons')
   }
   function handleNivel(nivel: Number) {
-    if (nivel === user.level) {
+    if (nivel == user.level) {
       var level_id: number = 0;
       levels.forEach(element => {
         if (element.level === nivel) {

@@ -27,6 +27,18 @@ export default function PassouNivel({ navigation }: Props) {
     setLoading(true)
     try {
       const response = await listAllLevel();
+
+      response.sort(function (a: NivelProps, b: NivelProps) {
+        if (a.level != undefined && b.level != undefined) {
+          if (a.level > b.level) {
+            return 1;
+          }
+          if (a.level < b.level) {
+            return -1;
+          }
+        }
+        return 0;
+      });
       setLevels(response)
       fetchBurguerLevel()
     } catch {
