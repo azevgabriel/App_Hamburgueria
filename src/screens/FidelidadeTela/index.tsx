@@ -71,11 +71,23 @@ export default function FidelidadeTela({ navigation }: Props) {
   }
   async function fetchBurguerLevel() {
     const response = await listCupons();
+
     var just_cupons: CupomProps[] = []
     response.forEach(element => {
       if (element.fidelity) {
         just_cupons.push(element)
       }
+    });
+    just_cupons.sort(function (a: CupomProps, b: CupomProps) {
+      if (a.level_id != undefined && b.level_id != undefined) {
+        if (a.level_id > b.level_id) {
+          return 1;
+        }
+        if (a.level_id < b.level_id) {
+          return -1;
+        }
+      }
+      return 0;
     });
     setCupomLevels(just_cupons);
     setLoading(false)

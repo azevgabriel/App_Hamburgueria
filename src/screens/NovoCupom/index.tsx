@@ -97,7 +97,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (newCupom({
           permitted_uses: 5,// Mudar para o valor
-          image: "",//pegar image
+          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
@@ -112,14 +112,14 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (updateCupom({
           id: cupom.id,
-          permitted_uses: 5,// Mudar para o valor
-          image: "",//pegar image
+          permitted_uses: cupom.permitted_uses,// Mudar para o valor
+          image: cupom.image,//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: cupom.fidelity,
           level_id: cupom.level_id,
-          burgers_added: 5// Mudar para o valor
+          burgers_added: cupom.burgers_added// Mudar para o valor
         }));
         navigation.navigate('ViewCupons')
       } catch (error) {

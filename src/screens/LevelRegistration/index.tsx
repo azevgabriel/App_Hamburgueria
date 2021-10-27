@@ -42,7 +42,6 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         ToastAndroid.SHORT
       );
     }
-    // Salvar via post
     try {
       await updateCupom({
         id: cupom.id,

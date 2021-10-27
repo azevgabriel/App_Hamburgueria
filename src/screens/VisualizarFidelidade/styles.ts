@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
       marginHorizontal: '5%',
     },
     textoContainer: {
+      flexDirection:'row',
       flex: 0.18,
       alignItems: 'flex-end',
       justifyContent: 'flex-end',

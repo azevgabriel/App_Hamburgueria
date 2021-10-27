@@ -21,11 +21,12 @@ import { Load } from '../../components/Load';
 import QRScanner from '../../components/QRScanner';
 import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
 import userImg from '../../assets/hamburger.png';
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
+import colors from '../../styles/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -41,7 +42,7 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible, setModalVisible] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
-      
+
         passaValor(parseInt(data))
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
@@ -54,11 +55,22 @@ export function ViewCupons({ navigation }: Props) {
     }
 
     useEffect(() => {
+
         user.type
             ?
             fetchUserCupons(user.id)
             :
             fetchAllCupons()
+
+        const unsubscribe = navigation.addListener('focus', () => {
+
+            user.type
+                ?
+                fetchUserCupons(user.id)
+                :
+                fetchAllCupons()
+        });
+
     }, [])
 
     async function passaValor(id: number) {
@@ -136,6 +148,9 @@ export function ViewCupons({ navigation }: Props) {
         await logOut();
         navigation.navigate('Welcome')
     }
+    function handleRefresh() {
+
+    }
     return (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
             <View style={styles.rowheader}>
@@ -152,14 +167,14 @@ export function ViewCupons({ navigation }: Props) {
                     }
                 </View>
             </View>
-                <TouchableOpacity
-                    onPress={handleLogOut}
-                    style={{borderWidth:2}}
-                >
-                    <Text>
-                        LogOut
-                    </Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+                onPress={handleLogOut}
+                style={{ borderWidth: 2 }}
+            >
+                <Text>
+                    LogOut
+                </Text>
+            </TouchableOpacity>
             {
                 user.type
                     ?
