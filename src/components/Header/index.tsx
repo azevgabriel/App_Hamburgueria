@@ -43,7 +43,7 @@ export default function Header( {name, type} : UserProps) {
 
               :
 
-              <Text style={styles.textSub}>
+              <Text style={styles.textADM}>
                 Clique em um {`\n`}
                 CUPOM para editar.
               </Text>
