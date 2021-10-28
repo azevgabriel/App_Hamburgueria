@@ -112,7 +112,10 @@ export default function SeuPerfil({ navigation, }: Props) {
 
       }, Oldpassword));
       if (!loading) {
-        Alert.alert('Usuário atualizado com sucesso')
+        ToastAndroid.show(
+          "Usuário atualizado com sucesso",
+          ToastAndroid.SHORT
+        );
         navigation.navigate('ViewCupons');
       }
     } catch (error) {

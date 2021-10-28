@@ -19,11 +19,14 @@ import { CupomProps, CuposAndLevels, ObjectCupons } from "../../global/props";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../global/props";
 import { useAuth } from "../../hooks/useAuth";
+import colors from "../../styles/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   const { updateCupom, updateLevel } = useAuth();
   const { cupom, level } = route.params as CuposAndLevels;
+  const [loadingAsync, setLoadingAsync] = useState(false);
+
   useEffect(() => {
     setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0);
     setNumberOfBurgers(level.burgers_needed ? level.burgers_needed : 0);
@@ -42,6 +45,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         ToastAndroid.SHORT
       );
     }
+    setLoadingAsync(true)
     try {
       await updateCupom({
         id: cupom.id,
@@ -59,11 +63,15 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         level: level.level,
         burgers_needed: numberOfBurgers,
       });
+      ToastAndroid.show(
+        "Cupom de fidelidade Alterado com sucesso",
+        ToastAndroid.SHORT
+      );
       navigation.navigate("VisualizarFidelidade");
     } catch (error) {
       Alert.alert("Erro ao Atualizar Nivel e Level" + error);
     }
-    //
+    setLoadingAsync(false)
   }
 
   const handleButton = (type: string) => {
@@ -78,59 +86,65 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.row}>
-          <TouchableOpacity onPress={handleBack}>
-            <AntDesign name="left" size={25} color="black" />
-          </TouchableOpacity>
-          {/* Fazer o fech de nivel */}
-          <Text style={styles.title}>Nível {level.level}</Text>
-        </View>
-        <View style={styles.column}>
-          <Text style={styles.label}>Prêmio:</Text>
-          <TextInput
-            multiline={true}
-            numberOfLines={4}
-            style={styles.input}
-            textBreakStrategy="highQuality"
-            placeholder="Insira a descrição do Prêmio"
-            maxLength={100}
-            value={description}
-            onChangeText={setDescription}
-          />
-        </View>
+      <View style={styles.row}>
+        <TouchableOpacity onPress={handleBack}>
+          <AntDesign name="left" size={25} color="black" />
+        </TouchableOpacity>
+        {/* Fazer o fech de nivel */}
+        <Text style={styles.title}>Nível {level.level}</Text>
+      </View>
+      <View style={styles.column}>
+        <Text style={styles.label}>Prêmio:</Text>
+        <TextInput
+          multiline={true}
+          numberOfLines={4}
+          style={styles.input}
+          textBreakStrategy="highQuality"
+          placeholder="Insira a descrição do Prêmio"
+          maxLength={100}
+          value={description}
+          onChangeText={setDescription}
+        />
+      </View>
+      <View
+        style={[
+          styles.column,
+          {
+            justifyContent: "flex-start",
+            height: "10%",
+            marginTop: "5%",
+            marginBottom: "auto",
+          },
+        ]}
+      >
+        <Text style={styles.label}>🍔 Hamburguinhos:</Text>
         <View
           style={[
-            styles.column,
+            styles.row,
             {
-              justifyContent: "flex-start",
-              height: "10%",
-              marginTop: "5%",
-              marginBottom: "auto",
+              marginTop: 10,
+              height: "80%",
             },
           ]}
         >
-          <Text style={styles.label}>🍔 Hamburguinhos:</Text>
-          <View
-            style={[
-              styles.row,
-              {
-                marginTop: 10,
-                height: "80%",
-              },
-            ]}
-          >
-            <TouchableOpacity onPress={() => handleButton("minus")}>
-              <AntDesign name="minussquareo" size={30} color="black" />
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.label}>{numberOfBurgers}</Text>
-            </View>
-            <TouchableOpacity onPress={() => handleButton("plus")}>
-              <AntDesign name="plussquareo" size={30} color="black" />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleButton("minus")}>
+            <AntDesign name="minussquareo" size={30} color="black" />
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.label}>{numberOfBurgers}</Text>
           </View>
+          <TouchableOpacity onPress={() => handleButton("plus")}>
+            <AntDesign name="plussquareo" size={30} color="black" />
+          </TouchableOpacity>
         </View>
-        <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
+      </View>
+      {
+        !loadingAsync
+          ?
+          <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
+          :
+          <Button color={colors.shapeGray} title="Carregando!" />
+      }
     </ScrollView>
   );
 };

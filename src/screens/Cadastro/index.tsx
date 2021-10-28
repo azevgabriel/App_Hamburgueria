@@ -29,6 +29,7 @@ export default function Cadastro({ navigation}:Props) {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [inputError, setInputError] = useState("");
+  const [loadingAsync, setLoadingAsync] = useState(false);
   let cpfField = null;
   let telefoneField = null;
 
@@ -84,7 +85,7 @@ export default function Cadastro({ navigation}:Props) {
     if (password.length > 20) {
       return ToastAndroid.show('Senha muito grande.',  ToastAndroid.SHORT);
     }
-
+    setLoadingAsync(true)
     try {
 			await (signUp({
         image: "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png",
@@ -98,13 +99,16 @@ export default function Cadastro({ navigation}:Props) {
         setName('')
         setPhone('')
         setPassword('')
-        Alert.alert('Usuário Cadastrado com sucesso')
+        ToastAndroid.show(
+          "Usuário Cadastrado com sucesso",
+          ToastAndroid.SHORT
+        );
         navigation.navigate('WelcomeAgain');
       }
 		} catch (error) {
       Alert.alert('Erro ao Fazer Cadastro' + error)
-      console.log(error)
     }
+    setLoadingAsync(false)
   }
 
   return (
@@ -179,11 +183,17 @@ export default function Cadastro({ navigation}:Props) {
         </View>
 
         <View style={styles.viewButton}>
-          <Button
-            color={colors.darkGray}
-            title="Confirmar dados."
-            onPress={handleSubmit}
-          />
+            {
+              !loadingAsync
+                ?
+                <Button
+                  color={colors.darkGray}
+                  title="Confirmar dados."
+                  onPress={handleSubmit}
+                />
+                :
+                <Button color={colors.shapeGray} title="Carregando!" />
+            }
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>

@@ -149,9 +149,6 @@ export function ViewCupons({ navigation }: Props) {
         await logOut();
         navigation.navigate('Welcome')
     }
-    function handleRefresh() {
-
-    }
     return (
         <View style={styles.container}>
             <View style={user.type? styles.rowHeaderUser : styles.rowHeaderADM}>
