@@ -4,10 +4,10 @@ import fonts from "../../styles/fonts";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         margin: 15,
-        alignItems: "center",
-        justifyContent: "flex-start",
+        marginTop: 30,
+        paddingBottom: 40
     },
     row: {
         width: '100%',

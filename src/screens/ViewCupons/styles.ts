@@ -1,15 +1,20 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingBottom: 2,
-    marginTop: 20
+    marginTop: 10
   },
-
-  rowheader:{
-    flexDirection:'row',
+  rowHeaderADM:{
+    flex: 3.1,
+    flexDirection:'row'
+  },
+  rowHeaderUser:{
+    flex: 2.4,
+    flexDirection:'row'
   },
   viewheader:{
     width: '70%',
@@ -17,20 +22,88 @@ export const styles = StyleSheet.create({
   },
   viewimage:{
     width: '30%',
-    marginTop: 50,
+    marginTop: 50
   },
   image:{
     width: 80,
     height: 80,
-    borderRadius:40
+    borderRadius:40,
+    position: 'absolute'
+  },
+  logout: {
+    borderColor: colors.darkGray,
+    width: 35,
+    borderRadius: 40,
+    borderWidth: 1,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 60,
+    left: 55,
+    backgroundColor: colors.white
+  },
+  modalBackground: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalLogout: {
+    width: '90%',
+    backgroundColor: colors.white,
+    paddingVertical: 60,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    borderWidth: 2,
+    borderColor: colors.darkOrange
+  },
+  textModal: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 20,
+    color: colors.black,
+    marginBottom: 15
+  },
+  buttonModalCancelar: {
+    width: '42%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.darkGray,
+    marginRight: 15,
+    backgroundColor: colors.darkOrange,
+    borderRadius: 8,
+    paddingVertical: 10
+  },
+  buttonModalSair: {
+    width: '42%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.darkGray,
+    backgroundColor: colors.shapeGray,
+    borderRadius: 8,
+    paddingVertical: 10
+  },
+  textCancelar: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 18,
+    color: colors.white
+  },
+  textSim: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 18,
+    color: colors.black
   },
   cuponsContainer: {
-    flex: 8.5,
+    flex: 8.5
   },
   flatlist:{
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 50,
+    paddingBottom: 5,
   },
   QRCode: {
     flex: 1,
@@ -82,7 +155,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
-    flex: 1.3,
+    flex: 1,
   },
   tabUser: {
     flexDirection: 'row',
@@ -91,7 +164,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopColor: 'rgba(0,0,0,0.2)',
     borderTopWidth: 2,
-    flex: 1.3,
+    flex: 1.15,
   },
   spaceTab: {
     flex: 1,

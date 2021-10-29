@@ -17,14 +17,11 @@ import {
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import CadastroFoto from "../../components/CadastroFoto";
 import colors from "../../styles/colors";
 
 import Button from "../../components/Button";
-import { CupomProps, ObjectCupons } from "../../global/props";
+import { ObjectCupons } from "../../global/props";
 import { AntDesign } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -42,6 +39,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [description, setDescription] = useState(cupom ? cupom.description : '');
   const [datamax, setDataMax] = useState(cupom ? cupom.expiration_date : '');
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingAsync, setLoadingAsync] = useState(false);
 
   const [hamburguinhos, setHamburguinhos] = useState(0);
   const [usos, setUsos] = useState(0);
@@ -77,8 +75,6 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if (result.cancelled) {
       return;
     }
-
-    console.log(result);
   }
 
   // Escolher imagem da galeria
@@ -115,17 +111,22 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if (!datamax) {
       return ToastAndroid.show('Digite a data corretamente por favor.', ToastAndroid.SHORT);
     }
+    setLoadingAsync(true)
     if (!cupom) {
       try {
         await (newCupom({
           permitted_uses: 5,// Mudar para o valor
-          image: "",//pegar image
+          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: false,
           burgers_added: 5// Mudar para o valor
         }));
+        ToastAndroid.show(
+          "Cupom cadastrado com sucesso",
+          ToastAndroid.SHORT
+        );
         navigation.navigate('ViewCupons')
       } catch (error) {
         Alert.alert('Erro ao Criar Cupom' + error)
@@ -134,20 +135,25 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (updateCupom({
           id: cupom.id,
-          permitted_uses: usos,
-          image: "",//pegar image
+          permitted_uses: cupom.permitted_uses,// Mudar para o valor
+          image: cupom.image,//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: cupom.fidelity,
           level_id: cupom.level_id,
-          burgers_added: hamburguinhos
+          burgers_added: cupom.burgers_added// Mudar para o valor
         }));
+        ToastAndroid.show(
+          "Cupom alterado com sucesso",
+          ToastAndroid.SHORT
+        );
         navigation.navigate('ViewCupons')
       } catch (error) {
         Alert.alert('Erro ao Atualizar Cupom' + error)
       }
     }
+    setLoadingAsync(false)
 
   }
   return (
@@ -313,7 +319,13 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
             style={styles.input}
           />
           <View style={{ marginTop: 5 }}>
-            <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
+            {
+              !loadingAsync
+                ?
+                <Button color="#32cd32" title="Cadastrar" onPress={handleSubmit} />
+                :
+                <Button color={colors.shapeGray} title="Carregando!" />
+            }
           </View>
         </View>
       </ScrollView>

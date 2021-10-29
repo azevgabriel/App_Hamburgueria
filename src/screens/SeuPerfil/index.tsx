@@ -36,17 +36,18 @@ export default function SeuPerfil({ navigation, }: Props) {
   const [phone, setPhone] = useState(user.phone);
   const [password, setPassword] = useState('');
   const [Oldpassword, setOldPassword] = useState('');
+  const [loadingAsync, setLoadingAsync] = useState(false);
   let telefoneField = null;
   const [modalVisible, setModalVisible] = useState(false);
 
   // Abre a câmera do dispositivo
-  async function takeAndUploadPhotoAsync(){
+  async function takeAndUploadPhotoAsync() {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if(result.cancelled){
+    if (result.cancelled) {
       return;
     }
 
@@ -57,7 +58,7 @@ export default function SeuPerfil({ navigation, }: Props) {
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
+    if (permissionResult.granted === false) {
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
@@ -95,23 +96,32 @@ export default function SeuPerfil({ navigation, }: Props) {
     if (password.length < 8) {
       return ToastAndroid.show('Senha muito pequena.', ToastAndroid.SHORT);
     }
+    setLoadingAsync(true)
     try {
       await (update({
 
         id: user.id,
-        image: "",
+        image: "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png",
         phone,
         name,
-        password
+        password,
+        burgers: user.burgers,
+        cpf: user.cpf,
+        level: user.level,
+        type: user.type,
 
       }, Oldpassword));
       if (!loading) {
-        // Carregou o fectch
+        ToastAndroid.show(
+          "Usuário atualizado com sucesso",
+          ToastAndroid.SHORT
+        );
         navigation.navigate('ViewCupons');
       }
     } catch (error) {
-      Alert.alert('Erro ao Atualizar Perfil' + error)
+      Alert.alert('Erro: ' + error)
     }
+    setLoadingAsync(false)
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -142,10 +152,10 @@ export default function SeuPerfil({ navigation, }: Props) {
                     <View style={styles.centeredView}>
                       <View style={styles.modalView}>
                         <Pressable
-                            style={styles.buttonChoose}
-                            onPress={takeAndUploadPhotoAsync}
-                          >
-                            <Text>Abrir câmera</Text>
+                          style={styles.buttonChoose}
+                          onPress={takeAndUploadPhotoAsync}
+                        >
+                          <Text>Abrir câmera</Text>
                         </Pressable>
                         <Pressable
                           style={styles.buttonChoose}
@@ -162,14 +172,14 @@ export default function SeuPerfil({ navigation, }: Props) {
                       </View>
                     </View>
                   </Modal>
-      
-                  <TouchableOpacity 
-                  style={styles.plus}
-                  activeOpacity={0.8}
-                  onPress={() => setModalVisible(true)}
+
+                  <TouchableOpacity
+                    style={styles.plus}
+                    activeOpacity={0.8}
+                    onPress={() => setModalVisible(true)}
                   >
                     <Text>
-                    <AntDesign name="plus" style={styles.iconPlus}/>
+                      <AntDesign name="plus" style={styles.iconPlus} />
                     </Text>
                   </TouchableOpacity>
 
@@ -226,11 +236,17 @@ export default function SeuPerfil({ navigation, }: Props) {
 
           </View>
           <View style={styles.buttonContainer}>
-            <Button
-              title="Atualizar dados."
-              color={colors.darkGray}
-              onPress={handleSubmit}
-            />
+            {
+              !loadingAsync
+                ?
+                <Button
+                  title="Atualizar dados."
+                  color={colors.darkGray}
+                  onPress={handleSubmit}
+                />
+                :
+                <Button color={colors.shapeGray} title="Carregando!" />
+            }
           </View>
         </View>
       </ScrollView>

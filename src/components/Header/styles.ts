@@ -20,26 +20,31 @@ containerHeader: {
   alignItems :'flex-start'
 },
 textHeader:{
-  color: 'black',
+  color: colors.black,
   fontSize:25,
   fontFamily: fonts.Jost_600SemiBold,
 },
 textHeaderName:{
-  color: 'black',
+  color: colors.black,
   fontSize:25,
   fontWeight: 'bold',
-  fontFamily: fonts.Jost_600SemiBold,
+  fontFamily: fonts.Jost_600SemiBold
 },
 textHeaderName_small:{
-  color: 'black',
+  color: colors.black,
   fontSize:20,
   fontWeight: 'bold',
   fontFamily: fonts.Jost_600SemiBold,
 },
 textSub:{
   fontSize:20,
-  color: 'black',
+  color: colors.black,
   fontFamily: fonts.Jost_600SemiBold,
+},
+textADM:{
+  fontSize:20,
+  color: 'black',
+  fontFamily: fonts.Jost_600SemiBold
 },
 textSubBold:{
   fontSize:20,

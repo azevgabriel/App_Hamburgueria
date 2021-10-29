@@ -34,6 +34,18 @@ export default function FidelidadeTela({ navigation }: Props) {
     setLoading(true)
     try {
       const response = await listAllLevel();
+
+      response.sort(function (a: NivelProps, b: NivelProps) {
+        if (a.level != undefined && b.level != undefined) {
+          if (a.level > b.level) {
+            return 1;
+          }
+          if (a.level < b.level) {
+            return -1;
+          }
+        }
+        return 0;
+      });
       setLevels(response)
 
       if (user.level != undefined && user.level < 5) {
@@ -59,11 +71,23 @@ export default function FidelidadeTela({ navigation }: Props) {
   }
   async function fetchBurguerLevel() {
     const response = await listCupons();
+
     var just_cupons: CupomProps[] = []
     response.forEach(element => {
       if (element.fidelity) {
         just_cupons.push(element)
       }
+    });
+    just_cupons.sort(function (a: CupomProps, b: CupomProps) {
+      if (a.level_id != undefined && b.level_id != undefined) {
+        if (a.level_id > b.level_id) {
+          return 1;
+        }
+        if (a.level_id < b.level_id) {
+          return -1;
+        }
+      }
+      return 0;
     });
     setCupomLevels(just_cupons);
     setLoading(false)
@@ -72,7 +96,7 @@ export default function FidelidadeTela({ navigation }: Props) {
     navigation.navigate('ViewCupons')
   }
   function handleNivel(nivel: Number) {
-    if (nivel === user.level) {
+    if (nivel == user.level) {
       var level_id: number = 0;
       levels.forEach(element => {
         if (element.level === nivel) {

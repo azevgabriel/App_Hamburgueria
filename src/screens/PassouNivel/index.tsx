@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Image, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TextInput, Alert, ToastAndroid } from 'react-native';
 
 import { styles } from './styles';
 import colors from '../../styles/colors';
@@ -16,13 +16,21 @@ type Props = NativeStackScreenProps<RootStackParamList>;
 export default function PassouNivel({ navigation, route, ...rest }: Props) {
   const { create_user_cupom, user } = useAuth();
   const cupom = route.params as CupomProps;
+  const [loadingAsync, setLoadingAsync] = useState(false);
+
   async function handleNext() {
+    setLoadingAsync(true)
     try {
       await create_user_cupom(cupom.id, user);
+      ToastAndroid.show(
+        "Cupom de fidelidade Adquirido!",
+        ToastAndroid.SHORT
+      );
       navigation.navigate('FidelidadeTela')
     } catch (error) {
       Alert.alert('Erro ao Criar Cupom de Fidelidade' + error)
     }
+    setLoadingAsync(false)
   }
   return (
     <View style={styles.container}>
@@ -45,11 +53,17 @@ export default function PassouNivel({ navigation, route, ...rest }: Props) {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          color={colors.darkGray}
-          title="Avançar"
-          onPress={handleNext}
-        />
+        {
+          !loadingAsync
+            ?
+            <Button
+              color={colors.darkGray}
+              title="Avançar"
+              onPress={handleNext}
+            />
+            :
+            <Button color={colors.shapeGray} title="Carregando!" />
+        }
       </View>
     </View>
   );

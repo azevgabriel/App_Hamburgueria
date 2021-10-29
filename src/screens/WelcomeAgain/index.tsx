@@ -9,6 +9,7 @@ import { TextInputMask } from "react-native-masked-text";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
+import { Load } from "../../components/Load";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -16,6 +17,7 @@ export default function WelcomeAgain({ navigation }: Props) {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [isSelected, setSelection] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let cpfField = null;
 
@@ -31,12 +33,14 @@ export default function WelcomeAgain({ navigation }: Props) {
       return ToastAndroid.show('Digite a Senha, por favor.', ToastAndroid.SHORT);
     }
 
+    setLoading(true)
     try {
-      await login({ cpf, senha: password}, isSelected);
+      await login({ cpf, senha: password }, isSelected);
       navigation.navigate('ViewCupons');
     } catch (er) {
       Alert.alert('Erro ao Fazer Login' + er)
     }
+    setLoading(false)
   }
 
   return (
@@ -47,13 +51,13 @@ export default function WelcomeAgain({ navigation }: Props) {
         <Text style={styles.againText}>novamente! 🥰</Text>
       </View>
       <View style={styles.inputContainer}>
-        <View style={{alignItems:'center', justifyContent: 'center', flexDirection: 'row'}}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-        <Text style={styles.inputText}>Admin</Text>
+        <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+          <CheckBox
+            value={isSelected}
+            onValueChange={setSelection}
+            style={styles.checkbox}
+          />
+          <Text style={styles.inputText}>Admin</Text>
         </View>
         <Text style={styles.inputText}>Digite seu CPF abaixo:</Text>
         <TextInputMask
@@ -79,7 +83,13 @@ export default function WelcomeAgain({ navigation }: Props) {
       </View>
       <View style={styles.buttonContainer}>
         <Text style={styles.ofertaText}>Aproveite nossas ofertas!</Text>
-        <Button color={colors.darkGray} title="Bora!" onPress={handleSubmit} />
+        {
+          !loading
+            ?
+            <Button color={colors.darkGray} title="Bora!" onPress={handleSubmit} />
+            :
+            <Button color={colors.shapeGray} title="Carregando!"/>
+        }
       </View>
     </ScrollView>
   );

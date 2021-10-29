@@ -9,7 +9,7 @@ import {
     Modal,
     ToastAndroid,
     Alert,
-    ScrollView,
+    KeyboardAvoidingView,
     Text,
 } from 'react-native';
 
@@ -21,11 +21,12 @@ import { Load } from '../../components/Load';
 import QRScanner from '../../components/QRScanner';
 import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
 import userImg from '../../assets/hamburger.png';
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
+import colors from '../../styles/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -39,9 +40,10 @@ export function ViewCupons({ navigation }: Props) {
     const [loadData, setLoadData] = useState(false);
     const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
-      
+
         passaValor(parseInt(data))
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
@@ -54,11 +56,22 @@ export function ViewCupons({ navigation }: Props) {
     }
 
     useEffect(() => {
+
         user.type
             ?
             fetchUserCupons(user.id)
             :
             fetchAllCupons()
+
+        const unsubscribe = navigation.addListener('focus', () => {
+
+            user.type
+                ?
+                fetchUserCupons(user.id)
+                :
+                fetchAllCupons()
+        });
+
     }, [])
 
     async function passaValor(id: number) {
@@ -137,11 +150,41 @@ export function ViewCupons({ navigation }: Props) {
         navigation.navigate('Welcome')
     }
     return (
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
-            <View style={styles.rowheader}>
+        <View style={styles.container}>
+            <View style={user.type? styles.rowHeaderUser : styles.rowHeaderADM}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />
                 </View>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible2}
+                    onRequestClose={() => {
+                        setModalVisible2(false);
+                    }}
+                >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalLogout}>
+                            <Text style={styles.textModal}>Tem certeza que deseja sair?</Text>
+                            <View style={{flexDirection: 'row'}}> 
+                                <TouchableOpacity
+                                    onPress={() => {setModalVisible2(false)}}
+                                    style={styles.buttonModalCancelar}
+                                >
+                                    <Text style={styles.textCancelar}>Cancelar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={handleLogOut}
+                                    style={styles.buttonModalSair}
+                                >
+                                    <Text style={styles.textSim}>Sim</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
                 <View style={styles.viewimage}>
                     {
                         user.image && user.image != ""
@@ -150,16 +193,19 @@ export function ViewCupons({ navigation }: Props) {
                             :
                             <Image style={styles.image} source={require('../../assets/logo.png')} />
                     }
+                    <TouchableOpacity
+                        onPress={() => {setModalVisible2(true)}}
+                        style={styles.logout}
+                    >
+                        <Feather 
+                            name='log-out'
+                            size={23}
+                            color='black'
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
-                <TouchableOpacity
-                    onPress={handleLogOut}
-                    style={{borderWidth:2}}
-                >
-                    <Text>
-                        LogOut
-                    </Text>
-                </TouchableOpacity>
+                
             {
                 user.type
                     ?
@@ -289,6 +335,6 @@ export function ViewCupons({ navigation }: Props) {
                 }
 
             </View>
-        </ScrollView>
+        </View>
     );
 }

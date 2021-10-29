@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexDirection: 'column',
-    marginTop: 20,
     paddingBottom: 20
   },
   userContainer: {

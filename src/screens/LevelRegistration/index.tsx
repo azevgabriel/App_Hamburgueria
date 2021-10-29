@@ -19,11 +19,14 @@ import { CupomProps, CuposAndLevels, ObjectCupons } from "../../global/props";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../global/props";
 import { useAuth } from "../../hooks/useAuth";
+import colors from "../../styles/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   const { updateCupom, updateLevel } = useAuth();
   const { cupom, level } = route.params as CuposAndLevels;
+  const [loadingAsync, setLoadingAsync] = useState(false);
+
   useEffect(() => {
     setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0);
     setNumberOfBurgers(level.burgers_needed ? level.burgers_needed : 0);
@@ -42,7 +45,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         ToastAndroid.SHORT
       );
     }
-    // Salvar via post
+    setLoadingAsync(true)
     try {
       await updateCupom({
         id: cupom.id,
@@ -60,11 +63,15 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         level: level.level,
         burgers_needed: numberOfBurgers,
       });
+      ToastAndroid.show(
+        "Cupom de fidelidade Alterado com sucesso",
+        ToastAndroid.SHORT
+      );
       navigation.navigate("VisualizarFidelidade");
     } catch (error) {
       Alert.alert("Erro ao Atualizar Nivel e Level" + error);
     }
-    //
+    setLoadingAsync(false)
   }
 
   const handleButton = (type: string) => {
@@ -78,7 +85,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity onPress={handleBack}>
           <AntDesign name="left" size={25} color="black" />
@@ -115,7 +122,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
           style={[
             styles.row,
             {
-              marginTop: "auto",
+              marginTop: 10,
               height: "80%",
             },
           ]}
@@ -131,7 +138,13 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
+      {
+        !loadingAsync
+          ?
+          <Button title="Editar" color="#1AAE9F" onPress={handleSubmit} />
+          :
+          <Button color={colors.shapeGray} title="Carregando!" />
+      }
     </ScrollView>
   );
 };
