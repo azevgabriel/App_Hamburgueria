@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  ToastAndroid, 
-  TouchableWithoutFeedback, 
-  Keyboard, 
-  ScrollView, 
-  Image, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  TextInput,
+  ToastAndroid,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+  Image,
+  TouchableOpacity,
   Alert,
   Pressable,
   Modal,
@@ -22,8 +22,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CadastroFoto from "../../components/CadastroFoto";
 import colors from "../../styles/colors";
-
-import NumberSetter from "../../components/NumberSetter";
 
 import Button from "../../components/Button";
 import { CupomProps, ObjectCupons } from "../../global/props";
@@ -45,14 +43,38 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [datamax, setDataMax] = useState(cupom ? cupom.expiration_date : '');
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [hamburguinhos, setHamburguinhos] = useState(0);
+  const [usos, setUsos] = useState(0);
+
+  function handleIncreaseHamb() {
+    setHamburguinhos(() => hamburguinhos + 1 )
+  }
+
+  function handleDecreaseHamb() {
+    if (hamburguinhos > 0) {
+      setHamburguinhos(() => hamburguinhos - 1)
+    }
+  }
+  
+  function handleIncreaseUsos() {
+    setUsos(() => usos + 1)
+  }
+
+  function handleDecreaseUsos() {
+    if (usos > 0) {
+      setUsos(() => usos - 1)
+    }
+  }
+
+
   // Abre a câmera do dispositivo
-  async function takeAndUploadPhotoAsync(){
+  async function takeAndUploadPhotoAsync() {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if(result.cancelled){
+    if (result.cancelled) {
       return;
     }
 
@@ -63,7 +85,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
+    if (permissionResult.granted === false) {
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
@@ -112,14 +134,14 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (updateCupom({
           id: cupom.id,
-          permitted_uses: 5,// Mudar para o valor
+          permitted_uses: usos,
           image: "",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: cupom.fidelity,
           level_id: cupom.level_id,
-          burgers_added: 5// Mudar para o valor
+          burgers_added: hamburguinhos
         }));
         navigation.navigate('ViewCupons')
       } catch (error) {
@@ -132,7 +154,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
-        <StatusBar hidden = {false}/>
+        <StatusBar hidden={false} />
         <View style={styles.back}>
           <Voltar color="black" onPress={handleBack} />
         </View>
@@ -152,37 +174,37 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
                     setModalVisible(!modalVisible);
                   }}
                 >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Pressable
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <Pressable
                         style={styles.buttonChoose}
                         onPress={takeAndUploadPhotoAsync}
                       >
                         <Text>Abrir câmera</Text>
-                    </Pressable>
-                    <Pressable
-                      style={styles.buttonChoose}
-                      onPress={openImagePickerAsync}
-                    >
-                      <Text>Escolha da galeria</Text>
-                    </Pressable>
-                    <Pressable
-                      style={styles.buttonChoose}
-                      onPress={() => setModalVisible(!modalVisible)}
-                    >
-                      <Text>Cancelar</Text>
-                    </Pressable>
+                      </Pressable>
+                      <Pressable
+                        style={styles.buttonChoose}
+                        onPress={openImagePickerAsync}
+                      >
+                        <Text>Escolha da galeria</Text>
+                      </Pressable>
+                      <Pressable
+                        style={styles.buttonChoose}
+                        onPress={() => setModalVisible(!modalVisible)}
+                      >
+                        <Text>Cancelar</Text>
+                      </Pressable>
+                    </View>
                   </View>
-                </View>
                 </Modal>
-      
-                <TouchableOpacity 
-                style={styles.plus}
-                activeOpacity={0.8}
-                onPress={() => setModalVisible(true)}
+
+                <TouchableOpacity
+                  style={styles.plus}
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(true)}
                 >
                   <Text>
-                  <AntDesign name="plus" style={styles.iconPlus}/>
+                    <AntDesign name="plus" style={styles.iconPlus} />
                   </Text>
                 </TouchableOpacity>
 
@@ -212,9 +234,69 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
             maxLength={100}
           />
 
-          <NumberSetter title="Hamburguinhos🍔" numberOld={cupom?.burgers_added} />
+          <View style={styles.containerSetter}>
+            <View style={styles.title}>
+              <Text>
+                Hamburguinhos 🍔
+              </Text>
+            </View>
+            <View style={styles.setterContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleDecreaseHamb}
+                activeOpacity={0.6}
+              >
+                <Text
+                  style={styles.buttonText}
+                >-</Text>
+              </TouchableOpacity>
+              <View style={styles.displayNumber}>
+                <Text style={styles.displayNumberText}>{hamburguinhos}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.6}
+                onPress={handleIncreaseHamb}
+                {...rest}
+              >
+                <Text
+                  style={styles.buttonText}
+                >+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-          <NumberSetter title="Número de usos" numberOld={cupom?.permitted_uses} />
+          <View style={styles.containerSetter}>
+            <View style={styles.title}>
+              <Text>
+                Número de usos
+              </Text>
+            </View>
+            <View style={styles.setterContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleDecreaseUsos}
+                activeOpacity={0.6}
+              >
+                <Text
+                  style={styles.buttonText}
+                >-</Text>
+              </TouchableOpacity>
+              <View style={styles.displayNumber}>
+                <Text style={styles.displayNumberText}>{usos}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.6}
+                onPress={handleIncreaseUsos}
+                {...rest}
+              >
+                <Text
+                  style={styles.buttonText}
+                >+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           <Text style={styles.titleInput}>Data máxima</Text>
           <TextInputMask
