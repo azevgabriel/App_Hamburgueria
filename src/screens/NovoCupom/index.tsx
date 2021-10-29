@@ -115,13 +115,13 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     if (!cupom) {
       try {
         await (newCupom({
-          permitted_uses: 5,// Mudar para o valor
+          permitted_uses: usos,// Mudar para o valor
           image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: false,
-          burgers_added: 5// Mudar para o valor
+          burgers_added: hamburguinhos// Mudar para o valor
         }));
         ToastAndroid.show(
           "Cupom cadastrado com sucesso",
