@@ -29,9 +29,9 @@ export default function Header( {name, type} : UserProps) {
             {
               name_lenght_small
               ?
-              <Text style={styles.textHeaderName}>{name}!{'\n'}</Text>
+              <Text style={styles.textHeaderName}>{name}!</Text>
               :
-              <Text style={styles.textHeaderName_small}>{name}!{'\n'}</Text>
+              <Text style={styles.textHeaderName_small}>{name}!</Text>
             }
 
             {

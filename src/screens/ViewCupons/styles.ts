@@ -6,23 +6,24 @@ export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingBottom: 2,
-    marginTop: 10
+    marginTop: 5
   },
-  rowHeaderADM:{
-    flex: 3.1,
-    flexDirection:'row'
-  },
-  rowHeaderUser:{
-    flex: 2.4,
+  rowHeader:{
     flexDirection:'row'
   },
   viewheader:{
     width: '70%',
     marginTop: -30
   },
-  viewimage:{
+  viewimageADM:{
     width: '30%',
-    marginTop: 50
+    marginBottom: 39,
+    marginTop: 40
+  },
+  viewimageUser:{
+    width: '30%',
+    marginBottom: 13,
+    marginTop: 40
   },
   image:{
     width: 80,
@@ -50,7 +51,7 @@ export const styles = StyleSheet.create({
   },
   modalLogout: {
     width: '90%',
-    backgroundColor: colors.white,
+    backgroundColor: '#f2f2f2',
     paddingVertical: 60,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -67,23 +68,23 @@ export const styles = StyleSheet.create({
     marginBottom: 15
   },
   buttonModalCancelar: {
-    width: '42%',
+    width: '43%',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.darkGray,
+    borderColor: colors.white,
     marginRight: 15,
     backgroundColor: colors.darkOrange,
     borderRadius: 8,
     paddingVertical: 10
   },
   buttonModalSair: {
-    width: '42%',
+    width: '43%',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.darkGray,
-    backgroundColor: colors.shapeGray,
+    borderColor: colors.white,
+    backgroundColor: '#363535',
     borderRadius: 8,
     paddingVertical: 10
   },
@@ -95,7 +96,7 @@ export const styles = StyleSheet.create({
   textSim: {
     fontFamily: fonts.Jost_400Regular,
     fontSize: 18,
-    color: colors.black
+    color: colors.white
   },
   cuponsContainer: {
     flex: 8.5
@@ -124,16 +125,22 @@ export const styles = StyleSheet.create({
     height: 40,
     marginRight: 10
   },
+  textTab: {
+    fontFamily: fonts.Jost_400Regular,
+    fontSize: 18,
+    color: colors.white,
+    marginRight: 10
+  },
   icons: {
     backgroundColor: colors.black,
     borderRadius: 10,
     borderColor: colors.white,
     borderWidth: 1,
-    padding: 5,
+    padding: 8,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 5
+    marginHorizontal: 5,
 
   },
   QRModal: {
@@ -155,7 +162,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
-    flex: 1,
+    flex: 0.9,
   },
   tabUser: {
     flexDirection: 'row',

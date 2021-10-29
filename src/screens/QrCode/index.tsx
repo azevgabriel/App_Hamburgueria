@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Clipboard, ToastAndroid } from 'react-native';
+import { View, Text, ToastAndroid } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import { Feather } from '@expo/vector-icons';
 import img from '../../../assets/image-solid.png';
 import { styles } from './styles';

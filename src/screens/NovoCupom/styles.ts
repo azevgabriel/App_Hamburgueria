@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
         flexGrow: 1,
         flexDirection: 'column',
         width: '100%',
+        marginTop: 20
 },
     back: {
         width: largura,

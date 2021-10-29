@@ -4,13 +4,12 @@ import {
     View,
     FlatList,
     Image,
-    TextInput,
     TouchableOpacity,
     Modal,
     ToastAndroid,
     Alert,
-    KeyboardAvoidingView,
     Text,
+    Clipboard
 } from 'react-native';
 
 import { styles } from './styles';
@@ -41,6 +40,7 @@ export function ViewCupons({ navigation }: Props) {
     const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
+    const [copiedText, setCopiedText] = React.useState('');
 
     const onCodeScanned = (type: string, data: string) => {
 
@@ -82,7 +82,7 @@ export function ViewCupons({ navigation }: Props) {
                 Alert.alert('Erro ao dar baixa no cupom' + error)
             }
         } else {
-            Alert.alert('Digite um numero')
+            Alert.alert('Ocorreu algum erro')
         }
     }
 
@@ -149,9 +149,26 @@ export function ViewCupons({ navigation }: Props) {
         await logOut();
         navigation.navigate('Welcome')
     }
+
+    const fetchCopiedText = async () => {
+        try {
+            const text = await Clipboard.getString();
+            ToastAndroid.showWithGravityAndOffset(
+                "Código lido!",
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
+            passaValor(parseInt(text));
+        } catch (error) {
+            Alert.alert('Ocorreu o erro:' + error)
+        }
+    }
+
     return (
         <View style={styles.container}>
-            <View style={user.type? styles.rowHeaderUser : styles.rowHeaderADM}>
+            <View style={styles.rowHeader}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />
                 </View>
@@ -185,7 +202,7 @@ export function ViewCupons({ navigation }: Props) {
                     </View>
                 </Modal>
 
-                <View style={styles.viewimage}>
+                <View style={user.type? styles.viewimageUser : styles.viewimageADM }>
                     {
                         user.image && user.image != ""
                             ?
@@ -289,19 +306,23 @@ export function ViewCupons({ navigation }: Props) {
                     :
 
                     <View style={styles.QRCode}>
-                        <TextInput
-                            placeholder="Cole o código aqui"
-                            style={styles.inputQRCode}
-                            onChangeText={setValorCode}
-                        />
-                        <TouchableOpacity onPress={() => passaValor(parseInt(valorCode))} style={styles.icons}>
-                            <AntDesign name="search1" size={25} color="white" />
+                        <TouchableOpacity 
+                            onPress={() => fetchCopiedText()} 
+                            style={styles.icons}
+                        >
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={styles.textTab}>Pesquisar</Text>
+                                <AntDesign name="search1" size={23} color="white" />
+                            </View>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.icons}
                             onPress={() => setModalVisible(true)}
                         >
-                            <AntDesign name="qrcode" size={25} color="white" />
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={styles.textTab}>Scannear</Text>
+                                <AntDesign name="qrcode" size={23} color="white" />
+                            </View>
                         </TouchableOpacity>
                     </View>
             }

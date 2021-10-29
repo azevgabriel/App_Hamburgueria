@@ -28,7 +28,8 @@ textHeaderName:{
   color: colors.black,
   fontSize:25,
   fontWeight: 'bold',
-  fontFamily: fonts.Jost_600SemiBold
+  fontFamily: fonts.Jost_600SemiBold,
+  marginBottom: 15
 },
 textHeaderName_small:{
   color: colors.black,
