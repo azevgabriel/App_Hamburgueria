@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView, CheckBox } from "react-native";
+import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView, CheckBox, TouchableOpacity, Modal } from "react-native";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
 import icon from "../../assets/logo.png";
@@ -18,6 +18,7 @@ export default function WelcomeAgain({ navigation }: Props) {
   const [password, setPassword] = useState("");
   const [isSelected, setSelection] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   let cpfField = null;
 
@@ -37,13 +38,35 @@ export default function WelcomeAgain({ navigation }: Props) {
     try {
       await login({ cpf, senha: password }, isSelected);
       navigation.navigate('ViewCupons');
-    } catch (er) {
-      Alert.alert('Erro ao Fazer Login' + er)
+    } catch {
+      setOpenModal(true);
     }
     setLoading(false)
   }
 
   return (
+    <>
+    <Modal
+      animationType={'slide'}
+      transparent={true}
+      visible={openModal}
+      onRequestClose={() => {
+          setOpenModal(false);
+      }}
+      >
+        <View style={styles.modalBackground}>
+            <View style={styles.modalLogout}>
+                <Text style={styles.textModal}>Houve algum erro. Tente novamente!</Text>
+                    <TouchableOpacity
+                        onPress={() => {setOpenModal(false)}}
+                        style={styles.buttonModalCancelar}
+                    >
+                        <Text style={styles.textCancelar}>Ok</Text>
+                    </TouchableOpacity>
+            </View>
+        </View>
+    </Modal>
+
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={icon} resizeMode="contain" style={styles.logo} />
@@ -92,5 +115,6 @@ export default function WelcomeAgain({ navigation }: Props) {
         }
       </View>
     </ScrollView>
+    </>
   );
 }

@@ -62,4 +62,45 @@ export const styles = StyleSheet.create({
       fontSize: 16,
       fontFamily: fonts.Jost_600SemiBold
     },
+    modalBackground: {
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    modalLogout: {
+      width: '90%',
+      backgroundColor: '#f2f2f2',
+      paddingVertical: 30,
+      paddingHorizontal: 20,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      borderWidth: 2,
+      borderColor: '#990000'
+    },
+    textModal: {
+      fontFamily: fonts.Jost_400Regular,
+      fontSize: 20,
+      color: colors.black,
+      marginBottom: 15,
+      textAlign: 'center'
+    },
+    buttonModalCancelar: {
+      width: '40%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: colors.white,
+      marginRight: 15,
+      backgroundColor: '#990000',
+      borderRadius: 8,
+      paddingVertical: 10
+    },
+    textCancelar: {
+      fontFamily: fonts.Jost_400Regular,
+      fontSize: 18,
+      color: colors.white
+    },
 })

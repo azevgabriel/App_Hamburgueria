@@ -40,7 +40,7 @@ export function ViewCupons({ navigation }: Props) {
     const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
-    const [copiedText, setCopiedText] = React.useState('');
+    const [modalVisible3, setModalVisible3] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
 
@@ -82,7 +82,7 @@ export function ViewCupons({ navigation }: Props) {
                 Alert.alert('Erro ao dar baixa no cupom' + error)
             }
         } else {
-            Alert.alert('Ocorreu algum erro')
+            setModalVisible3(true)
         }
     }
 
@@ -146,8 +146,12 @@ export function ViewCupons({ navigation }: Props) {
     }
 
     async function handleLogOut() {
-        await logOut();
-        navigation.navigate('Welcome')
+        try {
+            await logOut();
+            navigation.navigate('Welcome')
+        } catch {
+            setModalVisible3(true)
+        }
     }
 
     const fetchCopiedText = async () => {
@@ -162,7 +166,7 @@ export function ViewCupons({ navigation }: Props) {
             );
             passaValor(parseInt(text));
         } catch (error) {
-            Alert.alert('Ocorreu o erro:' + error)
+            setModalVisible3(true)
         }
     }
 
@@ -198,6 +202,27 @@ export function ViewCupons({ navigation }: Props) {
                                     <Text style={styles.textSim}>Sim</Text>
                                 </TouchableOpacity>
                             </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                animationType={'slide'}
+                transparent={true}
+                visible={modalVisible3}
+                onRequestClose={() => {
+                    setModalVisible3(false);
+                }}
+                >
+                    <View style={styles.modalBackground2}>
+                        <View style={styles.modalLogout2}>
+                            <Text style={styles.textModal2}>Houve algum erro. Tente novamente!</Text>
+                                <TouchableOpacity
+                                    onPress={() => {setModalVisible3(false)}}
+                                    style={styles.buttonModalCancelar2}
+                                >
+                                    <Text style={styles.textCancelar2}>Ok</Text>
+                                </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
