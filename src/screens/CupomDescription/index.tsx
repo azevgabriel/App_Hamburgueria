@@ -3,7 +3,7 @@
  * Pegar o tipo de user para modificar o texto do botao
  */
 import React from 'react';
-import { View, Image, Text, Dimensions } from 'react-native';
+import { View, Image, Text, Dimensions, StatusBar } from 'react-native';
 import { styles } from './styles';
 import Button from '../../components/Button';
 import { CupomProps, UserProps, ObjectCupons } from '../../global/props';
@@ -39,6 +39,7 @@ export default function CupomDescription({ navigation, route, ...rest }: Props) 
 
     return (
         <View style={styles.container}>
+            <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#fbe292"/>
             <View style={styles.back}>
                 <Voltar color='black' onPress={handleBack} />
             </View>

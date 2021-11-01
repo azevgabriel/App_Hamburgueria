@@ -7,6 +7,7 @@ import {
   Text,
   ToastAndroid,
   Alert,
+  StatusBar
 } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -86,6 +87,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
       <View style={styles.row}>
         <TouchableOpacity onPress={handleBack}>
           <AntDesign name="left" size={25} color="black" />

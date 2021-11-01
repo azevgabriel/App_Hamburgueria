@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   Alert,
   Modal,
-  Pressable
+  Pressable,
+  StatusBar
 } from "react-native";
 import CadastroFoto from "../../components/CadastroFoto";
 import BotaoTab from "../../components/BotãoTab";
@@ -126,6 +127,7 @@ export default function SeuPerfil({ navigation, }: Props) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
         <View style={styles.box}>
 
           <View style={styles.titleContainer}>

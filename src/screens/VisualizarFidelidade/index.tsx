@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
 
 import { styles } from './styles';
 
@@ -91,6 +91,7 @@ export default function PassouNivel({ navigation }: Props) {
   }
   return (
     <View style={styles.container}>
+      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
       <View style={styles.box}>
         <View style={styles.textoContainer}>
           <Text style={styles.texto}>Clique para editar!</Text>

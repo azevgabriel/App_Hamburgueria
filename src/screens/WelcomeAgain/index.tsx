@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView, CheckBox, TouchableOpacity, Modal } from "react-native";
+import { View, Text, Image, TextInput, Alert, ToastAndroid, ScrollView, CheckBox, TouchableOpacity, Modal, StatusBar } from "react-native";
 import { styles } from "./styles";
 import colors from "../../styles/colors";
 import icon from "../../assets/logo.png";
@@ -68,6 +68,7 @@ export default function WelcomeAgain({ navigation }: Props) {
     </Modal>
 
     <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
       <View style={styles.logoContainer}>
         <Image source={icon} resizeMode="contain" style={styles.logo} />
         <Text style={styles.welcomeText}>Bem vindo(a)</Text>

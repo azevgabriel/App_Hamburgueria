@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ToastAndroid } from 'react-native';
+import { View, Text, ToastAndroid, StatusBar } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { Feather } from '@expo/vector-icons';
 import img from '../../../assets/image-solid.png';
@@ -41,6 +41,7 @@ export default function QrCode({ navigation, route, ...rest }: Props) {
 
     return (
         <View style={styles.container}>
+            <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#fbe292"/>
             <View style={styles.back}>
                 <Voltar color='black' onPress={handleBack} />
             </View>

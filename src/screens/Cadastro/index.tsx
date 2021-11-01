@@ -8,7 +8,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-  Alert
+  Alert,
+  StatusBar
 } from "react-native";
 import { styles } from "../Cadastro/styles";
 import { useNavigation } from "@react-navigation/native";
@@ -114,6 +115,7 @@ export default function Cadastro({ navigation}:Props) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
         <View style={styles.viewTitle}>
           <Text style={styles.text}>Faça seu cadastro!</Text>
         </View>

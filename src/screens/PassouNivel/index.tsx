@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, Alert, ToastAndroid } from 'react-native';
+import { View, Text, Image, TextInput, Alert, ToastAndroid, StatusBar } from 'react-native';
 
 import { styles } from './styles';
 import colors from '../../styles/colors';
@@ -34,6 +34,7 @@ export default function PassouNivel({ navigation, route, ...rest }: Props) {
   }
   return (
     <View style={styles.container}>
+      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
       <View style={styles.titleContainer}>
         <Text style={styles.textoNivel}>
           Parabéns! {`\n`}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, 
         Text, 
-        Image 
+        Image,
+        StatusBar 
 } from 'react-native';
 
 import { styles } from './styles';
@@ -12,6 +13,7 @@ import Button from '../../components/Button';
 export default function Confirmacao(){
     return(
         <View style={styles.container}>
+            <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#90BCB3"/>
             <View style={styles.imageContainer}>
                 <Image
                     source={iconImg}
