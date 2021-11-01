@@ -10,7 +10,7 @@ export interface CupomProps extends TouchableOpacityProps {
     expiration_date?: string;
     description?:string;
     fidelity?: boolean;
-    level_id?:number;
+    fidelity_level?:number;
     burgers_added?:number;
 }
 export interface CupomPropsPost extends TouchableOpacityProps {
@@ -20,7 +20,7 @@ export interface CupomPropsPost extends TouchableOpacityProps {
     expiration_date?: string;
     description?:string;
     fidelity?: boolean;
-    level_id?:number;
+    fidelity_level?:number;
     burgers_added?:number;
 }
 export interface UserProps {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   Pressable,
   Modal,
 }
-from "react-native";
+  from "react-native";
 import Voltar from "../../components/Voltar";
 
 import { styles } from "./styles";
@@ -44,8 +44,19 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [hamburguinhos, setHamburguinhos] = useState(0);
   const [usos, setUsos] = useState(0);
 
+  useEffect(() => {
+    if(cupom != undefined){
+      if(cupom.permitted_uses != undefined){
+        setUsos(cupom.permitted_uses)
+      }
+      if(cupom.burgers_added != undefined){
+        setHamburguinhos(cupom.burgers_added)
+      }
+    }
+  }, [])
+
   function handleIncreaseHamb() {
-    setHamburguinhos(() => hamburguinhos + 1 )
+    setHamburguinhos(() => hamburguinhos + 1)
   }
 
   function handleDecreaseHamb() {
@@ -53,7 +64,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       setHamburguinhos(() => hamburguinhos - 1)
     }
   }
-  
+
   function handleIncreaseUsos() {
     setUsos(() => usos + 1)
   }
@@ -135,14 +146,14 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (updateCupom({
           id: cupom.id,
-          permitted_uses: cupom.permitted_uses,// Mudar para o valor
-          image: cupom.image,//pegar image
+          permitted_uses: usos,
+          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
           fidelity: cupom.fidelity,
-          level_id: cupom.level_id,
-          burgers_added: cupom.burgers_added// Mudar para o valor
+          fidelity_level: cupom.fidelity_level,
+          burgers_added: hamburguinhos
         }));
         ToastAndroid.show(
           "Cupom alterado com sucesso",
@@ -157,7 +168,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
   }
   return (
-    
+
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
 

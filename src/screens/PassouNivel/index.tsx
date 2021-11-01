@@ -21,7 +21,7 @@ export default function PassouNivel({ navigation, route, ...rest }: Props) {
   async function handleNext() {
     setLoadingAsync(true)
     try {
-      await create_user_cupom(cupom.id, user);
+      await create_user_cupom(cupom.id, user.id);
       ToastAndroid.show(
         "Cupom de fidelidade Adquirido!",
         ToastAndroid.SHORT

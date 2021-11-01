@@ -50,12 +50,15 @@ export default function CupomDescription({ navigation, route, ...rest }: Props) 
             </View>
             <View style={styles.cupomPicture}>
                 {
+                    cupom.fidelity
+                    ?
+                    <Image style={{ width: largura / 1.55, height: altura / 3.7 }} source={require('../../assets/star.png')} />
+                    :
                     cupom.image && cupom.image != ''
                         ?
                         <Image source={{ uri: cupom.image }} style={{ width: largura / 1.55, height: altura / 3.2 }} />
                         :
                         <Image source={{ uri: 'https://p7m4z9n9.stackpathcdn.com/wp-content/uploads/2019/03/hamburguergourmet654.jpg' }} style={{ width: largura / 1.55, height: altura / 3.2 }} />
-
                 }
             </View>
             <View style={styles.textViewS}>

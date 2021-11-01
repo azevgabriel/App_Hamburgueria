@@ -59,11 +59,11 @@ export default function PassouNivel({ navigation }: Props) {
       }
     });
     just_cupons.sort(function (a: CupomProps, b: CupomProps) {
-      if (a.level_id != undefined && b.level_id != undefined) {
-        if (a.level_id > b.level_id) {
+      if (a.fidelity_level != undefined && b.fidelity_level != undefined) {
+        if (a.fidelity_level > b.fidelity_level) {
           return 1;
         }
-        if (a.level_id < b.level_id) {
+        if (a.fidelity_level < b.fidelity_level) {
           return -1;
         }
       }

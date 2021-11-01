@@ -3,6 +3,7 @@ import {
     View,
     Text,
     Image,
+    StatusBar,
 } from 'react-native';
 
 import { styles } from './styles';
@@ -34,13 +35,14 @@ export default function Welcome({ navigation }: Props) {
             api.defaults.headers.authorization = `Bearer ${token}`;
             set_User(JSON.parse(user));
             navigation.navigate('ViewCupons');
-        }else{
+        } else {
             navigation.navigate('WelcomeAgain');
         }
     }, [])
 
     return (
         <View style={styles.container}>
+            <StatusBar hidden={false} translucent barStyle={'dark-content'} backgroundColor="#f2f2f2" />
             <Text style={styles.welcomeText}>
                 Bem vindo, visitante!
             </Text>

@@ -21,12 +21,10 @@ export default function App() {
 
   if (!fontsLoaded) {
     return <Load/>;
-    <StatusBar hidden = {false} backgroundColor= "#9cadba"/>
   }
 
   return (
     <AuthProvider>
-      <StatusBar hidden = {false} backgroundColor= "#9cadba"/>
       <Routes/>
     </AuthProvider>
   );

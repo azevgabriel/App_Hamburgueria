@@ -13,40 +13,43 @@ import QRCode from 'react-native-qrcode-svg';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
+import { useAuth } from '../../hooks/useAuth';
 
-type Props = NativeStackScreenProps<RootStackParamList> ;
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-const id_user_coupon = 17861789178278718;
+export default function QrCode({ navigation, route, ...rest }: Props) {
+    const { user } = useAuth()
+    const { cupom } = route.params as ObjectCupons
+    const param_to_put = user.id + '-' + cupom.id;
 
-export default function QrCode({ navigation, route, ...rest}:Props) {
-    const {cupom} = route.params as ObjectCupons
-    function handleWhatsSubmit(){
+    function handleWhatsSubmit() {
         //Copiar código do id da tabela user_cupon para a area de transferencia do aparelho
-        Clipboard.setString(id_user_coupon.toString());
+        console.log(param_to_put)
+        Clipboard.setString(param_to_put.toString());
         ToastAndroid.showWithGravityAndOffset(
             "Código copiado!",
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             25,
             50
-          );
+        );
     }
 
-    function handleBack(){
+    function handleBack() {
         navigation.navigate('ViewCupons')
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.back}>
-                <Voltar color='black' onPress={handleBack}/>
+                <Voltar color='black' onPress={handleBack} />
             </View>
             <View style={styles.textViewP}>
-                <Text style={styles.textDescHam}>{cupom.title?.substring(0,15)+'...'}</Text>
+                <Text style={styles.textDescHam}>{cupom.title?.substring(0, 15) + '...'}</Text>
             </View>
             <View style={styles.cupomPicture}>
                 <QRCode
-                    value={id_user_coupon.toString()}
+                    value={param_to_put.toString()}
                     size={250}
                     color='black'
                     backgroundColor='white'
@@ -60,7 +63,7 @@ export default function QrCode({ navigation, route, ...rest}:Props) {
                 <Text style={styles.textS}>Escaneie seu QR Code na Hamburgueria ou envie em nosso WhatsApp!</Text>
             </View>
             <View style={styles.botao}>
-                <Button color={colors.darkGray} title={'Copiar Código'} onPress={() => handleWhatsSubmit()}/>
+                <Button color={colors.darkGray} title={'Copiar Código'} onPress={() => handleWhatsSubmit()} />
             </View>
         </View>
     )

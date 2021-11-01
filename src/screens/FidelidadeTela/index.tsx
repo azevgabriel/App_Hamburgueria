@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Image, Text, Dimensions, ScrollView, Alert } from "react-native";
+import { View, TouchableOpacity, Text, Dimensions, ScrollView, Alert, StatusBar } from "react-native";
 import { ProgressBar, Colors } from 'react-native-paper';
 import { Feather } from "@expo/vector-icons";
 import img from "../../../assets/image-solid.png";
@@ -21,17 +21,16 @@ const largura = Dimensions.get("window").width;
 const altura = Dimensions.get("window").height;
 
 export default function FidelidadeTela({ navigation }: Props) {
-  const { user, listAllLevel, listCupons } = useAuth();
+  var { user, set_User, list_One_User, listAllLevel, listCupons } = useAuth();
   const [progresso, setProgresso] = React.useState(0.0);
   const [loading, setLoading] = React.useState(false)
   const [levels, setLevels] = React.useState<NivelProps[]>([] as NivelProps[]);
   const [cupomLevels, setCupomLevels] = React.useState<CupomProps[]>([] as CupomProps[]);
 
   React.useEffect(() => {
-    fetchLevel()
+    handleUserUpdate()
   }, [])
   async function fetchLevel() {
-    setLoading(true)
     try {
       const response = await listAllLevel();
 
@@ -79,11 +78,11 @@ export default function FidelidadeTela({ navigation }: Props) {
       }
     });
     just_cupons.sort(function (a: CupomProps, b: CupomProps) {
-      if (a.level_id != undefined && b.level_id != undefined) {
-        if (a.level_id > b.level_id) {
+      if (a.fidelity_level != undefined && b.fidelity_level != undefined) {
+        if (a.fidelity_level > b.fidelity_level) {
           return 1;
         }
-        if (a.level_id < b.level_id) {
+        if (a.fidelity_level < b.fidelity_level) {
           return -1;
         }
       }
@@ -97,26 +96,38 @@ export default function FidelidadeTela({ navigation }: Props) {
   }
   function handleNivel(nivel: Number) {
     if (nivel == user.level) {
-      var level_id: number = 0;
-      levels.forEach(element => {
-        if (element.level === nivel) {
-          level_id = element.id;
-        }
-      });
       cupomLevels.forEach(element => {
-        if (element.level_id === level_id) {
+        if (element.fidelity_level === user.level) {
           navigation.navigate('PassouNivel', element)
         }
       });
     }
   }
+  async function handleUserUpdate() {
+    setLoading(true)
+    try {
+      const newUser = await list_One_User();
+      user = newUser;
+      set_User(newUser)
+      fetchLevel()
+    } catch (error) {
+      Alert.alert('Erro ao autalizar')
+    }
+  }
   return (
     <View style={styles.container}>
+      <StatusBar hidden={false} translucent barStyle={'dark-content'} backgroundColor="#ffffff" />
+
       <View style={styles.back}>
         <Voltar color="orange" onPress={handleBack} />
       </View>
       <View style={styles.viewHeader}>
         <View style={styles.textViewS}>
+          <TouchableOpacity onPress={handleUserUpdate}>
+            <Feather name={'refresh-cw'} style={{
+              color: colors.darkOrange,
+            }} />
+          </TouchableOpacity>
           <Text style={[styles.textS, { color: "orange" }]}>
             🍔 Hamburguinhos! 🍔
           </Text>
@@ -159,7 +170,13 @@ export default function FidelidadeTela({ navigation }: Props) {
               }
             </Text>
           </View>
-          <ProgressBar progress={progresso} color={Colors.orange400} style={styles.progressBar} />
+          {
+            !loading
+              ?
+              <ProgressBar progress={progresso} color={Colors.orange400} style={styles.progressBar} />
+              :
+              <View />
+          }
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text>
               {

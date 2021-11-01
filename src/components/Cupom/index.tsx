@@ -44,7 +44,13 @@ export function Cupom({user_cupom, cupom, ...rest}:Cupom_UserCupomProps) {
                 </Text>
             </View>
             <View style={styles.ImageView}>
-                <Image style={styles.image} source={{ uri: cupom.image }} />
+                {
+                    cupom.fidelity
+                    ?
+                    <Image style={styles.image} source={require('../../assets/star.png')} />
+                    :
+                    <Image style={styles.image} source={{ uri: cupom.image }} />
+                }
             </View>
             <View style={styles.titleText}>
                 {

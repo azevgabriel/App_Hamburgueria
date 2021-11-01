@@ -9,7 +9,8 @@ import {
     ToastAndroid,
     Alert,
     Text,
-    Clipboard
+    Clipboard,
+    StatusBar
 } from 'react-native';
 
 import { styles } from './styles';
@@ -37,14 +38,14 @@ export function ViewCupons({ navigation }: Props) {
     var [Allcupons, setAllCupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons, setCupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
     const [loadData, setLoadData] = useState(false);
-    const { user, loading, listCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
+    const { user, loading, listCupons, deleteCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const [modalVisible3, setModalVisible3] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
 
-        passaValor(parseInt(data))
+        passaValor(data)
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
             ToastAndroid.LONG,
@@ -56,15 +57,16 @@ export function ViewCupons({ navigation }: Props) {
     }
 
     useEffect(() => {
-
+        deleteCupons();
         user.type
             ?
             fetchUserCupons(user.id)
             :
             fetchAllCupons()
 
-        const unsubscribe = navigation.addListener('focus', () => {
-
+        navigation.addListener('focus', () => {
+            deleteCupons();
+            user.type
             user.type
                 ?
                 fetchUserCupons(user.id)
@@ -74,10 +76,11 @@ export function ViewCupons({ navigation }: Props) {
 
     }, [])
 
-    async function passaValor(id: number) {
+    async function passaValor(id: string) {
         if (id) {
+            const ids_split = id.split('-', 2)
             try {
-                await edit_all_values(id)
+                await edit_all_values(ids_split[0], ids_split[1])
             } catch (error) {
                 Alert.alert('Erro ao dar baixa no cupom' + error)
             }
@@ -164,7 +167,7 @@ export function ViewCupons({ navigation }: Props) {
                 25,
                 50
             );
-            passaValor(parseInt(text));
+            passaValor(text);
         } catch (error) {
             setModalVisible3(true)
         }
@@ -172,6 +175,7 @@ export function ViewCupons({ navigation }: Props) {
 
     return (
         <View style={styles.container}>
+        <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
             <View style={styles.rowHeader}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />
@@ -188,9 +192,9 @@ export function ViewCupons({ navigation }: Props) {
                     <View style={styles.modalBackground}>
                         <View style={styles.modalLogout}>
                             <Text style={styles.textModal}>Tem certeza que deseja sair?</Text>
-                            <View style={{flexDirection: 'row'}}> 
+                            <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity
-                                    onPress={() => {setModalVisible2(false)}}
+                                    onPress={() => { setModalVisible2(false) }}
                                     style={styles.buttonModalCancelar}
                                 >
                                     <Text style={styles.textCancelar}>Cancelar</Text>
@@ -207,27 +211,27 @@ export function ViewCupons({ navigation }: Props) {
                 </Modal>
 
                 <Modal
-                animationType={'slide'}
-                transparent={true}
-                visible={modalVisible3}
-                onRequestClose={() => {
-                    setModalVisible3(false);
-                }}
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible3}
+                    onRequestClose={() => {
+                        setModalVisible3(false);
+                    }}
                 >
                     <View style={styles.modalBackground2}>
                         <View style={styles.modalLogout2}>
                             <Text style={styles.textModal2}>Houve algum erro. Tente novamente!</Text>
-                                <TouchableOpacity
-                                    onPress={() => {setModalVisible3(false)}}
-                                    style={styles.buttonModalCancelar2}
-                                >
-                                    <Text style={styles.textCancelar2}>Ok</Text>
-                                </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => { setModalVisible3(false) }}
+                                style={styles.buttonModalCancelar2}
+                            >
+                                <Text style={styles.textCancelar2}>Ok</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
 
-                <View style={user.type? styles.viewimageUser : styles.viewimageADM }>
+                <View style={user.type ? styles.viewimageUser : styles.viewimageADM}>
                     {
                         user.image && user.image != ""
                             ?
@@ -236,10 +240,10 @@ export function ViewCupons({ navigation }: Props) {
                             <Image style={styles.image} source={require('../../assets/logo.png')} />
                     }
                     <TouchableOpacity
-                        onPress={() => {setModalVisible2(true)}}
+                        onPress={() => { setModalVisible2(true) }}
                         style={styles.logout}
                     >
-                        <Feather 
+                        <Feather
                             name='log-out'
                             size={23}
                             color='black'
@@ -247,7 +251,7 @@ export function ViewCupons({ navigation }: Props) {
                     </TouchableOpacity>
                 </View>
             </View>
-                
+
             {
                 user.type
                     ?
@@ -331,11 +335,11 @@ export function ViewCupons({ navigation }: Props) {
                     :
 
                     <View style={styles.QRCode}>
-                        <TouchableOpacity 
-                            onPress={() => fetchCopiedText()} 
+                        <TouchableOpacity
+                            onPress={() => fetchCopiedText()}
                             style={styles.icons}
                         >
-                            <View style={{flexDirection: 'row'}}>
+                            <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.textTab}>Pesquisar</Text>
                                 <AntDesign name="search1" size={23} color="white" />
                             </View>
@@ -344,7 +348,7 @@ export function ViewCupons({ navigation }: Props) {
                             style={styles.icons}
                             onPress={() => setModalVisible(true)}
                         >
-                            <View style={{flexDirection: 'row'}}>
+                            <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.textTab}>Scannear</Text>
                                 <AntDesign name="qrcode" size={23} color="white" />
                             </View>

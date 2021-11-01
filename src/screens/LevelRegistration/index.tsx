@@ -55,7 +55,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
         expiration_date: cupom.expiration_date,
         description: description,
         fidelity: cupom.fidelity,
-        level_id: cupom.level_id,
+        fidelity_level: cupom.fidelity_level,
         burgers_added: cupom.burgers_added,
       });
       await updateLevel({
