@@ -42,6 +42,8 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const [modalVisible3, setModalVisible3] = useState(false);
+    const [modalVisible4, setModalVisible4] = useState(false);
+    const [modalVisible5, setModalVisible5] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
 
@@ -81,6 +83,13 @@ export function ViewCupons({ navigation }: Props) {
             const ids_split = id.split('-', 2)
             try {
                 await edit_all_values(ids_split[0], ids_split[1])
+                ToastAndroid.showWithGravityAndOffset(
+                    "Código lido!",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                    25,
+                    50
+                );
             } catch (error) {
                 Alert.alert('Erro ao dar baixa no cupom' + error)
             }
@@ -160,13 +169,6 @@ export function ViewCupons({ navigation }: Props) {
     const fetchCopiedText = async () => {
         try {
             const text = await Clipboard.getString();
-            ToastAndroid.showWithGravityAndOffset(
-                "Código lido!",
-                ToastAndroid.SHORT,
-                ToastAndroid.BOTTOM,
-                25,
-                50
-            );
             passaValor(text);
         } catch (error) {
             setModalVisible3(true)
@@ -323,6 +325,65 @@ export function ViewCupons({ navigation }: Props) {
 
                     </View>
                 </Modal>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible4}
+                    onRequestClose={() => {
+                        setModalVisible4(false);
+                    }}
+                >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalLogout}>
+                            <Text style={styles.textModal}>Tem certeza que quer pesquisar um código?</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    onPress={() => { setModalVisible4(false) }}
+                                    style={styles.buttonModalCancelar}
+                                >
+                                    <Text style={styles.textCancelar}>Cancelar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => fetchCopiedText()}
+                                    style={styles.buttonModalSair}
+                                >
+                                    <Text style={styles.textSim}>Sim</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible5}
+                    onRequestClose={() => {
+                        setModalVisible5(false);
+                    }}
+                >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalLogout}>
+                            <Text style={styles.textModal}>Tem certeza que quer escanear um QR Code?</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    onPress={() => { setModalVisible5(false) }}
+                                    style={styles.buttonModalCancelar}
+                                >
+                                    <Text style={styles.textCancelar}>Cancelar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => setModalVisible(true)}
+                                    style={styles.buttonModalSair}
+                                >
+                                    <Text style={styles.textSim}>Sim</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
 
             {
@@ -336,7 +397,7 @@ export function ViewCupons({ navigation }: Props) {
 
                     <View style={styles.QRCode}>
                         <TouchableOpacity
-                            onPress={() => fetchCopiedText()}
+                            onPress={() => {setModalVisible4(true)}}
                             style={styles.icons}
                         >
                             <View style={{ flexDirection: 'row' }}>
@@ -346,10 +407,10 @@ export function ViewCupons({ navigation }: Props) {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.icons}
-                            onPress={() => setModalVisible(true)}
+                            onPress={() => setModalVisible5(true)}
                         >
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.textTab}>Scannear</Text>
+                                <Text style={styles.textTab}>Escanear</Text>
                                 <AntDesign name="qrcode" size={23} color="white" />
                             </View>
                         </TouchableOpacity>

@@ -65,7 +65,8 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.Jost_400Regular,
     fontSize: 20,
     color: colors.black,
-    marginBottom: 15
+    marginBottom: 15,
+    textAlign: 'center'
   },
   buttonModalCancelar: {
     width: '43%',

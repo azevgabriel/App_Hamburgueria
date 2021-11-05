@@ -122,12 +122,12 @@ export default function FidelidadeTela({ navigation }: Props) {
         <Voltar color="orange" onPress={handleBack} />
       </View>
       <View style={styles.viewHeader}>
-        <View style={styles.textViewS}>
+        <View style={styles.refreshButton}>
           <TouchableOpacity onPress={handleUserUpdate}>
-            <Feather name={'refresh-cw'} style={{
-              color: colors.darkOrange,
-            }} />
+            <Feather name={'refresh-cw'} color='orange' size={25} />
           </TouchableOpacity>
+        </View>
+        <View style={styles.textViewS}>
           <Text style={[styles.textS, { color: "orange" }]}>
             🍔 Hamburguinhos! 🍔
           </Text>

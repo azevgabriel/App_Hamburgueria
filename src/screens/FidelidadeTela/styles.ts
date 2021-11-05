@@ -17,6 +17,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     marginTop: 10
   },
+  refreshButton: {
+    marginTop: 5,
+    alignSelf: 'flex-end',
+    paddingHorizontal: '7%'
+  },
   botao: {
     fontFamily: fonts.Jost_600SemiBold,
     justifyContent: "center",
@@ -28,11 +33,11 @@ export const styles = StyleSheet.create({
   },
   textViewS: {
     fontFamily: fonts.Jost_600SemiBold,
-    marginTop: 30,
+    marginTop: 15,
     textAlign: "center",
     flexDirection: "column",
     justifyContent: "center",
-    width: largura / 1.5,
+    width: largura / 1.5
   },
   textS: {
     fontSize: 20,
