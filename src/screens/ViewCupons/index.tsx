@@ -47,10 +47,11 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible6, setModalVisible6] = useState(false);
     const [modalVisible7, setModalVisible7] = useState(false);
     const [modalVisible8, setModalVisible8] = useState(false);
+    const [dadoQR, setDadoQR] = useState('');
 
     const onCodeScanned = (type: string, data: string) => {
 
-        passaValor(data)
+        //passaValor(data)
         ToastAndroid.showWithGravityAndOffset(
             "QRCode lido com sucesso!",
             ToastAndroid.LONG,
@@ -59,6 +60,8 @@ export function ViewCupons({ navigation }: Props) {
             50
         );
         setModalVisible(false);
+        setDadoQR(data);
+        setModalVisible5(true);
     }
 
     useEffect(() => {
@@ -415,7 +418,11 @@ export function ViewCupons({ navigation }: Props) {
                                     <Text style={styles.textCancelar}>Cancelar</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => fetchCopiedText()}
+                                    onPress={() => {
+                                        fetchCopiedText();
+                                        setModalVisible4(false)
+                                        }
+                                    }
                                     style={styles.buttonModalSair}
                                 >
                                     <Text style={styles.textSim}>Sim</Text>
@@ -435,7 +442,7 @@ export function ViewCupons({ navigation }: Props) {
                 >
                     <View style={styles.modalBackground}>
                         <View style={styles.modalLogout}>
-                            <Text style={styles.textModal}>Tem certeza que quer escanear um QR Code?</Text>
+                            <Text style={styles.textModal}>Tem certeza que quer ler este QR Code?</Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity
                                     onPress={() => { setModalVisible5(false) }}
@@ -444,7 +451,11 @@ export function ViewCupons({ navigation }: Props) {
                                     <Text style={styles.textCancelar}>Cancelar</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => setModalVisible(true)}
+                                    onPress={() => {
+                                        setModalVisible5(false);
+                                        passaValor(dadoQR)
+                                        }   
+                                    }
                                     style={styles.buttonModalSair}
                                 >
                                     <Text style={styles.textSim}>Sim</Text>
@@ -477,7 +488,7 @@ export function ViewCupons({ navigation }: Props) {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.icons}
-                            onPress={() => setModalVisible5(true)}
+                            onPress={() => setModalVisible(true)}
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.textTab}>Escanear</Text>
