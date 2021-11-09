@@ -8,7 +8,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-  Alert,
+  Modal,
+  TouchableOpacity,
   StatusBar
 } from "react-native";
 import { styles } from "../Cadastro/styles";
@@ -35,7 +36,7 @@ export default function Cadastro({ navigation}:Props) {
   let telefoneField = null;
 
 	const { signUp,login, loading } = useAuth();
-
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function handleSubmit() {
     const data = {
@@ -107,7 +108,8 @@ export default function Cadastro({ navigation}:Props) {
         navigation.navigate('WelcomeAgain');
       }
 		} catch (error) {
-      Alert.alert('Erro ao Fazer Cadastro' + error)
+      setModalVisible(true)
+      //Alert.alert('Erro ao Fazer Cadastro' + error)
     }
     setLoadingAsync(false)
   }
@@ -119,6 +121,27 @@ export default function Cadastro({ navigation}:Props) {
         <View style={styles.viewTitle}>
           <Text style={styles.text}>Faça seu cadastro!</Text>
         </View>
+
+        <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+         >
+          <View style={styles.modalBackground2}>
+              <View style={styles.modalLogout2}>
+                  <Text style={styles.textModal2}>Erro ao fazer cadastro. Tente novamente!</Text>
+                  <TouchableOpacity
+                      onPress={() => { setModalVisible(false) }}
+                      style={styles.buttonModalCancelar2}
+                  >
+                      <Text style={styles.textCancelar2}>Ok</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </Modal>
 
         <View style={styles.viewPhoto}>
           <CadastroFoto />

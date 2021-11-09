@@ -44,6 +44,9 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible3, setModalVisible3] = useState(false);
     const [modalVisible4, setModalVisible4] = useState(false);
     const [modalVisible5, setModalVisible5] = useState(false);
+    const [modalVisible6, setModalVisible6] = useState(false);
+    const [modalVisible7, setModalVisible7] = useState(false);
+    const [modalVisible8, setModalVisible8] = useState(false);
 
     const onCodeScanned = (type: string, data: string) => {
 
@@ -91,7 +94,8 @@ export function ViewCupons({ navigation }: Props) {
                     50
                 );
             } catch (error) {
-                Alert.alert('Erro ao dar baixa no cupom' + error)
+                setModalVisible6(true);
+                //Alert.alert('Erro ao dar baixa no cupom' + error)
             }
         } else {
             setModalVisible3(true)
@@ -104,7 +108,8 @@ export function ViewCupons({ navigation }: Props) {
             user_cupons = response
             fetchCupons();
         } catch (error) {
-            Alert.alert('Erro ao Listar cupons do usuario' + error)
+            setModalVisible7(true)
+            //Alert.alert('Erro ao Listar cupons do usuario' + error)
         }
     }
 
@@ -114,7 +119,8 @@ export function ViewCupons({ navigation }: Props) {
             setCupons_and_user_cupons(response)
             setLoadData(true);
         } catch (error) {
-            Alert.alert('Erro ao Listar cupons' + error)
+            setModalVisible8(true)
+            //Alert.alert('Erro ao Listar cupons' + error)
         }
     }
 
@@ -130,7 +136,8 @@ export function ViewCupons({ navigation }: Props) {
             setAllCupons(just_cupons)
             setLoadData(true);
         } catch (error) {
-            Alert.alert('Erro ao Listar Cupons' + error)
+            setModalVisible8(true)
+            //Alert.alert('Erro ao Listar Cupons' + error)
         }
     }
 
@@ -225,6 +232,69 @@ export function ViewCupons({ navigation }: Props) {
                             <Text style={styles.textModal2}>Houve algum erro. Tente novamente!</Text>
                             <TouchableOpacity
                                 onPress={() => { setModalVisible3(false) }}
+                                style={styles.buttonModalCancelar2}
+                            >
+                                <Text style={styles.textCancelar2}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible6}
+                    onRequestClose={() => {
+                        setModalVisible6(false);
+                    }}
+                >
+                    <View style={styles.modalBackground2}>
+                        <View style={styles.modalLogout2}>
+                            <Text style={styles.textModal2}>Erro ao dar baixa no cupom. Tente novamente!</Text>
+                            <TouchableOpacity
+                                onPress={() => { setModalVisible6(false) }}
+                                style={styles.buttonModalCancelar2}
+                            >
+                                <Text style={styles.textCancelar2}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible7}
+                    onRequestClose={() => {
+                        setModalVisible7(false);
+                    }}
+                >
+                    <View style={styles.modalBackground2}>
+                        <View style={styles.modalLogout2}>
+                            <Text style={styles.textModal2}>Erro ao listar cupons do usuário. Tente novamente!</Text>
+                            <TouchableOpacity
+                                onPress={() => { setModalVisible7(false) }}
+                                style={styles.buttonModalCancelar2}
+                            >
+                                <Text style={styles.textCancelar2}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible8}
+                    onRequestClose={() => {
+                        setModalVisible8(false);
+                    }}
+                >
+                    <View style={styles.modalBackground2}>
+                        <View style={styles.modalLogout2}>
+                            <Text style={styles.textModal2}>Erro ao listar cupons. Tente novamente!</Text>
+                            <TouchableOpacity
+                                onPress={() => { setModalVisible8(false) }}
                                 style={styles.buttonModalCancelar2}
                             >
                                 <Text style={styles.textCancelar2}>Ok</Text>

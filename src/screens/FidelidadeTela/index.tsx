@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, TouchableOpacity, Text, Dimensions, ScrollView, Alert, StatusBar } from "react-native";
+import { View, TouchableOpacity, Text, Dimensions, ScrollView, Alert, StatusBar, Modal } from "react-native";
 import { ProgressBar, Colors } from 'react-native-paper';
 import { Feather } from "@expo/vector-icons";
 import img from "../../../assets/image-solid.png";
@@ -26,6 +26,8 @@ export default function FidelidadeTela({ navigation }: Props) {
   const [loading, setLoading] = React.useState(false)
   const [levels, setLevels] = React.useState<NivelProps[]>([] as NivelProps[]);
   const [cupomLevels, setCupomLevels] = React.useState<CupomProps[]>([] as CupomProps[]);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalVisible2, setModalVisible2] = React.useState(false);
 
   React.useEffect(() => {
     handleUserUpdate()
@@ -65,7 +67,8 @@ export default function FidelidadeTela({ navigation }: Props) {
       }
       fetchBurguerLevel()
     } catch (Error) {
-      Alert.alert('Erro ao Listar Leveis')
+      setModalVisible(true)
+      //Alert.alert('Erro ao Listar Leveis')
     }
   }
   async function fetchBurguerLevel() {
@@ -111,12 +114,55 @@ export default function FidelidadeTela({ navigation }: Props) {
       set_User(newUser)
       fetchLevel()
     } catch (error) {
-      Alert.alert('Erro ao autalizar')
+      setModalVisible2(true)
+      //Alert.alert('Erro ao autalizar')
     }
   }
   return (
     <View style={styles.container}>
       <StatusBar hidden={false} translucent barStyle={'dark-content'} backgroundColor="#ffffff" />
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalBackground2}>
+            <View style={styles.modalLogout2}>
+                <Text style={styles.textModal2}>Erro ao listar níveis. Tente novamente!</Text>
+                <TouchableOpacity
+                    onPress={() => { setModalVisible(false) }}
+                    style={styles.buttonModalCancelar2}
+                >
+                    <Text style={styles.textCancelar2}>Ok</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible2}
+        onRequestClose={() => {
+            setModalVisible2(false);
+        }}
+      >
+        <View style={styles.modalBackground2}>
+            <View style={styles.modalLogout2}>
+                <Text style={styles.textModal2}>Erro ao atualizar. Tente novamente!</Text>
+                <TouchableOpacity
+                    onPress={() => { setModalVisible2(false) }}
+                    style={styles.buttonModalCancelar2}
+                >
+                    <Text style={styles.textCancelar2}>Ok</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
 
       <View style={styles.back}>
         <Voltar color="orange" onPress={handleBack} />

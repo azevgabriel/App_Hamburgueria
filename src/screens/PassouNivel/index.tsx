@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, Alert, ToastAndroid, StatusBar } from 'react-native';
+import { View, Text, Image, Modal, TouchableOpacity, ToastAndroid, StatusBar } from 'react-native';
 
 import { styles } from './styles';
 import colors from '../../styles/colors';
@@ -17,6 +17,7 @@ export default function PassouNivel({ navigation, route, ...rest }: Props) {
   const { create_user_cupom, user } = useAuth();
   const cupom = route.params as CupomProps;
   const [loadingAsync, setLoadingAsync] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function handleNext() {
     setLoadingAsync(true)
@@ -28,13 +29,36 @@ export default function PassouNivel({ navigation, route, ...rest }: Props) {
       );
       navigation.navigate('FidelidadeTela')
     } catch (error) {
-      Alert.alert('Erro ao Criar Cupom de Fidelidade' + error)
+      setModalVisible(true);
+      //Alert.alert('Erro ao Criar Cupom de Fidelidade' + error)
     }
     setLoadingAsync(false)
   }
   return (
     <View style={styles.container}>
       <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalBackground2}>
+            <View style={styles.modalLogout2}>
+                <Text style={styles.textModal2}>Erro ao criar cupom de fidelidade. Tente novamente!</Text>
+                <TouchableOpacity
+                    onPress={() => { setModalVisible(false) }}
+                    style={styles.buttonModalCancelar2}
+                >
+                    <Text style={styles.textCancelar2}>Ok</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
+
       <View style={styles.titleContainer}>
         <Text style={styles.textoNivel}>
           Parabéns! {`\n`}

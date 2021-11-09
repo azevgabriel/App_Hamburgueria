@@ -7,7 +7,8 @@ import {
   Text,
   ToastAndroid,
   Alert,
-  StatusBar
+  StatusBar,
+  Modal
 } from "react-native";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -27,6 +28,7 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   const { updateCupom, updateLevel } = useAuth();
   const { cupom, level } = route.params as CuposAndLevels;
   const [loadingAsync, setLoadingAsync] = useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   useEffect(() => {
     setNumberOfBurgers(cupom.burgers_added ? cupom.burgers_added : 0);
@@ -70,7 +72,8 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
       );
       navigation.navigate("VisualizarFidelidade");
     } catch (error) {
-      Alert.alert("Erro ao Atualizar Nivel e Level" + error);
+      setModalVisible(true)
+      //Alert.alert("Erro ao Atualizar Nivel e Level" + error);
     }
     setLoadingAsync(false)
   }
@@ -88,6 +91,28 @@ export const LevelRegistration = ({ navigation, route, ...rest }: Props) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalBackground2}>
+            <View style={styles.modalLogout2}>
+                <Text style={styles.textModal2}>Erro ao atualizar nível e level. Tente novamente!</Text>
+                <TouchableOpacity
+                    onPress={() => { setModalVisible(false) }}
+                    style={styles.buttonModalCancelar2}
+                >
+                    <Text style={styles.textCancelar2}>Ok</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
+
       <View style={styles.row}>
         <TouchableOpacity onPress={handleBack}>
           <AntDesign name="left" size={25} color="black" />

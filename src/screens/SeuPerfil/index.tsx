@@ -40,6 +40,7 @@ export default function SeuPerfil({ navigation, }: Props) {
   const [loadingAsync, setLoadingAsync] = useState(false);
   let telefoneField = null;
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
 
   // Abre a câmera do dispositivo
   async function takeAndUploadPhotoAsync() {
@@ -120,7 +121,8 @@ export default function SeuPerfil({ navigation, }: Props) {
         navigation.navigate('ViewCupons');
       }
     } catch (error) {
-      Alert.alert('Erro: ' + error)
+      setModalVisible2(true)
+      //Alert.alert('Erro: ' + error)
     }
     setLoadingAsync(false)
   }
@@ -128,6 +130,28 @@ export default function SeuPerfil({ navigation, }: Props) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+
+        <Modal
+          animationType={'slide'}
+          transparent={true}
+          visible={modalVisible2}
+          onRequestClose={() => {
+              setModalVisible2(false);
+          }}
+        >
+          <View style={styles.modalBackground2}>
+              <View style={styles.modalLogout2}>
+                  <Text style={styles.textModal2}>Houve algum erro. Tente novamente!</Text>
+                  <TouchableOpacity
+                      onPress={() => { setModalVisible2(false) }}
+                      style={styles.buttonModalCancelar2}
+                  >
+                      <Text style={styles.textCancelar2}>Ok</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </Modal>
+
         <View style={styles.box}>
 
           <View style={styles.titleContainer}>
@@ -147,7 +171,7 @@ export default function SeuPerfil({ navigation, }: Props) {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-                      Alert.alert("Modal has been closed.");
+                      //Alert.alert("Modal has been closed.");
                       setModalVisible(!modalVisible);
                     }}
                   >

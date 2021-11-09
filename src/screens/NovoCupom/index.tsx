@@ -40,6 +40,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [description, setDescription] = useState(cupom ? cupom.description : '');
   const [datamax, setDataMax] = useState(cupom ? cupom.expiration_date : '');
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [modalVisible3, setModalVisible3] = useState(false);
   const [loadingAsync, setLoadingAsync] = useState(false);
 
   const [hamburguinhos, setHamburguinhos] = useState(0);
@@ -141,7 +143,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
         );
         navigation.navigate('ViewCupons')
       } catch (error) {
-        Alert.alert('Erro ao Criar Cupom' + error)
+        setModalVisible2(true)
+        //Alert.alert('Erro ao Criar Cupom' + error)
       }
     } else {
       try {
@@ -162,7 +165,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
         );
         navigation.navigate('ViewCupons')
       } catch (error) {
-        Alert.alert('Erro ao Atualizar Cupom' + error)
+        setModalVisible3(true)
+        //Alert.alert('Erro ao Atualizar Cupom' + error)
       }
     }
     setLoadingAsync(false)
@@ -173,6 +177,49 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container}>
         <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+
+        <Modal
+          animationType={'slide'}
+          transparent={true}
+          visible={modalVisible2}
+          onRequestClose={() => {
+              setModalVisible2(false);
+          }}
+        >
+          <View style={styles.modalBackground2}>
+              <View style={styles.modalLogout2}>
+                  <Text style={styles.textModal2}>Erro ao criar cupom. Tente novamente!</Text>
+                  <TouchableOpacity
+                      onPress={() => { setModalVisible2(false) }}
+                      style={styles.buttonModalCancelar2}
+                  >
+                      <Text style={styles.textCancelar2}>Ok</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType={'slide'}
+          transparent={true}
+          visible={modalVisible3}
+          onRequestClose={() => {
+              setModalVisible3(false);
+          }}
+        >
+          <View style={styles.modalBackground2}>
+              <View style={styles.modalLogout2}>
+                  <Text style={styles.textModal2}>Erro ao atualizar cupom. Tente novamente!</Text>
+                  <TouchableOpacity
+                      onPress={() => { setModalVisible3(false) }}
+                      style={styles.buttonModalCancelar2}
+                  >
+                      <Text style={styles.textCancelar2}>Ok</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </Modal>
+
         <View style={styles.back}>
           <Voltar color="black" onPress={handleBack} />
         </View>
@@ -188,7 +235,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
                   transparent={true}
                   visible={modalVisible}
                   onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
+                    //Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                   }}
                 >

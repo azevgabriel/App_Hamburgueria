@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, StatusBar, Modal, TouchableOpacity } from 'react-native';
 
 import { styles } from './styles';
 
@@ -21,6 +21,7 @@ export default function PassouNivel({ navigation }: Props) {
   const [cupomLevels, setCupomLevels] = React.useState<CupomProps[]>([] as CupomProps[]);
   const [level, setLevel] = useState(1);
   const levelArray = [1, 2, 3, 4, 5];
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchLevel()
@@ -47,7 +48,7 @@ export default function PassouNivel({ navigation }: Props) {
       setLevels(response)
       fetchBurguerLevel()
     } catch {
-
+      setModalVisible(true);
     }
   }
   async function fetchBurguerLevel() {
@@ -92,6 +93,28 @@ export default function PassouNivel({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalBackground2}>
+            <View style={styles.modalLogout2}>
+                <Text style={styles.textModal2}>Houve algum erro. Tente novamente!</Text>
+                <TouchableOpacity
+                    onPress={() => { setModalVisible(false) }}
+                    style={styles.buttonModalCancelar2}
+                >
+                    <Text style={styles.textCancelar2}>Ok</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
+
       <View style={styles.box}>
         <View style={styles.textoContainer}>
           <Text style={styles.texto}>Clique para editar!</Text>
