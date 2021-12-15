@@ -3,46 +3,73 @@ import { View, Image, Text, TouchableOpacity, Alert, Modal, Pressable } from 're
 
 import { styles } from './styles';
 import { AntDesign } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons';
+import avatarIcon from "../../assets/icon.png";
 
 import * as ImagePicker from 'expo-image-picker';
+import axios from "axios";
 
 export default function CadastroFoto(){
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [linkImage, setLinkImage] = useState('');
 
   // Abre a câmera do dispositivo
-  async function takeAndUploadPhotoAsync(){
-    let result = await ImagePicker.launchCameraAsync({
+  async function takeAndUploadPhotoAsync() {
+    const data = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if(result.cancelled){
+    setModalVisible(false);
+
+    if (data.cancelled) {
       return;
     }
 
-    console.log(result);
+    if(!data.uri){
+      return;
+    }
+
+    console.log(data);
+
+    setLinkImage(data.uri);
+
+    await axios.post("http://localhost:3000/files", data);
   }
 
   // Escolher imagem da galeria
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
+    if (permissionResult.granted === false) {
       alert('Precisamos dessa permissão para prosseguir!');
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    const data = await ImagePicker.launchImageLibraryAsync({});
 
-    console.log(pickerResult);
+    setModalVisible(false);
+
+    if(data.cancelled){
+      return;
+    }
+
+    if(!data.uri){
+      return;
+    }
+
+    console.log(data);
+
+    setLinkImage(data.uri);
+
+    await axios.post("http://localhost:3000/files", data);
+    
   };
 
   return(
     <View style={styles.container}>
 
-      <FontAwesome name="user-circle" style={styles.user}/>
+      <Image source={linkImage? {uri: linkImage} : avatarIcon} style={{ width: 140, height: 140, }} />
 
       <Modal
         animationType="slide"

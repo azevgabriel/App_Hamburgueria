@@ -44,6 +44,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const [modalVisible2, setModalVisible2] = useState(false);
   const [modalVisible3, setModalVisible3] = useState(false);
   const [loadingAsync, setLoadingAsync] = useState(false);
+  const [linkImage, setLinkImage] = useState('');
 
   const [hamburguinhos, setHamburguinhos] = useState(0);
   const [usos, setUsos] = useState(0);
@@ -87,6 +88,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       aspect: [4, 3],
     });
 
+    setModalVisible(false);
+
     if (data.cancelled) {
       return;
     }
@@ -96,6 +99,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     }
 
     console.log(data);
+
+    setLinkImage(data.uri);
 
     await axios.post("http://localhost:3000/files", data);
   }
@@ -111,6 +116,8 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
     const data = await ImagePicker.launchImageLibraryAsync({});
 
+    setModalVisible(false);
+
     if(data.cancelled){
       return;
     }
@@ -121,7 +128,9 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
     console.log(data);
 
-    await axios.post("http://localhost:3000/files", data);
+    setLinkImage(data.uri);
+
+    //await axios.post("http://localhost:3000/files", data);
     
   };
 
@@ -150,7 +159,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (newCupom({
           permitted_uses: usos,// Mudar para o valor
-          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
+          image: linkImage? linkImage : "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
@@ -171,7 +180,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
         await (updateCupom({
           id: cupom.id,
           permitted_uses: usos,
-          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
+          image: linkImage? linkImage : "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
@@ -248,7 +257,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
             cupom
               ?
               <View style={styles.userContainer}>
-                <Image source={{ uri: cupom.image }} style={{ width: 140, height: 140, }} />
+                <Image source={{ uri: linkImage? linkImage : cupom.image }} style={{ width: 140, height: 140, }} />
 
                 <Modal
                   animationType="slide"
