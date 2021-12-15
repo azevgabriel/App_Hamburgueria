@@ -19,6 +19,11 @@ import { Cupom } from '../../components/Cupom';
 import BotaoTab from '../../components/BotãoTab';
 import { Load } from '../../components/Load';
 import QRScanner from '../../components/QRScanner';
+import avatarIcon from "../../assets/icon.png";
+import avatar1 from "../../assets/avatar1.png";
+import avatar2 from "../../assets/avatar2.png";
+import avatar3 from "../../assets/avatar3.png";
+import avatar4 from "../../assets/avatar4.png";
 import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
 import userImg from '../../assets/hamburger.png';
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -166,7 +171,19 @@ export function ViewCupons({ navigation }: Props) {
             :
             navigation.navigate('VisualizarFidelidade')
     }
-
+    function getImage() {
+        if (user.image == 'Avatar1') {
+          return avatar1;
+        } else if (user.image == 'Avatar2') {
+          return avatar2;
+        } else if (user.image == 'Avatar3') {
+          return avatar3;
+        } else if (user.image == 'Avatar4') {
+          return avatar4;
+        }
+        return avatarIcon;
+    
+      }
     async function handleLogOut() {
         try {
             await logOut();
@@ -310,7 +327,7 @@ export function ViewCupons({ navigation }: Props) {
                     {
                         user.image && user.image != ""
                             ?
-                            <Image style={styles.image} source={{ uri: user.image }} />
+                            <Image style={styles.image} source={getImage()} />
                             :
                             <Image style={styles.image} source={require('../../assets/logo.png')} />
                     }
