@@ -130,7 +130,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
     setLinkImage(data.uri);
 
-    //await axios.post("http://localhost:3000/files", data);
+    await axios.post("http://localhost:3000/files", data);
     
   };
 
