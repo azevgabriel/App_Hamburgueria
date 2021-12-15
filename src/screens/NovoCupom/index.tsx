@@ -31,6 +31,7 @@ import { RootStackParamList } from '../../global/props';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../hooks/useAuth";
 import { TextInputMask } from "react-native-masked-text";
+import axios from "axios";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 export default function NovoCupom({ navigation, route, ...rest }: Props) {
@@ -81,14 +82,22 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
   // Abre a câmera do dispositivo
   async function takeAndUploadPhotoAsync() {
-    let result = await ImagePicker.launchCameraAsync({
+    const data = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if (result.cancelled) {
+    if (data.cancelled) {
       return;
     }
+
+    if(!data.uri){
+      return;
+    }
+
+    console.log(data);
+
+    await axios.post("http://localhost:3000/files", data);
   }
 
   // Escolher imagem da galeria
@@ -100,9 +109,20 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    const data = await ImagePicker.launchImageLibraryAsync({});
 
-    console.log(pickerResult);
+    if(data.cancelled){
+      return;
+    }
+
+    if(!data.uri){
+      return;
+    }
+
+    console.log(data);
+
+    await axios.post("http://localhost:3000/files", data);
+    
   };
 
   function handleBack() {
