@@ -46,23 +46,23 @@ export default function CadastroFoto(){
       return;
     }
 
-    const data = await ImagePicker.launchImageLibraryAsync({});
+    const image = await ImagePicker.launchImageLibraryAsync({});
 
     setModalVisible(false);
 
-    if(data.cancelled){
+    if(image.cancelled){
       return;
     }
 
-    if(!data.uri){
+    if(!image.uri){
       return;
     }
 
-    console.log(data);
+    console.log(image);
 
-    setLinkImage(data.uri);
+    setLinkImage(image.uri);
 
-    await axios.post("http://localhost:3000/files", data);
+    await axios.post("http://localhost:3000/files", image);
     
   };
 

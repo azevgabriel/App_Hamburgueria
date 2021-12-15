@@ -24,6 +24,7 @@ import colors from "../../styles/colors";
 import Button from "../../components/Button";
 import { ObjectCupons } from "../../global/props";
 import { AntDesign } from "@expo/vector-icons";
+import avatarIcon from "../../assets/icon.png";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
@@ -32,8 +33,10 @@ import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../hooks/useAuth";
 import { TextInputMask } from "react-native-masked-text";
 import axios from "axios";
+import {api} from "../../services/api";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
+
 export default function NovoCupom({ navigation, route, ...rest }: Props) {
   const { newCupom, updateCupom } = useAuth();
   const { cupom } = route.params as ObjectCupons;
@@ -83,26 +86,33 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
 
   // Abre a câmera do dispositivo
   async function takeAndUploadPhotoAsync() {
-    const data = await ImagePicker.launchCameraAsync({
+    const image = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
     setModalVisible(false);
 
-    if (data.cancelled) {
+    if (image.cancelled) {
       return;
     }
 
-    if(!data.uri){
+    if(!image.uri){
       return;
     }
 
-    console.log(data);
+    console.log(image);
 
-    setLinkImage(data.uri);
+    setLinkImage(image.uri);
 
-    await axios.post("http://localhost:3000/files", data);
+    await api.patch(`/coupons/${cupom.id}/import`,image,{
+      headers:{
+        'Content-Type':'multipart/from-data'
+      }
+    }).catch((err) => {
+      throw err;
+    })
+
   }
 
   // Escolher imagem da galeria
@@ -114,23 +124,30 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       return;
     }
 
-    const data = await ImagePicker.launchImageLibraryAsync({});
+    const image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true
+    });
 
     setModalVisible(false);
 
-    if(data.cancelled){
+    if(image.cancelled){
       return;
     }
 
-    if(!data.uri){
+    if(!image.uri){
       return;
     }
 
-    console.log(data);
+    console.log(image);
 
-    setLinkImage(data.uri);
+    setLinkImage(image.uri);
 
-    await axios.post("http://localhost:3000/files", data);
+    await api.patch(`/coupons/${cupom.id}/import`,{
+      tmpPath: image.uri
+    }).catch((err) => {
+      throw err;
+    })
     
   };
 
@@ -159,7 +176,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
       try {
         await (newCupom({
           permitted_uses: usos,// Mudar para o valor
-          image: linkImage? linkImage : "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
+          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
@@ -180,7 +197,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
         await (updateCupom({
           id: cupom.id,
           permitted_uses: usos,
-          image: linkImage? linkImage : "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
+          image: "https://img.cybercook.com.br/receitas/664/hamburguer-de-linguica-1-840x480.jpeg",//pegar image
           title: titulo,
           expiration_date: datamax,
           description: description,
@@ -253,44 +270,46 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
           <Voltar color="black" onPress={handleBack} />
         </View>
         <View style={styles.components}>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            //Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable
+                style={styles.buttonChoose}
+                onPress={takeAndUploadPhotoAsync}
+              >
+                <Text>Abrir câmera</Text>
+              </Pressable>
+              <Pressable
+                style={styles.buttonChoose}
+                onPress={openImagePickerAsync}
+                
+              >
+                <Text>Escolha da galeria</Text>
+              </Pressable>
+              <Pressable
+                style={styles.buttonChoose}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text>Cancelar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+
           {
             cupom
               ?
               <View style={styles.userContainer}>
                 <Image source={{ uri: linkImage? linkImage : cupom.image }} style={{ width: 140, height: 140, }} />
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={modalVisible}
-                  onRequestClose={() => {
-                    //Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                      <Pressable
-                        style={styles.buttonChoose}
-                        onPress={takeAndUploadPhotoAsync}
-                      >
-                        <Text>Abrir câmera</Text>
-                      </Pressable>
-                      <Pressable
-                        style={styles.buttonChoose}
-                        onPress={openImagePickerAsync}
-                      >
-                        <Text>Escolha da galeria</Text>
-                      </Pressable>
-                      <Pressable
-                        style={styles.buttonChoose}
-                        onPress={() => setModalVisible(!modalVisible)}
-                      >
-                        <Text>Cancelar</Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                </Modal>
 
                 <TouchableOpacity
                   style={styles.plus}
@@ -305,7 +324,22 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
               </View>
 
               :
-              <CadastroFoto />
+
+              <View style={styles.userContainer}>
+
+                <Image source={linkImage? {uri: linkImage} : avatarIcon} style={{ width: 140, height: 140, }} />
+
+                <TouchableOpacity 
+                  style={styles.plus}
+                  activeOpacity={0.8}
+                  onPress={() => setModalVisible(true)}
+                  >
+                    <Text>
+                    <AntDesign name="plus" style={styles.iconPlus}/>
+                    </Text>
+                  </TouchableOpacity>
+
+              </View>
           }
 
           <Text style={styles.titleInput}>Título:</Text>
