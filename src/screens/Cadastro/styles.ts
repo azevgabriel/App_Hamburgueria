@@ -36,6 +36,12 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 2
   },
+  userContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+      marginBottom: 10
+  },
   input: {
     height: 50,
     borderWidth: 3,
@@ -83,5 +89,52 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.Jost_400Regular,
     fontSize: 18,
     color: colors.white
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  iconPlus: {
+      fontSize: 30,
+      color: colors.green
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  buttonChoose: {
+    backgroundColor: colors.softOrange,
+    margin: 10,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  plus: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      borderColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.white,
+      marginTop: -45,
+      marginLeft: 130,
+      shadowColor: colors.black,
+      shadowOpacity: 1,
+      shadowRadius: 6,
+      elevation: 7
+  },
 })

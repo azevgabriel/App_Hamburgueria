@@ -10,21 +10,28 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  Pressable,
+  Image
 } from "react-native";
 import { styles } from "../Cadastro/styles";
-import { useNavigation } from "@react-navigation/native";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import CadastroFoto from "../../components/CadastroFoto";
 import Button from "../../components/Button";
 import colors from "../../styles/colors";
+import avatarIcon from "../../assets/icon.png";
+import avatar1 from "../../assets/avatar1.png";
+import avatar2 from "../../assets/avatar2.png";
+import avatar3 from "../../assets/avatar3.png";
+import avatar4 from "../../assets/avatar4.png";
 import { TextInputMask } from "react-native-masked-text";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from "../../hooks/useAuth";
-type Props = NativeStackScreenProps<RootStackParamList> ;
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Cadastro({ navigation}:Props) {
+export default function Cadastro({ navigation }: Props) {
 
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
@@ -35,8 +42,10 @@ export default function Cadastro({ navigation}:Props) {
   let cpfField = null;
   let telefoneField = null;
 
-	const { signUp,login, loading } = useAuth();
+  const { signUp, login, loading } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [imageUser, setImageUser] = useState("");
 
   async function handleSubmit() {
     const data = {
@@ -46,105 +55,189 @@ export default function Cadastro({ navigation}:Props) {
       password: password,
     };
     if (!name) {
-      return ToastAndroid.show('Digite seu nome, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite seu nome, por favor.', ToastAndroid.SHORT);
     }
     if (name.length > 100) {
-      return ToastAndroid.show('Nome muito grande.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Nome muito grande.', ToastAndroid.SHORT);
     }
     if (!cpf) {
-      return ToastAndroid.show('Digite seu CPF, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite seu CPF, por favor.', ToastAndroid.SHORT);
     }
     if (cpf.length < 14) {
-      return ToastAndroid.show('CPF Inválido.',  ToastAndroid.SHORT);
-    }else{
-      const sumDigit = 
-      parseInt(cpf[0])
-      +parseInt(cpf[1])
-      +parseInt(cpf[2])
-      +parseInt(cpf[4])
-      +parseInt(cpf[5])
-      +parseInt(cpf[6])
-      +parseInt(cpf[8])
-      +parseInt(cpf[9])
-      +parseInt(cpf[10])
-      +parseInt(cpf[12])
-      +parseInt(cpf[13])
-      if(!((sumDigit.toString())[0] == (sumDigit.toString())[1]))
-      return ToastAndroid.show('CPF inválido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('CPF Inválido.', ToastAndroid.SHORT);
+    } else {
+      const sumDigit =
+        parseInt(cpf[0])
+        + parseInt(cpf[1])
+        + parseInt(cpf[2])
+        + parseInt(cpf[4])
+        + parseInt(cpf[5])
+        + parseInt(cpf[6])
+        + parseInt(cpf[8])
+        + parseInt(cpf[9])
+        + parseInt(cpf[10])
+        + parseInt(cpf[12])
+        + parseInt(cpf[13])
+      if (!((sumDigit.toString())[0] == (sumDigit.toString())[1]))
+        return ToastAndroid.show('CPF inválido.', ToastAndroid.SHORT);
     }
     if (!phone) {
-      return ToastAndroid.show('Digite o número do seu celular, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
     }
     if (phone.length < 13) {
-      return ToastAndroid.show('Telefone inválido.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Telefone inválido.', ToastAndroid.SHORT);
     }
     if (!password) {
-      return ToastAndroid.show('Digite sua senha, por favor.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Digite sua senha, por favor.', ToastAndroid.SHORT);
     }
     if (password.length < 8) {
-      return ToastAndroid.show('Senha muito pequena.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Senha muito pequena.', ToastAndroid.SHORT);
     }
     if (password.length > 20) {
-      return ToastAndroid.show('Senha muito grande.',  ToastAndroid.SHORT);
+      return ToastAndroid.show('Senha muito grande.', ToastAndroid.SHORT);
     }
     setLoadingAsync(true)
     try {
-			await (signUp({
-        image: "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png",
+      await (signUp({
+        image: imageUser,
         cpf,
         phone,
         name,
         password //criptografar
       }));
-      if(!loading){
+      if (!loading) {
         setCpf('')
         setName('')
         setPhone('')
         setPassword('')
+        setImageUser('')
         ToastAndroid.show(
           "Usuário Cadastrado com sucesso",
           ToastAndroid.SHORT
         );
         navigation.navigate('WelcomeAgain');
       }
-		} catch (error) {
+    } catch (error) {
       setModalVisible(true)
-      //Alert.alert('Erro ao Fazer Cadastro' + error)
     }
     setLoadingAsync(false)
   }
 
+  function getImage() {
+    if (imageUser == 'Avatar1') {
+      return avatar1;
+    } else if (imageUser == 'Avatar2') {
+      return avatar2;
+    } else if (imageUser == 'Avatar3') {
+      return avatar3;
+    } else if (imageUser == 'Avatar4') {
+      return avatar4;
+    }
+    return avatarIcon;
+
+  }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-      <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+        <StatusBar hidden={false} translucent barStyle={'dark-content'} backgroundColor="#f2f2f2" />
         <View style={styles.viewTitle}>
           <Text style={styles.text}>Faça seu cadastro!</Text>
         </View>
 
         <Modal
-        animationType={'slide'}
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
+          animationType={'slide'}
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
             setModalVisible(false);
-        }}
-         >
+          }}
+        >
           <View style={styles.modalBackground2}>
-              <View style={styles.modalLogout2}>
-                  <Text style={styles.textModal2}>Erro ao fazer cadastro. Tente novamente!</Text>
-                  <TouchableOpacity
-                      onPress={() => { setModalVisible(false) }}
-                      style={styles.buttonModalCancelar2}
-                  >
-                      <Text style={styles.textCancelar2}>Ok</Text>
-                  </TouchableOpacity>
-              </View>
+            <View style={styles.modalLogout2}>
+              <Text style={styles.textModal2}>Erro ao fazer cadastro. Tente novamente!</Text>
+              <TouchableOpacity
+                onPress={() => { setModalVisible(false) }}
+                style={styles.buttonModalCancelar2}
+              >
+                <Text style={styles.textCancelar2}>Ok</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>
 
         <View style={styles.viewPhoto}>
-          <CadastroFoto />
+          <View style={styles.userContainer}>
+            <Image source={getImage()} style={{ width: 140, height: 140, }} />
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible2}
+              onRequestClose={() => {
+                setModalVisible(!modalVisible2);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity
+                      style={{ paddingRight: 15 }}
+                      onPress={() => {
+                        setImageUser('Avatar1');
+                        setModalVisible2(!modalVisible2);
+                      }}
+                    >
+                      <Image source={avatar1} style={{ width: 70, height: 70, borderWidth: 2, borderRadius: 50, borderColor: colors.darkGray }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setImageUser('Avatar2');
+                        setModalVisible2(!modalVisible2);
+                      }}
+                    >
+                      <Image source={avatar2} style={{ width: 70, height: 70, borderWidth: 2, borderRadius: 50, borderColor: colors.darkGray }} />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                    <TouchableOpacity
+                      style={{ paddingRight: 15 }}
+                      onPress={() => {
+                        setImageUser('Avatar3');
+                        setModalVisible2(!modalVisible2);
+                      }}
+                    >
+                      <Image source={avatar3} style={{ width: 70, height: 70, borderWidth: 2, borderRadius: 50, borderColor: colors.darkGray }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setImageUser('Avatar4');
+                        setModalVisible2(!modalVisible2);
+                      }}
+                    >
+                      <Image source={avatar4} style={{ width: 70, height: 70, borderWidth: 2, borderRadius: 50, borderColor: colors.darkGray }} />
+                    </TouchableOpacity>
+                  </View>
+                  <Pressable
+                    style={styles.buttonChoose}
+                    onPress={() => setModalVisible2(!modalVisible2)}
+                  >
+                    <Text>Cancelar</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+
+            <TouchableOpacity
+              style={styles.plus}
+              activeOpacity={0.8}
+              onPress={() => setModalVisible2(true)}
+            >
+              <Text>
+                <AntDesign name="plus" style={styles.iconPlus} />
+              </Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
 
         <View style={styles.viewInput}>
@@ -159,7 +252,7 @@ export default function Cadastro({ navigation}:Props) {
           />
 
           <View>
-          <Text style={styles.titleInput}>CPF:</Text>
+            <Text style={styles.titleInput}>CPF:</Text>
             <TextInputMask
               placeholder="CPF"
               placeholderTextColor={colors.shapeGray}
@@ -208,17 +301,17 @@ export default function Cadastro({ navigation}:Props) {
         </View>
 
         <View style={styles.viewButton}>
-            {
-              !loadingAsync
-                ?
-                <Button
-                  color={colors.darkGray}
-                  title="Confirmar dados."
-                  onPress={handleSubmit}
-                />
-                :
-                <Button color={colors.shapeGray} title="Carregando!" />
-            }
+          {
+            !loadingAsync
+              ?
+              <Button
+                color={colors.darkGray}
+                title="Confirmar dados."
+                onPress={handleSubmit}
+              />
+              :
+              <Button color={colors.shapeGray} title="Carregando!" />
+          }
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>
