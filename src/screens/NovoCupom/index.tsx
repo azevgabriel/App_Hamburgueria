@@ -32,7 +32,6 @@ import { RootStackParamList } from '../../global/props';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from "../../hooks/useAuth";
 import { TextInputMask } from "react-native-masked-text";
-import axios from "axios";
 import {api} from "../../services/api";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
@@ -88,7 +87,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
   async function takeAndUploadPhotoAsync() {
     const image = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 3]
     });
 
     setModalVisible(false);
@@ -125,8 +124,7 @@ export default function NovoCupom({ navigation, route, ...rest }: Props) {
     }
 
     const image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      base64: true
+      mediaTypes: ImagePicker.MediaTypeOptions.All
     });
 
     setModalVisible(false);
