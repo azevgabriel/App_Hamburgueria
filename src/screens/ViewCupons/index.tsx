@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     Modal,
     ToastAndroid,
-    Alert,
     Text,
     Clipboard,
     StatusBar
@@ -25,25 +24,20 @@ import avatar2 from "../../assets/avatar2.png";
 import avatar3 from "../../assets/avatar3.png";
 import avatar4 from "../../assets/avatar4.png";
 import { CupomProps, Cupom_UserCupomProps, UserCupomProps, UserProps } from '../../global/props';
-import userImg from '../../assets/hamburger.png';
 import { AntDesign, Feather } from "@expo/vector-icons";
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../global/props';
 import { useAuth } from '../../hooks/useAuth';
-import colors from '../../styles/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export function ViewCupons({ navigation }: Props) {
     var user_cupons: UserCupomProps[] = [];
-    var [cupons] = useState<CupomProps[]>([]);
-    var [valorCode, setValorCode] = useState('');
-
     var [Allcupons, setAllCupons] = useState<CupomProps[]>([]);
     var [cupons_and_user_cupons, setCupons_and_user_cupons] = useState<Cupom_UserCupomProps[]>([]);
     const [loadData, setLoadData] = useState(false);
-    const { user, loading, listCupons, deleteCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
+    const { user, loading, deleteOneCupom, listCupons, deleteCupons, fetchUser_Cupons, fetch_Cupons, edit_all_values, logOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const [modalVisible3, setModalVisible3] = useState(false);
@@ -52,6 +46,8 @@ export function ViewCupons({ navigation }: Props) {
     const [modalVisible6, setModalVisible6] = useState(false);
     const [modalVisible7, setModalVisible7] = useState(false);
     const [modalVisible8, setModalVisible8] = useState(false);
+    const [modalVisible9, setModalVisible9] = useState(false);
+    const [id_cupom_delete, setId_cupom_delete] = useState(0)
     const [dadoQR, setDadoQR] = useState('');
 
     const onCodeScanned = (type: string, data: string) => {
@@ -173,17 +169,17 @@ export function ViewCupons({ navigation }: Props) {
     }
     function getImage() {
         if (user.image == 'Avatar1') {
-          return avatar1;
+            return avatar1;
         } else if (user.image == 'Avatar2') {
-          return avatar2;
+            return avatar2;
         } else if (user.image == 'Avatar3') {
-          return avatar3;
+            return avatar3;
         } else if (user.image == 'Avatar4') {
-          return avatar4;
+            return avatar4;
         }
         return avatarIcon;
-    
-      }
+
+    }
     async function handleLogOut() {
         try {
             await logOut();
@@ -202,9 +198,25 @@ export function ViewCupons({ navigation }: Props) {
         }
     }
 
+    function handleDelete(cupom_id: number) {
+        setId_cupom_delete(cupom_id)
+        setModalVisible9(true)
+
+    }
+    async function handleDelete_cupom() {
+        if (id_cupom_delete > 0) {
+            try {
+                await deleteOneCupom(id_cupom_delete);
+                fetchAllCupons();
+                setModalVisible9(false)
+            } catch {
+                setModalVisible9(false)
+            }
+        }
+    }
     return (
         <View style={styles.container}>
-        <StatusBar hidden = {false} translucent barStyle={'dark-content'} backgroundColor= "#f2f2f2"/>
+            <StatusBar hidden={false} translucent barStyle={'dark-content'} backgroundColor="#f2f2f2" />
             <View style={styles.rowHeader}>
                 <View style={styles.viewheader}>
                     <Header id={user.id} name={user.name} type={user.type} />
@@ -239,6 +251,34 @@ export function ViewCupons({ navigation }: Props) {
                     </View>
                 </Modal>
 
+                <Modal
+                    animationType={'slide'}
+                    transparent={true}
+                    visible={modalVisible9}
+                    onRequestClose={() => {
+                        setModalVisible9(false);
+                    }}
+                >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalLogout}>
+                            <Text style={styles.textModal}>Tem certeza que deseja deletar o cupom?</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    onPress={() => { setModalVisible9(false) }}
+                                    style={styles.buttonModalCancelar}
+                                >
+                                    <Text style={styles.textCancelar}>Cancelar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={handleDelete_cupom}
+                                    style={styles.buttonModalSair}
+                                >
+                                    <Text style={styles.textSim}>Sim</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
                 <Modal
                     animationType={'slide'}
                     transparent={true}
@@ -380,11 +420,45 @@ export function ViewCupons({ navigation }: Props) {
                                     data={Allcupons}
                                     keyExtractor={(item) => String(item.id)}
                                     renderItem={({ item }) =>
-                                        <Cupom
+                                        <View>
+                                            {
+                                                !user.type
+                                                    ?
+                                                    <TouchableOpacity
+                                                        onPress={() => (handleDelete(item.id))}
+                                                        style={{
+                                                            position: 'absolute',
+                                                            padding: 18,
+                                                            zIndex: 9999,
+                                                            top: -1,
+                                                            left: -3,
+                                                        }}>
+                                                        <Feather
+                                                            name='trash-2'
+                                                            style={
+                                                                {
+                                                                    paddingLeft: 4,
+                                                                    position: 'absolute',
+                                                                    paddingTop: 4,
+                                                                    backgroundColor: 'black',
+                                                                    marginRight: 40,
+                                                                    padding: 1,
+                                                                    color: 'red',
+                                                                    fontSize: 12,
+                                                                    borderWidth: 2,
+                                                                    borderRadius: 50,
+                                                                    borderColor: 'red'
+                                                                }} />
+                                                    </TouchableOpacity>
+                                                    :
+                                                    <Text></Text>
+                                            }
+                                            <Cupom
 
-                                            cupom={item}
-                                            onPress={() => handleCupomSelect(item)}
-                                        />
+                                                cupom={item}
+                                                onPress={() => handleCupomSelect(item)}
+                                            />
+                                        </View>
                                     }
                                     showsVerticalScrollIndicator={false}
                                     numColumns={2}
@@ -438,7 +512,7 @@ export function ViewCupons({ navigation }: Props) {
                                     onPress={() => {
                                         fetchCopiedText();
                                         setModalVisible4(false)
-                                        }
+                                    }
                                     }
                                     style={styles.buttonModalSair}
                                 >
@@ -471,7 +545,7 @@ export function ViewCupons({ navigation }: Props) {
                                     onPress={() => {
                                         setModalVisible5(false);
                                         passaValor(dadoQR)
-                                        }   
+                                    }
                                     }
                                     style={styles.buttonModalSair}
                                 >
@@ -495,7 +569,7 @@ export function ViewCupons({ navigation }: Props) {
 
                     <View style={styles.QRCode}>
                         <TouchableOpacity
-                            onPress={() => {setModalVisible4(true)}}
+                            onPress={() => { setModalVisible4(true) }}
                             style={styles.icons}
                         >
                             <View style={{ flexDirection: 'row' }}>

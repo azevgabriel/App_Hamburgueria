@@ -34,6 +34,7 @@ interface AuthContextData {
     list_One_User: () => Promise<UserProps>;
     loading: boolean;
     logOut: () => Promise<void>
+    deleteOneCupom: (id: number) => Promise<void>;
 }
 interface AuthProviderProps {
     children: ReactNode;
@@ -55,6 +56,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function list_One_User() {
         const { data } = await api.get<UserProps>(`/users/${user.id}`)
         return data;
+    }
+
+    async function deleteOneCupom(id: number) {
+        await api.delete('/coupons/'+id);
     }
     async function deleteCupons() {
         console.log('deletando cupons vencidos...')
@@ -195,6 +200,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             loading,
             listAllLevel,
             listCupons,
+            deleteOneCupom,
             newCupom,
             list_One_User,
             updateCupom,

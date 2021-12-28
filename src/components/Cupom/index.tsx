@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TouchableOpacityProps
+  TouchableOpacityProps,
 } from 'react-native';
 import { CupomProps, UserCupomProps } from '../../global/props';
 
@@ -35,7 +35,6 @@ import icon23 from "../../assets/cuponsImages/icon23.png";
 import icon24 from "../../assets/cuponsImages/icon24.jpg";
 import icondefault from "../../assets/cuponsImages/icondefault.jpg";
 import star from "../../assets/star.png";
-
 import { styles } from './styles';
 
 interface Cupom_UserCupomProps extends TouchableOpacityProps {
@@ -44,8 +43,8 @@ interface Cupom_UserCupomProps extends TouchableOpacityProps {
 }
 
 export function Cupom({ user_cupom, cupom, ...rest }: Cupom_UserCupomProps) {
-
   var title_lenght_small = true
+
   if (cupom.title) {
     if (cupom.title.length >= 18) {
       title_lenght_small = false;
@@ -133,6 +132,7 @@ export function Cupom({ user_cupom, cupom, ...rest }: Cupom_UserCupomProps) {
   return (
     <TouchableOpacity style={styles.container} {...rest}>
       <View style={styles.hamburguinhos}>
+
         <Text style={styles.HamIconText}>
           🍔 {cupom.burgers_added}
         </Text>
@@ -171,6 +171,7 @@ export function Cupom({ user_cupom, cupom, ...rest }: Cupom_UserCupomProps) {
         }
 
       </View>
+
       <View style={styles.bodyText}>
         <Text style={styles.day}>
           {

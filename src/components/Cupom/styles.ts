@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   },
   HamIconText:{
     fontFamily: fonts.Jost_400Regular,
+    marginTop:3
   },
   ImageView:{
     justifyContent:'center',
