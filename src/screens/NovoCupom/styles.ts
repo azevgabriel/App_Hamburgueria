@@ -66,13 +66,13 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
       },
       modalView: {
-        margin: 20,
-        backgroundColor: "white",
+        width: '95%',
+        height: '85%',
+        backgroundColor: '#f1f1f1',
         borderRadius: 20,
-        padding: 35,
+        padding: 10,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 50
       },
       buttonChoose: {
         backgroundColor: colors.softOrange,
