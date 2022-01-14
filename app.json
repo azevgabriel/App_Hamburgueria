@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BoggiatoCupons",
-    "slug": "BoggiatoCupons",
+    "name": "Bogiatto Cupons",
+    "slug": "BogiattoCupons",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#fbe192",
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fbe192"
-      }
+      },
+      "package" : "com.aldeia.bogiattocupons"
     },
     "web": {
       "favicon": "./assets/favicon.png"
