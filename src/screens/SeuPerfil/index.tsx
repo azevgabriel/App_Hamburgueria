@@ -260,6 +260,7 @@ export default function SeuPerfil({ navigation, }: Props) {
             <TextInput
               style={styles.input}
               placeholder="********"
+              secureTextEntry={true}
               placeholderTextColor={colors.shapeGray}
               onChangeText={setOldPassword}
             />
@@ -267,6 +268,7 @@ export default function SeuPerfil({ navigation, }: Props) {
             <TextInput
               style={styles.input}
               placeholder="********"
+              secureTextEntry={true}
               placeholderTextColor={colors.shapeGray}
               onChangeText={setPassword}
             />

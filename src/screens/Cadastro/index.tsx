@@ -292,6 +292,7 @@ export default function Cadastro({ navigation }: Props) {
           <Text style={styles.titleInput}>Senha:</Text>
           <TextInput
             placeholder="********"
+            secureTextEntry={true}
             placeholderTextColor={colors.shapeGray}
             value={password}
             style={styles.input}
