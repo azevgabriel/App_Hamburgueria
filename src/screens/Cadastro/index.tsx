@@ -67,19 +67,37 @@ export default function Cadastro({ navigation }: Props) {
       return ToastAndroid.show('CPF Inválido.', ToastAndroid.SHORT);
     } else {
       const sumDigit =
-        parseInt(cpf[0])
-        + parseInt(cpf[1])
-        + parseInt(cpf[2])
-        + parseInt(cpf[4])
-        + parseInt(cpf[5])
-        + parseInt(cpf[6])
-        + parseInt(cpf[8])
-        + parseInt(cpf[9])
-        + parseInt(cpf[10])
-        + parseInt(cpf[12])
-        + parseInt(cpf[13])
-      if (!((sumDigit.toString())[0] == (sumDigit.toString())[1]))
+      parseInt(cpf[0])*1
+      + parseInt(cpf[1])*2
+      + parseInt(cpf[2])*3
+      + parseInt(cpf[4])*4
+      + parseInt(cpf[5])*5
+      + parseInt(cpf[6])*6
+      + parseInt(cpf[8])*7
+      + parseInt(cpf[9])*8
+      + parseInt(cpf[10])*9
+
+      const restoCpf = sumDigit % 11
+      const digitoVerificadorCpf = restoCpf >= 10 ? restoCpf.toString()[1] : restoCpf.toString()[0] 
+
+      const sumDigitParteDois =
+      parseInt(cpf[0])*0
+      + parseInt(cpf[1])*1
+      + parseInt(cpf[2])*2
+      + parseInt(cpf[4])*3
+      + parseInt(cpf[5])*4
+      + parseInt(cpf[6])*5
+      + parseInt(cpf[8])*6
+      + parseInt(cpf[9])*7
+      + parseInt(cpf[10])*8
+      + parseInt(digitoVerificadorCpf)*9
+        
+      const restoCpfParte2 = sumDigitParteDois % 11
+      const digitoVerificadorCpfParte2 = restoCpfParte2 >= 10 ? restoCpfParte2.toString()[1] : restoCpfParte2.toString()[0] 
+
+      if((digitoVerificadorCpf != cpf[12]) || (digitoVerificadorCpfParte2 != cpf[13]))
         return ToastAndroid.show('CPF inválido.', ToastAndroid.SHORT);
+
     }
     if (!phone) {
       return ToastAndroid.show('Digite o número do seu celular, por favor.', ToastAndroid.SHORT);
@@ -292,7 +310,6 @@ export default function Cadastro({ navigation }: Props) {
           <Text style={styles.titleInput}>Senha:</Text>
           <TextInput
             placeholder="********"
-            secureTextEntry={true}
             placeholderTextColor={colors.shapeGray}
             value={password}
             style={styles.input}
