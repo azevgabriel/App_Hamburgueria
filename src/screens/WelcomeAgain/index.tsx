@@ -99,6 +99,7 @@ export default function WelcomeAgain({ navigation }: Props) {
         <Text style={styles.inputText}>Digite sua senha abaixo:</Text>
         <TextInput
           placeholder="*********"
+          secureTextEntry={true}
           value={password}
           style={styles.input}
           onChangeText={(value) => setPassword(value)}
